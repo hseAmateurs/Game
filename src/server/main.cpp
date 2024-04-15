@@ -3,6 +3,6 @@
 
 
 int main(){
-    std::cout<<"server \n";
+    std::cout<<"server\n";
     return 0;
 }
