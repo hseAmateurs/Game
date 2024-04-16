@@ -13,8 +13,19 @@ if (APPLE)
 endif ()
 
 # Создаем цель для запуска обоих приложений
+
+if (APPLE)
 add_custom_target(both
         COMMAND ${OPEN_COMMAND} $<TARGET_FILE:Server>
         COMMAND ${OPEN_COMMAND} $<TARGET_FILE:Client>
         DEPENDS Server Client
 )
+endif ()
+
+if (WIN32)
+add_custom_target(both
+        COMMAND start ${OPEN_COMMAND} $<TARGET_FILE:Server>
+        COMMAND start ${OPEN_COMMAND} $<TARGET_FILE:Client>
+        DEPENDS Server Client
+)
+endif()
