@@ -3,6 +3,7 @@ project(Client)
 
 add_executable(Client
         main.cpp
+        ../common.h
 )
 
 
