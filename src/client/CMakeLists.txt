@@ -11,6 +11,7 @@ add_executable(Client
 
 # Для платформы windows используем статическую библиотеку sfml
 if (WIN32)
+    target_link_libraries(Client Ws2_32)
     set(SFML_ROOT ${CMAKE_SOURCE_DIR}/sfml)
     set(SFML_STATIC_LIBRARIES TRUE)
     #target_link_options(Client PRIVATE -mwindows)
