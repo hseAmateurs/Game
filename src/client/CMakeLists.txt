@@ -1,8 +1,12 @@
 project(Client)
 
 
+include_directories(menu)
+
 add_executable(Client
+        menu/textField.h
         main.cpp
+        menu/textField.cpp
 )
 
 
