@@ -1,12 +1,14 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Hero.h"
+#include "view.h"
 
 
 int main()
 {
     // create the window
     sf::RenderWindow window(sf::VideoMode(1200, 800), "My window");
+    view.reset(sf::FloatRect(0, 0, 1200, 800));
 
     Hero hero("C:/Users/Anton/CLionProjects/Game/src/textures/blue_hero.png", 200, 200, 140, 150);
 
@@ -31,8 +33,12 @@ int main()
                 window.close();
         }
 
-        // update hero actions
+        // update hero actions and view parameters
         hero.update(time,sf::Mouse::getPosition(window));
+        changeView(time, 1200, 800);
+
+        // set camera view
+        window.setView(view);
 
         // clear the window with black color
         window.clear(sf::Color(96, 244, 59));

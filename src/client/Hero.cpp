@@ -1,12 +1,17 @@
 #include "Hero.h"
 #include "cmath"
 #include <iostream>
+#include "view.h"
 
 void Hero::update(float time, sf::Vector2i mousePosition) {
     // catch right_button mouse click and set destination
+    std::cout << mousePosition.x << ' ' << mousePosition.y << ' ';
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
         destination = mousePosition; // relative to our window, out of window = negative coordinates
+        destination.x = destination.x * currentCameraSize + currentCameraPosX + currentCameraOffsetX;
+        destination.y = destination.y * currentCameraSize + currentCameraPosY + currentCameraOffsetY;
     }
+    std::cout << destination.x << ' ' << destination.y << "    " << currentCameraPosX << ' ' << currentCameraOffsetX << '\n';
 
     // update direction (except small changes)
     updateDirection();
