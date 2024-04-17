@@ -1,34 +1,55 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include <string>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
+#define PORT 8080
 
+int main() {
+    // Создаем сокет
+    int client_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (client_fd == -1) {
+        std::cerr << "Ошибка создания сокета" << std::endl;
+        return 1;
+    }
 
-int main()
-{
-    // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+    // Задаем адрес сервера
+    sockaddr_in server_address;
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(PORT);
+    inet_pton(AF_INET, "127.0.0.1", &server_address.sin_addr);
 
-    // run the program as long as the window is open
-    while (window.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
+    // Подключаемся к серверу
+    if (connect(client_fd, (struct sockaddr*)&server_address, sizeof(server_address)) == -1) {
+        std::cerr << "Ошибка подключения к серверу" << std::endl;
+        return 1;
+    }
+
+    while (true) {
+        // Вводим сообщение
+        std::string message;
+        std::cout << "Введите сообщение: ";
+        std::getline(std::cin, message);
+
+        // Отправляем сообщение серверу
+        send(client_fd, message.c_str(), message.length(), 0);
+
+        // Получаем ответ от сервера
+        char buffer[1024] = {0};
+        int bytes_read = read(client_fd, buffer, 1024);
+        if (bytes_read == -1) {
+            std::cerr << "Ошибка чтения сообщения" << std::endl;
+            break;
         }
 
-        // clear the window with black color
-        window.clear(sf::Color::Black);
-
-        // draw everything here...
-        // window.draw(...);
-
-        // end the current frame
-        window.display();
+        // Выводим ответ
+        std::cout << "Ответ сервера: " << buffer << std::endl;
     }
+
+    // Закрываем сокет
+    close(client_fd);
 
     return 0;
 }
