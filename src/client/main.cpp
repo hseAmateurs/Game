@@ -10,7 +10,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1200, 800), "My window");
     view.reset(sf::FloatRect(0, 0, 1200, 800));
 
-    Hero hero("C:/Users/Anton/CLionProjects/Game/src/textures/blue_hero.png", 200, 200, 140, 150);
+    Hero hero("../../../src/textures/blue_hero.png", 200, 200, 140, 150);
 
     // access to the time
     sf::Clock clock;
@@ -44,7 +44,7 @@ int main()
         window.clear(sf::Color(96, 244, 59));
 
         // draw everything here...
-        window.draw(hero.getSprite());
+        hero.drawHero(window);
 
         // end the current frame
         window.display();

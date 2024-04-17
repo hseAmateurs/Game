@@ -29,8 +29,7 @@ inline void changeView(float time, int viewWidth, int viewHeight) {
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-        view.setCenter(viewWidth/2,
-                       viewHeight/2);
+        view.setCenter(viewWidth/2,viewHeight/2);
         view.setSize(viewWidth,viewHeight);
         currentCameraPosX = 0;
         currentCameraPosY = 0;

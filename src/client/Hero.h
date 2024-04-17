@@ -10,16 +10,26 @@ public:
         destination.x = x; destination.y = y;
         direction.x = 0; direction.y = 0; // no destination
 
-        sf::Image image;
-        image.loadFromFile(Image);
-        texture.loadFromImage(image);
-        sprite.setTexture(texture);
-        sprite.setTextureRect(sf::IntRect(0, 0, w, h));
-        sprite.setOrigin(80, 140); // для удобности поставил origin к ногам примерно
-        sprite.setPosition(x, y);
+        // creating hero sprite
+        sf::Image heroImage;
+        heroImage.loadFromFile(Image);
+        heroTexture.loadFromImage(heroImage);
+        heroSprite.setTexture(heroTexture);
+        heroSprite.setTextureRect(sf::IntRect(0, 0, w, h));
+        heroSprite.setOrigin(80, 140); // для удобности поставил origin к ногам примерно
+        heroSprite.setPosition(x, y);
+
+        // creating destination point sprite
+        sf::Image destinationImage;
+        destinationImage.loadFromFile("../../../src/textures/destination point.png");
+        destinationTexture.loadFromImage(destinationImage);
+        destinationSprite.setTexture(destinationTexture);
+        destinationSprite.setTextureRect(sf::IntRect (0,0,25,25));
+        destinationSprite.setOrigin(12.5,12.5);
+        destinationSprite.setPosition(x, y);
     }
 
-    sf::Sprite getSprite() { return sprite; }
+    void drawHero(sf::RenderWindow &window);
     void update(float time, sf::Vector2i mousePosition);
 
 private:
@@ -27,8 +37,8 @@ private:
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = 0.2;
     sf::Vector2i destination; // current movement goal
-    sf::Texture texture;
-    sf::Sprite sprite;
+    sf::Texture heroTexture, destinationTexture;
+    sf::Sprite heroSprite, destinationSprite;
 
-    void updateDirection();
+    void updateDirection(); // calculate direction (used in update)
 };

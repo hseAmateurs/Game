@@ -5,13 +5,11 @@
 
 void Hero::update(float time, sf::Vector2i mousePosition) {
     // catch right_button mouse click and set destination
-    std::cout << mousePosition.x << ' ' << mousePosition.y << ' ';
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
         destination = mousePosition; // relative to our window, out of window = negative coordinates
         destination.x = destination.x * currentCameraSize + currentCameraPosX + currentCameraOffsetX;
         destination.y = destination.y * currentCameraSize + currentCameraPosY + currentCameraOffsetY;
     }
-    std::cout << destination.x << ' ' << destination.y << "    " << currentCameraPosX << ' ' << currentCameraOffsetX << '\n';
 
     // update direction (except small changes)
     updateDirection();
@@ -19,7 +17,8 @@ void Hero::update(float time, sf::Vector2i mousePosition) {
     // updating position
     x += direction.x * speed * time;
     y += direction.y * speed * time;
-    sprite.setPosition(x,y);
+    heroSprite.setPosition(x,y);
+    destinationSprite.setPosition(destination.x, destination.y);
 }
 
 void Hero::updateDirection() {
@@ -40,4 +39,9 @@ void Hero::updateDirection() {
         direction.x /= dirVectorLength;
         direction.y /= dirVectorLength;
     }
+}
+
+void Hero::drawHero(sf::RenderWindow &window) {
+    window.draw(destinationSprite);
+    window.draw(heroSprite);
 }
