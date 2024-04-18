@@ -15,5 +15,6 @@ typedef int socklen_t;
 #define closesocket close
 #endif
 
+#include <cstdio>
 
 #endif // COMMON_H
