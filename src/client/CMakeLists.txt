@@ -4,6 +4,10 @@ project(Client)
 add_executable(Client
         main.cpp
         ../common.h
+        ../network/socket.h
+        ../network/socket.cpp
+        client.h
+        client.cpp
 )
 
 
