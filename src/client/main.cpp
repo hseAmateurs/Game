@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "textField.h"
+#include "menuButton.h"
 #include <iostream>
 
 
@@ -17,6 +18,7 @@ int main() {
 
     // Create a TextField object
     Textfield textField(sf::Vector2f(100, 100), "", font, 30, sf::Color::White,sf::Color::Black,200.f,50.f);
+    MenuButton menuButton(sf::Vector2f(300,300), "Huy", font, 30, sf::Color::White,sf::Color::Blue,sf::Color::Cyan,150.f,50.f);
 
     sf::Clock clock; // Clock for tracking time
 
@@ -47,6 +49,8 @@ int main() {
 
         // Draw the TextField
         textField.draw(window);
+
+        menuButton.draw(window);
 
         window.display();
     }

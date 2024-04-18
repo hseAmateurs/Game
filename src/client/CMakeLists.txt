@@ -4,8 +4,10 @@ project(Client)
 include_directories(menu)
 
 add_executable(Client
+        menu/menuButton.h
         menu/textField.h
         main.cpp
+        menu/menuButton.cpp
         menu/textField.cpp
 )
 
