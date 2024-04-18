@@ -5,14 +5,18 @@ include_directories(menu)
 
 add_executable(Client
         menu/menu.h
+        menu/menuManager.h
         menu/menuButton.h
         menu/textField.h
         menu/authorizationMenu.h
+        menu/startMenu.h
         main.cpp
         menu/menu.cpp
+        menu/menuManager.cpp
         menu/menuButton.cpp
         menu/textField.cpp
         menu/authorizationMenu.cpp
+        menu/startMenu.cpp
 )
 
 

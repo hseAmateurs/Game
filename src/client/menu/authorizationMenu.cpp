@@ -41,7 +41,7 @@ void AuthorizationMenu::handleInput(const sf::Event& event, sf::RenderWindow& wi
     passwordField.handleInput(event,window);
 
     if (enterButton.isPressed(window)) {
-        // Handle "Enter" button press (e.g., validate login credentials)
+        //authMenu.~AuthorizationMenu();
     }
 
     if (backButton.isPressed(window)) {

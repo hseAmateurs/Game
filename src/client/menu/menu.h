@@ -10,8 +10,9 @@ class Menu {
 public:
     Menu(const std::string& title);
 
-    virtual void draw(sf::RenderWindow& window) = 0;
-    virtual void handleInput(const sf::Event& event, sf::RenderWindow& window) = 0;
+    virtual void draw(sf::RenderWindow& window);
+    virtual void handleInput(const sf::Event& event, sf::RenderWindow& window);
+    virtual void update(const sf::Time& deltaTime);
     virtual ~Menu() {} // Virtual destructor
 
     std::string getTitle() const { return title; }

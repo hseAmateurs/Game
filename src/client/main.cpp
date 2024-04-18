@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "textField.h"
 #include "menuButton.h"
+#include "startMenu.h"
+#include "menuManager.h"
 #include "authorizationMenu.h"
 #include <iostream>
 
@@ -16,7 +18,10 @@ int main() {
         // Handle error
         return 1;
     }
-    AuthorizationMenu authMenu(font);
+    MenuManager menuManager;
+    menuManager.setFont(font);
+    StartMenu startMenu(font, &menuManager);
+    menuManager.pushMenu(&startMenu);
     sf::Time deltaTime=clock.restart();
     while (window.isOpen()) {
         sf::Event event;
@@ -25,15 +30,15 @@ int main() {
                 window.close();
             }
             // Handle input for the authorization menu
-            authMenu.handleInput(event, window);
+            menuManager.handleInput(event, window);
         }
         sf::Time deltaTime=clock.restart();
-        authMenu.update(deltaTime);
+        menuManager.update(deltaTime);
 
         window.clear(sf::Color(50, 50, 50)); // Example background color
 
         // Draw the authorization menu
-        authMenu.draw(window);
+        menuManager.draw(window);
 
         window.display();
     }
