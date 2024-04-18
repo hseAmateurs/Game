@@ -11,7 +11,7 @@ Textfield::Textfield(const sf::Vector2f& location, const std::string& text, cons
     textObj.setString(text);
     textObj.setCharacterSize(characterSize);
     textObj.setFillColor(textColor);
-    textObj.setPosition(location+sf::Vector2f(4.f,height-textObj.getLocalBounds().top+textObj.getLocalBounds().height-35.f));
+    textObj.setPosition(location+sf::Vector2f(4.f,height / 6.f));
     cursor.setSize(sf::Vector2f(2.f, characterSize)); // Adjust cursor width as needed
     cursor.setFillColor(textColor);
     background.setPosition(location);
@@ -22,6 +22,10 @@ Textfield::Textfield(const sf::Vector2f& location, const std::string& text, cons
 bool Textfield::isMouseOver(const sf::RenderWindow& window) const {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     return background.getGlobalBounds().contains(mousePos.x, mousePos.y);
+}
+
+void Textfield::setSize(float width, float height) {
+    background.setSize(sf::Vector2f(width, height)); 
 }
 
 
@@ -37,14 +41,30 @@ void Textfield::setActive(bool active) {
     }
 }
 
-void Textfield::handleInput(const sf::Event& event) {
+void Textfield::handleInput(const sf::Event& event, sf::RenderWindow& window) {
+    if (event.type == sf::Event::MouseButtonPressed) {
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                // Check if the text field was clicked
+        if (background.getGlobalBounds().contains(mousePos.x, mousePos.y)){
+            this->active =true;
+            if(active){
+                this->elapsedTime = sf::Time::Zero; // Reset blink timer when activated
+                this->showCursor = true; // Show cursor initially
+            }
+        } 
+        else{
+            this->active=false;
+        }
+        //std::cout<<this->active;
+    }
+    
     if (!active) return; // Ignore input if not active
 
     if (event.type == sf::Event::TextEntered) {
         // Handle text input (add characters, backspace, etc.)
-        if (event.text.unicode == '\b' && !text.empty()) {
+        if (event.text.unicode == '\b' && !text.empty()) 
             text.pop_back();
-        } else if (event.text.unicode == ' ' || (event.text.unicode == '\b' && text.empty())) {
+        else if (event.text.unicode == ' ' || (event.text.unicode == '\b' && text.empty()) || event.text.unicode == '\r') { // change this atrocious thing
     
         }
         else{
@@ -52,6 +72,8 @@ void Textfield::handleInput(const sf::Event& event) {
         }
         textObj.setString(text);
     }
+    // Pass events to the TextField for handling input
+    // textField.handleInput(event);
 }
 
 void Textfield::update(const sf::Time& deltaTime) {
@@ -66,7 +88,7 @@ void Textfield::update(const sf::Time& deltaTime) {
 
     // Update cursor position based on text bounds
     sf::FloatRect textBounds = textObj.getLocalBounds();
-    cursor.setPosition(textObj.getPosition() + sf::Vector2f(textBounds.left + textBounds.width, textBounds.top));
+    cursor.setPosition(textObj.getPosition() + sf::Vector2f(textBounds.left + textBounds.width+3.f, textBounds.top));
 }
 
 void Textfield::draw(sf::RenderWindow& window) const

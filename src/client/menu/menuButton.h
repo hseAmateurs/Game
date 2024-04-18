@@ -15,6 +15,11 @@ public:
     bool isMouseOver(const sf::RenderWindow& window) const;
     bool isPressed(const sf::RenderWindow& window) const; // Check if pressed in current frame
 
+    void setSize(float width, float height);
+    void setButtonColor(const sf::Color& color);
+    void setHoverColor(const sf::Color& color);
+
+
 private:
     sf::RectangleShape button;
     sf::Text textObj;

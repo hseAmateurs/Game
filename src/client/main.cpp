@@ -1,13 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include "textField.h"
 #include "menuButton.h"
+#include "authorizationMenu.h"
 #include <iostream>
 
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Text Input");
     window.setFramerateLimit(60); // Set a frame rate limit
-
+    sf::Clock clock;
     // Load the font (replace with your font file path)
     sf::Font font;
     if (!font.loadFromFile("PressStart2P-Regular.ttf")) {
@@ -15,48 +16,74 @@ int main() {
         // Handle error
         return 1;
     }
-
-    // Create a TextField object
-    Textfield textField(sf::Vector2f(100, 100), "", font, 30, sf::Color::White,sf::Color::Black,200.f,50.f);
-    MenuButton menuButton(sf::Vector2f(300,300), "Huy", font, 30, sf::Color::White,sf::Color::Blue,sf::Color::Cyan,150.f,50.f);
-
-    sf::Clock clock; // Clock for tracking time
-
+    AuthorizationMenu authMenu(font);
+    sf::Time deltaTime=clock.restart();
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-            } else if (event.type == sf::Event::MouseButtonPressed) {
-                // Check if the text field was clicked
-                if (textField.isMouseOver(window))
-                    textField.setActive(true); 
-                else{
-                    textField.setActive(false); 
-                }
-            } 
-
-            // Pass events to the TextField for handling input
-            textField.handleInput(event);
+            }
+            // Handle input for the authorization menu
+            authMenu.handleInput(event, window);
         }
+        sf::Time deltaTime=clock.restart();
+        authMenu.update(deltaTime);
 
-        // Update the TextField with delta time
-        sf::Time deltaTime = clock.restart();
-        textField.update(deltaTime);
+        window.clear(sf::Color(50, 50, 50)); // Example background color
 
-        // Clear the window with dark blue color
-        window.clear(sf::Color(0, 0, 50)); 
-
-        // Draw the TextField
-        textField.draw(window);
-
-        menuButton.draw(window);
+        // Draw the authorization menu
+        authMenu.draw(window);
 
         window.display();
     }
 
     return 0;
 }
+
+
+
+    // Create a TextField object
+//     Textfield textField(sf::Vector2f(100, 100), "", font, 30, sf::Color::White,sf::Color::Black,200.f,50.f);
+//     MenuButton menuButton(sf::Vector2f(300,300), "text", font, 30, sf::Color::White,sf::Color::Blue,sf::Color::Cyan,150.f,50.f);
+
+//     sf::Clock clock; // Clock for tracking time
+
+//     while (window.isOpen()) {
+//         sf::Event event;
+//         while (window.pollEvent(event)) {
+//             if (event.type == sf::Event::Closed) {
+//                 window.close();
+//             } else if (event.type == sf::Event::MouseButtonPressed) {
+//                 // Check if the text field was clicked
+//                 if (textField.isMouseOver(window))
+//                     textField.setActive(true); 
+//                 else{
+//                     textField.setActive(false); 
+//                 }
+//             } 
+
+//             // Pass events to the TextField for handling input
+//             textField.handleInput(event);
+//         }
+
+//         // Update the TextField with delta time
+//         sf::Time deltaTime = clock.restart();
+//         textField.update(deltaTime);
+
+//         // Clear the window with dark blue color
+//         window.clear(sf::Color(0, 0, 50)); 
+
+//         // Draw the TextField
+//         textField.draw(window);
+
+//         menuButton.draw(window);
+
+//         window.display();
+//     }
+
+//     return 0;
+// }
 
 
 // // Function to check password validity

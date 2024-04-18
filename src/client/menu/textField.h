@@ -7,7 +7,8 @@
 class Textfield
 {
 public:
-    Textfield(const sf::Vector2f& location, const std::string& text, const sf::Font& font, unsigned int characterSize, sf::Color textColor, sf::Color backgroundColor, float width, float height);
+    Textfield(const sf::Vector2f& location, const std::string& text, const sf::Font& font, 
+    unsigned int characterSize=15, sf::Color textColor=sf::Color::White, sf::Color backgroundColor=sf::Color::Black, float width=300.f, float height=50.f);
 
     void draw(sf::RenderWindow& window) const;
 
@@ -22,9 +23,10 @@ public:
     bool isActive() const { return active; }
     void setActive(bool active);
 
-    void handleInput(const sf::Event& event);
+    void handleInput(const sf::Event& event, sf::RenderWindow& window);
     void update(const sf::Time& deltaTime);
 
+    void setSize(float width, float height);
     void setBackgroundColor(const sf::Color& color);
 
     std::string text;

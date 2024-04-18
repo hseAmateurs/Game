@@ -20,13 +20,30 @@ MenuButton::MenuButton(const sf::Vector2f& position, const std::string& text, co
     textObj.setPosition(button.getPosition() + sf::Vector2f(width / 2.f, height / 2.f)); 
 }
 
+void MenuButton::setSize(float width, float height) {
+    button.setSize(sf::Vector2f(width, height));
+
+    // Recenter the text after changing the button size
+    sf::FloatRect textBounds = textObj.getLocalBounds();
+    textObj.setOrigin(textBounds.left + textBounds.width / 2.f, textBounds.top + textBounds.height / 2.f);
+    textObj.setPosition(button.getPosition() + sf::Vector2f(width / 2.f, height / 2.f)); 
+}
+
+void MenuButton::setButtonColor(const sf::Color& color) {
+    buttonColor = color;
+    button.setFillColor(buttonColor);
+}
+
+void MenuButton::setHoverColor(const sf::Color& color) {
+    hoverColor = color;
+}
 
 bool MenuButton::isMouseOver(const sf::RenderWindow& window) const {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     return button.getGlobalBounds().contains(mousePos.x, mousePos.y);
 }
 
-void MenuButton::draw(sf::RenderWindow& window) {
+void MenuButton::draw(sf::RenderWindow& window){
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if(button.getGlobalBounds().contains(mousePos.x, mousePos.y)){
         button.setFillColor(hoverColor);
