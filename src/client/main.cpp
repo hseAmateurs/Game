@@ -10,7 +10,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1200, 800), "My window");
     view.reset(sf::FloatRect(0, 0, 1200, 800));
 
-    Hero hero("../../../src/textures/blue_hero.png", 200, 200, 140, 150);
+    Hero hero("../../../src/textures/blue_hero.png", 200, 200, 150, 150);
 
     // access to the time
     sf::Clock clock;

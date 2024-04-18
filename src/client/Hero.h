@@ -5,7 +5,7 @@
 class Hero: public Base{
 public:
     Hero(const std::string &Image, float X, float Y, float W, float H) {
-        w = W; h = H; // w = 140 h = 150 for current texture (blue_hero)
+        w = W; h = H; // w = 150 h = 150 for current texture (blue_hero)
         x = X; y = Y; // spawn coordinates
         destination.x = x; destination.y = y;
         direction.x = 0; direction.y = 0; // no destination
@@ -36,9 +36,11 @@ private:
     float x, y, w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = 0.2;
-    sf::Vector2i destination; // current movement goal
+    float flyTime = 0, standTime = 0; // for animation (used in setTexture)
+    sf::Vector2f destination; // current movement goal
     sf::Texture heroTexture, destinationTexture;
     sf::Sprite heroSprite, destinationSprite;
 
     void updateDirection(); // calculate direction (used in update)
+    void setTexpure(float time); // for animation (used in update)
 };
