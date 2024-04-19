@@ -16,5 +16,6 @@ typedef int socklen_t;
 #endif
 
 #include <cstdio>
+#include <string>
 
 #endif // COMMON_H
