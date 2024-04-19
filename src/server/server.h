@@ -9,6 +9,8 @@ public:
     Server(int port);
     ~Server();
     void start();
+    bool sendMessage(int client_socket, const char* message);
+    std::string getMessage(int client_socket);
 
 private:
     void handle_client(int client_socket);

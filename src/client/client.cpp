@@ -44,14 +44,29 @@ void Client::start() {
         return;
     }
 
-    while (true) {
-        printf("Enter message: ");
-        fgets(message, 1024, stdin);
+//    while (true) {
+//        printf("Enter message: ");
+//        fgets(message, 1024, stdin);
+//
+//        send(sock, message, strlen(message), 0);
+//        printf("Message sent\n");
+//
+//        int valread = recv(sock, buffer, 1024, 0);
+//        printf("Server: %s\n", buffer);
+//    }
+}
 
-        send(sock, message, strlen(message), 0);
-        printf("Message sent\n");
 
-        int valread = recv(sock, buffer, 1024, 0);
-        printf("Server: %s\n", buffer);
+bool Client::sendMessage(const char* message) {
+    int bytes_sent = send(sock, message, strlen(message), 0);
+    return bytes_sent > 0;
+}
+
+std::string Client::getMessage() {
+    char buffer[1024] = {0};
+    int bytes_received = recv(sock, buffer, 1024, 0);
+    if (bytes_received <= 0) {
+        return "";
     }
+    return std::string(buffer, bytes_received);
 }

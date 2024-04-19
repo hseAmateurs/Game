@@ -58,17 +58,27 @@ void Server::start() {
 }
 
 void Server::handle_client(int client_socket) {
-
-
     while (true) {
-        char buffer[1024] = {0};
-        int valread = recv(client_socket, buffer, 1024, 0);
-        if (valread <= 0) {
+        std::string message = getMessage(client_socket);
+        if (message.empty()) {
             break; // Client disconnected
         }
-        printf("Client %d: %s\n", client_socket, buffer);
-        send(client_socket, "Hello from server", strlen("Hello from server"), 0);
+        printf("Client %d: %s\n", client_socket, message.c_str());
+        sendMessage(client_socket, "Hello from server");
     }
-
     close(client_socket);
+}
+
+bool Server::sendMessage(int client_socket, const char* message) {
+    int bytes_sent = send(client_socket, message, strlen(message), 0);
+    return bytes_sent > 0; // Возвращаем true, если сообщение отправлено
+}
+
+std::string Server::getMessage(int client_socket) {
+    char buffer[1024] = {0};
+    int bytes_received = recv(client_socket, buffer, 1024, 0);
+    if (bytes_received <= 0) {
+        return ""; // Возвращаем пустую строку, если ничего не получено
+    }
+    return std::string(buffer, bytes_received);
 }
