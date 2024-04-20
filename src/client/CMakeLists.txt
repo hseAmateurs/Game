@@ -9,13 +9,17 @@ add_executable(Client
         menu/menuButton.h
         menu/textField.h
         menu/authorizationMenu.h
+        menu/registrationMenu.h
         menu/startMenu.h
+        menu/controller.h
+        menu/controller.cpp
         main.cpp
         menu/menu.cpp
         menu/menuManager.cpp
         menu/menuButton.cpp
         menu/textField.cpp
         menu/authorizationMenu.cpp
+        menu/registrationMenu.cpp
         menu/startMenu.cpp
 )
 

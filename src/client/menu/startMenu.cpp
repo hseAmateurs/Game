@@ -1,11 +1,12 @@
 #include "startMenu.h"
 #include "authorizationMenu.h"
+#include "registrationMenu.h"
 #include "menuManager.h" // For accessing the MenuManager
 
 StartMenu::StartMenu(const sf::Font& font, MenuManager* menuManager) :
     Menu("Start Menu"),
     loginButton(sf::Vector2f(100, 100), "Login", font),
-    registerButton(sf::Vector2f(100, 150), "Register", font),
+    registerButton(sf::Vector2f(100, 200), "Register", font),
     menuManager(menuManager)
 {
     // Customize button appearance (sizes, colors) if needed
@@ -30,7 +31,10 @@ void StartMenu::handleInput(const sf::Event& event, sf::RenderWindow& window) {
     } 
 
     if (registerButton.isPressed(window)) {
-        // Handle "Register" button press (add your logic later)
+        MenuManager* menuManager = getMenuManager();
+        if (menuManager) {
+            menuManager->pushMenu(new RegistrationMenu(menuManager->getFont(),menuManager));
+        }
     }
 }
 
