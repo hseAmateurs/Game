@@ -5,6 +5,8 @@ add_executable(Server
         ../common.h
         server.h
         server.cpp
+        dataBase/playerDatabase.h
+        dataBase/playerDatabase.cpp
 )
 
 if (WIN32)

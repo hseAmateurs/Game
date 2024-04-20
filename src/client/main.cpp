@@ -11,7 +11,7 @@ int main() {
         //char buffer[1024]={0};
         printf("Enter message: ");
         fgets(message, 1024, stdin);
-
+        message[strlen(message)-1] = 0;
         client.sendMessage(message);
         printf("Message sent\n");
 

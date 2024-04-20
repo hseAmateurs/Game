@@ -3,6 +3,7 @@
 
 #include "../common.h"
 #include <thread>
+#include "dataBase/playerDatabase.h"
 
 class Server {
 public:
@@ -16,6 +17,8 @@ private:
     void handle_client(int client_socket);
     int port;
     int server_fd;
+    PlayerDatabase database;
+
 };
 
 #endif // SERVER_H
