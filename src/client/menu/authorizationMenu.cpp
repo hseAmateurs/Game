@@ -1,11 +1,13 @@
 #include "AuthorizationMenu.h"
+#include "menuManager.h"
 
-AuthorizationMenu::AuthorizationMenu(const sf::Font& font) :
+AuthorizationMenu::AuthorizationMenu(const sf::Font& font, MenuManager* menuManager) :
     Menu("Authorization"),
     usernameField(sf::Vector2f(100, 100), "", font,20),  // Adjust positions as needed
     passwordField(sf::Vector2f(100, 150), "", font,20),
     enterButton(sf::Vector2f(100, 200), "Enter", font, 15),
-    backButton(sf::Vector2f(650, 50), "Back", font,15) // Example position for top-right
+    backButton(sf::Vector2f(650, 50), "Back", font,15), // Example position for top-right
+    menuManager(menuManager)
 {
     // Customize Text Fields
     usernameField.setBackgroundColor(sf::Color::Black); // Light gray background
@@ -31,6 +33,10 @@ void AuthorizationMenu::draw(sf::RenderWindow& window){
     backButton.draw(window);
 }
 
+MenuManager* AuthorizationMenu::getMenuManager() {
+    return menuManager; 
+}
+
 void AuthorizationMenu::update(const sf::Time& deltaTime){
     usernameField.update(deltaTime);
     passwordField.update(deltaTime);
@@ -45,6 +51,9 @@ void AuthorizationMenu::handleInput(const sf::Event& event, sf::RenderWindow& wi
     }
 
     if (backButton.isPressed(window)) {
-        // Handle "Back" button press (e.g., go back to the previous menu)
+        MenuManager* menuManager = getMenuManager();
+        if(menuManager){
+            menuManager->popMenu();
+        } 
     }
 }

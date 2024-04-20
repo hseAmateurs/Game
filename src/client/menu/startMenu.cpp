@@ -23,9 +23,9 @@ MenuManager* StartMenu::getMenuManager() {
 void StartMenu::handleInput(const sf::Event& event, sf::RenderWindow& window) {
     if (loginButton.isPressed(window)) {
         // Switch to AuthorizationMenu
-        MenuManager* menuManager = getMenuManager(); // Get the MenuManager (implementation below)
+        MenuManager* menuManager = getMenuManager();
         if (menuManager) {
-            menuManager->pushMenu(new AuthorizationMenu(menuManager->getFont()));
+            menuManager->pushMenu(new AuthorizationMenu(menuManager->getFont(),menuManager));
         }
     } 
 

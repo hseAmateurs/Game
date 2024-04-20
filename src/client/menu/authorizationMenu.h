@@ -1,17 +1,19 @@
 #ifndef AUTHORIZATIONMENU_H
 #define AUTHORIZATIONMENU_H
 
-#include "Menu.h"
+#include "menu.h"
+#include "menuManager.h"
 #include "textField.h"
 
 class AuthorizationMenu : public Menu {
 public:
-    AuthorizationMenu(const sf::Font& font);
+    AuthorizationMenu(const sf::Font& font, MenuManager* menuManager);
 
     void draw(sf::RenderWindow& window) override;
     void handleInput(const sf::Event& event, sf::RenderWindow& window) override;
 
     void update(const sf::Time& deltaTime);
+    MenuManager* getMenuManager();
 
 
 private:
@@ -19,6 +21,7 @@ private:
     Textfield passwordField;
     MenuButton enterButton;
     MenuButton backButton;
+    MenuManager* menuManager;
 };
 
 #endif

@@ -1,14 +1,19 @@
 #include "MenuManager.h"
+#include <iostream>
 
 void MenuManager::pushMenu(Menu* menu) {
     menus.push(menu);
 }
 
 void MenuManager::popMenu() {
+    //std::cout << ":)";
     if (!menus.empty()) {
-        delete menus.top(); 
+        delete menus.top();
+        //std::cout << "menu deleted"; 
         menus.pop();
     }
+    else
+        std::cerr << "Error: Cannot pop menu from an empty stack!" << std::endl;
 }
 
 void MenuManager::clearMenus() {
