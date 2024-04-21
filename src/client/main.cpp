@@ -40,8 +40,18 @@ int main()
         // set camera view
         window.setView(view);
 
-        // clear the window with black color
+        // clear the window with green color
         window.clear(sf::Color(96, 244, 59));
+
+        // draw a grid
+        sf::RectangleShape col(sf::Vector2f(2,10000));
+        sf::RectangleShape row(sf::Vector2f(10000,2));
+        for (int i = 0; i < 10000; i+=50) {
+            col.setPosition(i-5000,-5000);
+            window.draw(col);
+            row.setPosition(-5000,i-5000);
+            window.draw(row);
+        }
 
         // draw everything here...
         hero.drawHero(window);

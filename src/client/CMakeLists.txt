@@ -4,6 +4,7 @@ project(Client)
 add_executable(Client
         main.cpp
         Hero.cpp
+        RangeHit.cpp
 )
 
 

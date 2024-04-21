@@ -2,6 +2,7 @@
 #include "cmath"
 #include <iostream>
 #include "view.h"
+#include "RangeHit.h"
 
 void Hero::update(float time, sf::Vector2i mousePosition) {
     // catch right_button mouse click and set destination
@@ -10,6 +11,13 @@ void Hero::update(float time, sf::Vector2i mousePosition) {
         destination.x = destination.x * currentCameraSize + currentCameraPosX + currentCameraOffsetX;
         destination.y = destination.y * currentCameraSize + currentCameraPosY + currentCameraOffsetY;
     }
+
+    // catch left_button mouse click and create/update base hits
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && hitColdown <= 0)
+        createRangeHit(mousePosition);
+    RangeHit::hitsUpdate(time);
+    hitColdown-=time;
+
 
     // update direction (except small changes)
     updateDirection();
@@ -45,6 +53,7 @@ void Hero::updateDirection() {
 }
 
 void Hero::drawHero(sf::RenderWindow &window) {
+    RangeHit::drawHits(window);
     window.draw(destinationSprite);
     window.draw(heroSprite);
 }
@@ -66,8 +75,27 @@ void Hero::setTexpure(float time) {
     }
     rectTop = (int(standTime/800)%4)*150;
     heroSprite.setTextureRect(sf::IntRect(rectLeft, rectTop, 150, 150));
-    if (direction.x < 0)
-        heroSprite.setScale(-1,1);
-    if (direction.x > 0)
+    if (direction.x < 0) {
+        heroSprite.setScale(-1, 1);
+        lookLeft = true;
+    }
+    if (direction.x > 0) {
         heroSprite.setScale(1,1);
+        lookLeft = false;
+    }
+}
+
+void Hero::createRangeHit(sf::Vector2i mp){
+    float destx = mp.x * currentCameraSize + currentCameraPosX + currentCameraOffsetX;
+    float desty = mp.y * currentCameraSize + currentCameraPosY + currentCameraOffsetY;
+    float yh = y-93, xh = x;
+    if (lookLeft) xh -= 55;
+    else xh += 35;
+    if (flyTime>0) yh+=48;
+    if (!(destx == xh && desty == yh)) {
+        destx -= xh; desty -= yh;
+        float len = sqrt(destx * destx + desty * desty);
+        new RangeHit("../../../src/textures/fireball.png",xh,yh,70,70,destx/len,desty/len);
+        hitColdown = 300; // otsosi u traktorista
+    }
 }
