@@ -3,13 +3,13 @@
 #include <iostream>
 #include "view.h"
 #include "RangeHit.h"
+#include "globalFunctions.h"
 
 void Hero::update(float time, sf::Vector2i mousePosition) {
     // catch right_button mouse click and set destination
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
         destination = {float(mousePosition.x),float(mousePosition.y)}; // relative to our window, out of window = negative coordinates
-        destination.x = destination.x * currentCameraSize + currentCameraPosX + currentCameraOffsetX;
-        destination.y = destination.y * currentCameraSize + currentCameraPosY + currentCameraOffsetY;
+        destination = destination * currentCameraSize + currentCameraPos + currentCameraOffset;
     }
 
     // catch left_button mouse click and create/update base hits
@@ -18,7 +18,6 @@ void Hero::update(float time, sf::Vector2i mousePosition) {
     RangeHit::hitsUpdate(time);
     hitColdown-=time;
 
-
     // update direction (except small changes)
     updateDirection();
 
@@ -26,29 +25,23 @@ void Hero::update(float time, sf::Vector2i mousePosition) {
     setTexpure(time);
 
     // updating position
-    x += direction.x * speed * time;
-    y += direction.y * speed * time;
-    heroSprite.setPosition(x,y);
-    destinationSprite.setPosition(destination.x, destination.y);
+    position += direction * speed * time;
+    heroSprite.setPosition(position);
+    destinationSprite.setPosition(destination);
 }
 
 void Hero::updateDirection() {
     //get vector from current position to destination
-    if (!(x > destination.x - 1 && x < destination.x + 1
-    && y > destination.y - 1 && y < destination.y + 1)) {
-        direction.x = destination.x - x;
-        direction.y = destination.y - y;
+    if (!(position.x > destination.x - 1 && position.x < destination.x + 1
+    && position.y > destination.y - 1 && position.y < destination.y + 1)) {
+        direction = destination - position;
     } else {
-        direction.x = 0;
-        direction.y = 0;
+        direction = {0,0};
     }
-    //calculate vector length
-    float dirVectorLength = sqrt(direction.x * direction.x + direction.y * direction.y);
 
     //normalizing a vector
-    if (dirVectorLength != 0) {
-        direction.x /= dirVectorLength;
-        direction.y /= dirVectorLength;
+    if (len(direction) != 0) {
+        direction /= len(direction);
     }
 }
 
@@ -86,16 +79,14 @@ void Hero::setTexpure(float time) {
 }
 
 void Hero::createRangeHit(sf::Vector2i mp){
-    float destx = mp.x * currentCameraSize + currentCameraPosX + currentCameraOffsetX;
-    float desty = mp.y * currentCameraSize + currentCameraPosY + currentCameraOffsetY;
-    float yh = y-93, xh = x;
+    sf::Vector2f dest = sf::Vector2f (float(mp.x),float(mp.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
+    float yh = position.y-93, xh = position.x;
     if (lookLeft) xh -= 55;
     else xh += 35;
     if (flyTime>0) yh+=48;
-    if (!(destx == xh && desty == yh)) {
-        destx -= xh; desty -= yh;
-        float len = sqrt(destx * destx + desty * desty);
-        new RangeHit("../../../src/textures/fireball.png",xh,yh,70,70,destx/len,desty/len);
+    if (!(dest.x == xh && dest.y == yh)) {
+        dest.x -= xh; dest.y -= yh;
+        new RangeHit("../../../src/textures/fireball.png",xh,yh,70,70,dest.x/len(dest),dest.y/len(dest));
         hitColdown = 300; // otsosi u traktorista
     }
 }
