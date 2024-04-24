@@ -33,8 +33,6 @@ public:
 
     void link(Hexagon* linker, int linkPos);
 
-    Hexagon* getClosestHex(sf::Vector2f& coords);
-
     bool relaxDist(int dist);
 
     void initNeighbours(Map* map);
@@ -42,8 +40,6 @@ public:
 
 private:
     void initVertexes();
-
-
 
     int distToCenter;
     sf::Vector2f position;

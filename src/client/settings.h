@@ -10,7 +10,7 @@ namespace settings {
 
     namespace map {
         const int HEX_RADIUS = 33;
-        const int MAP_RADIUS = 7;
+        const int MAP_RADIUS = 5;
     }
 }
 

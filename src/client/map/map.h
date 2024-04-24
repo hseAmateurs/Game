@@ -11,18 +11,17 @@ class Map {
 public:
     Map(){
         center = new Hexagon(this);
-        center->initNeighbours(this);
     }
 
     void draw(sf::RenderWindow& window) {
-        for(auto& hex : hexs) {
+        for(auto& hex : hexs)
             hex->draw(window);
-        }
     }
+
 
     void addHex(Hexagon* hex) { hexs.push_back(hex); }
 
-    Hexagon* getCenter() {return center;}
+    Hexagon* getCenter() { return center; }
 
     Hexagon* getHex(sf::Vector2f pos) const;
 

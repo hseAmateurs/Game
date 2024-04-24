@@ -1,29 +1,9 @@
 #include "hexagon.h"
-
-
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "../globalFunctions.h"
-
-#include "hexagon.h"
 #include "map.h"
 
 
-Hexagon* Hexagon::getClosestHex(sf::Vector2f& coords) {
-    Hexagon* closestHex = this;
-
-    for(auto& neighbour : neighbours) {
-        if(neighbour != nullptr &&
-           getDist(neighbour->getPos(), coords) < getDist(closestHex->getPos(), coords) )
-            closestHex = neighbour;
-    }
-
-
-    if(getDist(closestHex->getPos(), coords) > settings::map::HEX_RADIUS)
-        return nullptr;
-
-    return closestHex;
-}
 
 void Hexagon::initVertexes() {
     hexagonVertexes[0].position = position;
@@ -48,7 +28,6 @@ void Hexagon::initNeighbours(Map* map) {
 
         if(neighbour == nullptr && distToCenter < settings::map::MAP_RADIUS) {
             neighbour = new Hexagon(map, neighbourPos, distToCenter+1);
-            neighbour->initNeighbours(map);
         }
 
         if(neighbour != nullptr) {
@@ -79,7 +58,8 @@ Hexagon::Hexagon(Map* map, sf::Vector2f pos, int dist):
     position(pos),
     hexagonVertexes(sf::TriangleFan, HEX_VERTEX_COUNT+2),
     distToCenter(dist), neighbours() {
-        initVertexes();
         map->addHex(this);
+        initVertexes();
+        initNeighbours(map);
 };
 

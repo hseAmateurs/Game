@@ -12,7 +12,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(settings::screen::WIDTH, settings::screen::HEIGHT), "My window");
     Map mt;
 
-
     // run the program as long as the window is open
     while (window.isOpen())
     {
