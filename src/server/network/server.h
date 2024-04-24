@@ -4,6 +4,7 @@
 #include "../../common.h"
 #include <thread>
 #include "../dataBase/playerDatabase.h"
+#include "../contreller/controller.h"
 
 class Server {
 public:
@@ -18,6 +19,8 @@ private:
     int port;
     int server_fd;
     PlayerDatabase database;
+    Controller controller;
+
 
 };
 

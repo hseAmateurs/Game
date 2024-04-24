@@ -1,7 +1,7 @@
 #include "server.h"
 #include "../dataBase/playerDatabase.h"
 
-Server::Server(int port) : port(port), server_fd(0), database("players.txt") {}
+Server::Server(int port) : port(port), server_fd(0), database("players.txt"), controller(database) {}
 
 Server::~Server() {
     close(server_fd);
@@ -66,7 +66,8 @@ void Server::handle_client(int client_socket) {
         }
         printf("Client %d: %s\n", client_socket, message.c_str());
         //sendMessage(client_socket, "Hello from server");
-        sendMessage(client_socket, (std::to_string(database.findLogin(message))).c_str());
+        //sendMessage(client_socket, (std::to_string(database.findLogin(message))).c_str());
+        sendMessage(client_socket, controller.handleRequest(message).c_str());
     }
     close(client_socket);
 }
