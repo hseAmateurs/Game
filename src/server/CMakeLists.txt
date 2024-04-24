@@ -3,10 +3,11 @@ project(Server)
 add_executable(Server
         main.cpp
         ../common.h
-        server.h
-        server.cpp
+        network/server.h
+        network/server.cpp
         dataBase/playerDatabase.h
         dataBase/playerDatabase.cpp
+        contreller/controller.cpp
 )
 
 if (WIN32)

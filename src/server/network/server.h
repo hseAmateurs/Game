@@ -1,9 +1,9 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include "../common.h"
+#include "../../common.h"
 #include <thread>
-#include "dataBase/playerDatabase.h"
+#include "../dataBase/playerDatabase.h"
 
 class Server {
 public:

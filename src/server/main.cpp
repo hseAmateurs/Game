@@ -1,4 +1,4 @@
-#include "server.h"
+#include "network/server.h"
 #include "dataBase/playerDatabase.h"
 #define SERVER
 
@@ -12,7 +12,7 @@ int main() {
 #ifdef DATABASE
     PlayerDatabase database("players.txt");
 
-    //database.addPlayer("hui", "pizda");
+    //database.addPlayer("biba", "bibaPassword");
     std::cout<<database.findLogin("biba");
 
 #endif

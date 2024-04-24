@@ -1,5 +1,5 @@
 #include "server.h"
-#include "dataBase/playerDatabase.h"
+#include "../dataBase/playerDatabase.h"
 
 Server::Server(int port) : port(port), server_fd(0), database("players.txt") {}
 
