@@ -22,6 +22,8 @@ private:
     MenuButton enterButton;
     MenuButton backButton;
     MenuManager* menuManager;
+    sf::Text loginLabel;
+    sf::Text passwordLabel;
 };
 
 #endif

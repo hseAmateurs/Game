@@ -1,12 +1,13 @@
 #include "AuthorizationMenu.h"
 #include "menuManager.h"
+#include <iostream>
 
 AuthorizationMenu::AuthorizationMenu(const sf::Font& font, MenuManager* menuManager) :
     Menu("Authorization"),
-    usernameField(sf::Vector2f(100, 100), "", font,20),  // Adjust positions as needed
-    passwordField(sf::Vector2f(100, 150), "", font,20),
-    enterButton(sf::Vector2f(100, 200), "Enter", font, 15),
-    backButton(sf::Vector2f(650, 50), "Back", font,15), // Example position for top-right
+    usernameField(sf::Vector2f(400, 100), "", font,20),  // Adjust positions as needed
+    passwordField(sf::Vector2f(400, 150), "", font,20),
+    enterButton(sf::Vector2f(400, 200), "Enter", font, 15),
+    backButton(sf::Vector2f(850, 50), "Back", font,15), // Example position for top-right
     menuManager(menuManager)
 {
     // Customize Text Fields
@@ -24,13 +25,28 @@ AuthorizationMenu::AuthorizationMenu(const sf::Font& font, MenuManager* menuMana
     backButton.setSize(80.f, 30.f);
     backButton.setButtonColor(sf::Color(150, 0, 0)); // Red
     backButton.setHoverColor(sf::Color(200, 0, 0)); // Brighter red
+    
+    loginLabel.setFont(font);
+    loginLabel.setString("Login:");
+    loginLabel.setCharacterSize(20); // Adjust size as needed
+    loginLabel.setFillColor(sf::Color::White);
+    loginLabel.setPosition(50.f, 105.f); // Example position 
+
+    passwordLabel.setFont(font);
+    passwordLabel.setString("Password:");
+    passwordLabel.setCharacterSize(20); 
+    passwordLabel.setFillColor(sf::Color::White);
+    passwordLabel.setPosition(50.f, 155.f); // Example position
 }
+
 
 void AuthorizationMenu::draw(sf::RenderWindow& window){
     usernameField.draw(window);
     passwordField.draw(window);
     enterButton.draw(window);
     backButton.draw(window);
+    window.draw(loginLabel);
+    window.draw(passwordLabel);
 }
 
 MenuManager* AuthorizationMenu::getMenuManager() {
@@ -47,7 +63,9 @@ void AuthorizationMenu::handleInput(const sf::Event& event, sf::RenderWindow& wi
     passwordField.handleInput(event,window);
 
     if (enterButton.isPressed(window)) {
-        //authMenu.~AuthorizationMenu();
+        std::string username=usernameField.getText();
+        std::string password=passwordField.getText();
+        // выслать на сервер и проверить, верный ли логин/пароль
     }
 
     if (backButton.isPressed(window)) {

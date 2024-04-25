@@ -1,4 +1,5 @@
 #include "textField.h"
+#include <iostream>
 
 Textfield::Textfield(const sf::Vector2f& location, const std::string& text, const sf::Font& font, unsigned int characterSize, sf::Color textColor, sf::Color backgroundColor, float width, float height) :
     location(location),
@@ -62,18 +63,22 @@ void Textfield::handleInput(const sf::Event& event, sf::RenderWindow& window) {
 
     if (event.type == sf::Event::TextEntered) {
         // Handle text input (add characters, backspace, etc.)
+        sf::FloatRect textBounds = textObj.getLocalBounds();
         if (event.text.unicode == '\b' && !text.empty()) 
             text.pop_back();
-        else if (event.text.unicode == ' ' || (event.text.unicode == '\b' && text.empty()) || event.text.unicode == '\r') { // change this atrocious thing
-    
+        else if (event.text.unicode == ' ' || (event.text.unicode == '\b' && text.empty()) || event.text.unicode == '\r') { 
+            return;
         }
         else{
             text+=event.text.unicode;
+            textObj.setString(text);
+            textBounds=textObj.getLocalBounds();
+            if(textBounds.left+textBounds.width>background.getSize().x){
+                text.pop_back();
+            }
         }
         textObj.setString(text);
     }
-    // Pass events to the TextField for handling input
-    // textField.handleInput(event);
 }
 
 void Textfield::update(const sf::Time& deltaTime) {
@@ -88,7 +93,7 @@ void Textfield::update(const sf::Time& deltaTime) {
 
     // Update cursor position based on text bounds
     sf::FloatRect textBounds = textObj.getLocalBounds();
-    cursor.setPosition(textObj.getPosition() + sf::Vector2f(textBounds.left + textBounds.width+3.f, textBounds.top));
+    cursor.setPosition(textObj.getPosition() + sf::Vector2f(textBounds.left + textBounds.width+3.f, 0));
 }
 
 void Textfield::draw(sf::RenderWindow& window) const
@@ -111,8 +116,7 @@ std::string Textfield::getText() const
     return text;
 }
 
-void Textfield::setPosition(const sf::Vector2f& newLocation)
-{
+void Textfield::setPosition(const sf::Vector2f& newLocation){
     location = newLocation;
     textObj.setPosition(location);
 }

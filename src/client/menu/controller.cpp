@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller() : 
-    window(sf::VideoMode(800, 600), "Game")
+    window(sf::VideoMode(1920, 1080), "Game")
 {
     
 }

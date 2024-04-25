@@ -12,6 +12,8 @@ public:
     void draw(sf::RenderWindow& window) override;
     void handleInput(const sf::Event& event, sf::RenderWindow& window) override;
 
+    bool isValidLogin(const std::string& username, const std::string& password);
+
     void update(const sf::Time& deltaTime);
     MenuManager* getMenuManager();
 
@@ -22,6 +24,9 @@ private:
     MenuButton enterButton;
     MenuButton backButton;
     MenuManager* menuManager;
+    sf::Text loginLabel;
+    sf::Text passwordLabel;
+    sf::Text errorMessage;
 };
 
 #endif
