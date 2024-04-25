@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #include <winsock2.h> // For Windows sockets
 #include <ws2tcpip.h> // For inet_pton
-#define close closesocket
+#define closesock closesocket
 typedef int socklen_t;
 #else
 #include <sys/socket.h> // For Unix sockets
@@ -12,10 +12,11 @@ typedef int socklen_t;
 #include <arpa/inet.h> // For inet_pton
 #include <unistd.h> // For read, write, close
 #include <cstring> // For memset
-#define closesocket close
+#define closesocket closesock
 #endif
 
 #include <cstdio>
 #include <string>
+#include <tuple>
 
 #endif // COMMON_H

@@ -13,6 +13,9 @@ void Controller::run() {
     menuManager.setFont(font);
     StartMenu startMenu(font, &menuManager);
     menuManager.pushMenu(&startMenu);
+    Client client("127.0.0.1", 8080); // Создаем клиента, подключающегося к localhost:8080
+    //Client client("192.168.201.60", 8080); // для подключения к другому устройству через локальную сеть нужно ввести ipv4 адапрера беспроводной сети(cmd: ipconfig)
+    client.start(); // Запускаем клиент
     sf::Clock clock;
     while (window.isOpen()) {
         sf::Event event;
@@ -20,7 +23,7 @@ void Controller::run() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            menuManager.handleInput(event, window);
+            menuManager.handleInput(event, window,client);
         }
 
         sf::Time deltaTime = clock.restart();

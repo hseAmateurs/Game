@@ -4,7 +4,7 @@ Client::Client(const std::string& address, int port)
         : address(address), port(port), sock(0) {}
 
 Client::~Client() {
-    close(sock);
+    closesock(sock);
 #ifdef _WIN32
     WSACleanup();
 #endif

@@ -4,7 +4,7 @@
 Server::Server(int port) : port(port), server_fd(0), database("players.txt"), controller(database) {}
 
 Server::~Server() {
-    close(server_fd);
+    closesock(server_fd);
 #ifdef _WIN32
     WSACleanup();
 #endif
@@ -69,7 +69,7 @@ void Server::handle_client(int client_socket) {
         //sendMessage(client_socket, (std::to_string(database.findLogin(message))).c_str());
         sendMessage(client_socket, controller.handleRequest(message).c_str());
     }
-    close(client_socket);
+    closesock(client_socket);
 }
 
 bool Server::sendMessage(int client_socket, const char* message) {

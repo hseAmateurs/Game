@@ -11,7 +11,7 @@ public:
     StartMenu(const sf::Font& font, MenuManager* menuManager);
 
     void draw(sf::RenderWindow& window) override;
-    void handleInput(const sf::Event& event, sf::RenderWindow& window) override;
+    void handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) override;
     MenuManager* getMenuManager();
 
 private:

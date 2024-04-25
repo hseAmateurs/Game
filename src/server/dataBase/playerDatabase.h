@@ -6,7 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
-
+#include <tuple>
 
 
 struct Player {

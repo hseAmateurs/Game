@@ -15,7 +15,7 @@ public:
 
     Menu* getCurrentMenu() {return menus.top(); }
 
-    void handleInput(const sf::Event& event, sf::RenderWindow& window);
+    void handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client);
     void update(const sf::Time& deltaTime);
     void draw(sf::RenderWindow& window) const;
 

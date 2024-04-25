@@ -83,7 +83,7 @@ void RegistrationMenu::update(const sf::Time& deltaTime){
     passwordField.update(deltaTime);
 }
 
-void RegistrationMenu::handleInput(const sf::Event& event, sf::RenderWindow& window) {
+void RegistrationMenu::handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client){
     usernameField.handleInput(event,window);
     passwordField.handleInput(event,window);
     if (enterButton.isPressed(window)) {
@@ -92,12 +92,21 @@ void RegistrationMenu::handleInput(const sf::Event& event, sf::RenderWindow& win
         if(isValidLogin(username,password)){
             MenuManager* menuManager=getMenuManager();
             if(menuManager){
-                // Где-то здесь должна происходить отправка данных на сервер.
-                std::cout << "here";
+                std::string message;
+                message="200 "+username+" "+password;
+                const char* msg=message.c_str();
+                client.sendMessage(msg);
+                message=client.getMessage();
+                if(message=="0"){
+                    std::cout << "you're in!";
+                }
+                else{
+                    errorMessage.setString("Oops, looks like something's wrong.\n\nYour password has to be more than 6 characters long and your username has to be more than 3 characters long.\n\nIt's also possible that such a login already exists.");
+                }
             }
         }
         else{
-            errorMessage.setString("Oops, looks like something's wrong.\n\nYour password has to be more than 6 characters long and your username has to be more than 3 characters long.\n\nPlease verify that that is the case.");
+            errorMessage.setString("Oops, looks like something's wrong.\n\nYour password has to be more than 6 characters long and your username has to be more than 3 characters long.\n\nIt's also possible that such a login already exists.");
         }
     }
 

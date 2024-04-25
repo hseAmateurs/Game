@@ -10,7 +10,7 @@ public:
     AuthorizationMenu(const sf::Font& font, MenuManager* menuManager);
 
     void draw(sf::RenderWindow& window) override;
-    void handleInput(const sf::Event& event, sf::RenderWindow& window) override;
+    void handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) override;
 
     void update(const sf::Time& deltaTime);
     MenuManager* getMenuManager();
@@ -24,6 +24,7 @@ private:
     MenuManager* menuManager;
     sf::Text loginLabel;
     sf::Text passwordLabel;
+    sf::Text errorMessage;
 };
 
 #endif

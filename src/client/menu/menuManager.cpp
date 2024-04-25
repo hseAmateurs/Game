@@ -6,10 +6,8 @@ void MenuManager::pushMenu(Menu* menu) {
 }
 
 void MenuManager::popMenu() {
-    //std::cout << ":)";
     if (!menus.empty()) {
         delete menus.top();
-        //std::cout << "menu deleted"; 
         menus.pop();
     }
     else
@@ -22,9 +20,9 @@ void MenuManager::clearMenus() {
     }
 }
 
-void MenuManager::handleInput(const sf::Event& event, sf::RenderWindow& window) {
+void MenuManager::handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) {
     if (!menus.empty()) {
-        menus.top()->handleInput(event, window);
+        menus.top()->handleInput(event, window,client);
     }
 }
 

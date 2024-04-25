@@ -21,7 +21,7 @@ MenuManager* StartMenu::getMenuManager() {
     return menuManager; 
 }
 
-void StartMenu::handleInput(const sf::Event& event, sf::RenderWindow& window) {
+void StartMenu::handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) {
     if (loginButton.isPressed(window)) {
         // Switch to AuthorizationMenu
         MenuManager* menuManager = getMenuManager();

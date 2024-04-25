@@ -37,6 +37,12 @@ AuthorizationMenu::AuthorizationMenu(const sf::Font& font, MenuManager* menuMana
     passwordLabel.setCharacterSize(20); 
     passwordLabel.setFillColor(sf::Color::White);
     passwordLabel.setPosition(50.f, 155.f); // Example position
+
+    errorMessage.setFont(font);
+    errorMessage.setString(""); // Start with an empty string
+    errorMessage.setCharacterSize(13); // Adjust size as needed 
+    errorMessage.setFillColor(sf::Color::Red);
+    errorMessage.setPosition(50.f, 250.f); // Example position (below the buttons)
 }
 
 
@@ -47,6 +53,7 @@ void AuthorizationMenu::draw(sf::RenderWindow& window){
     backButton.draw(window);
     window.draw(loginLabel);
     window.draw(passwordLabel);
+    window.draw(errorMessage);
 }
 
 MenuManager* AuthorizationMenu::getMenuManager() {
@@ -58,14 +65,30 @@ void AuthorizationMenu::update(const sf::Time& deltaTime){
     passwordField.update(deltaTime);
 }
 
-void AuthorizationMenu::handleInput(const sf::Event& event, sf::RenderWindow& window) {
+void AuthorizationMenu::handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) {
     usernameField.handleInput(event,window);
     passwordField.handleInput(event,window);
 
     if (enterButton.isPressed(window)) {
         std::string username=usernameField.getText();
         std::string password=passwordField.getText();
-        // выслать на сервер и проверить, верный ли логин/пароль
+        MenuManager* menuManager=getMenuManager();
+        if(menuManager){
+            std::string message;
+            message="100 "+username+" "+password;
+            const char* msg=message.c_str();
+            client.sendMessage(msg);
+            message=client.getMessage();
+            if(message=="0"){
+                std::cout << "you're in!";
+            }
+            else if(message=="1"){
+                errorMessage.setString("Wrong password.");
+            }
+            else if(message=="2"){
+                errorMessage.setString("No such login exists.");
+            }
+        }
     }
 
     if (backButton.isPressed(window)) {
