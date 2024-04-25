@@ -30,6 +30,8 @@ namespace pos {
         count
     };
 
+    int getOppositePos(int pos);
+
     const sf::Vector2f vectorsHex[count] = {
             {r + h/2.f, -h},
             {0, -h-h},

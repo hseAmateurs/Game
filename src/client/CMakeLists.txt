@@ -4,12 +4,14 @@ project(Client)
 add_executable(Client
         main.cpp
         settings.h
-        globalFunctions.h
         map/positions.h
+        map/positions.cpp
         map/hexagon.h
         map/hexagon.cpp
         map/map.h
         map/map.cpp
+        globalFunctions.cpp
+        globalFunctions.h
 )
 
 

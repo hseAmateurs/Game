@@ -1,22 +1,15 @@
+//
+// Created by vivan on 4/25/2024.
+//
+
 #ifndef GAME_GLOBALFUNCTIONS_H
 #define GAME_GLOBALFUNCTIONS_H
 
-
 #include <SFML/Graphics.hpp>
-//#include "../settings.h"
 #include <cmath>
 
-
-std::ostream& operator<<(std::ostream& out, sf::Vector2f& vec) {
-    out << "{ " << vec.x << ", " << vec.y << " }";
-    return out;
-}
-
-
-
-float getDist(const sf::Vector2f& pos1, const sf::Vector2f& pos2) {
-    return powf( powf(pos1.x-pos2.x, 2) + powf(pos1.y - pos2.y, 2) , 0.5f);
-}
+float length(sf::Vector2f v);
+float dist(sf::Vector2f v1, sf::Vector2f v2);
 
 
 #endif //GAME_GLOBALFUNCTIONS_H

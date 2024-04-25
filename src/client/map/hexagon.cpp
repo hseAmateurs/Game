@@ -17,38 +17,31 @@ void Hexagon::initVertexes() {
     }
 }
 
-void Hexagon::initNeighbours(Map* map) {
 
+
+void Hexagon::initNeighbours(Map* map) {
     for(int i=0; i<pos::count; ++i) {
 
         sf::Vector2f neighbourPos = position + pos::vectorsHex[i];
         Hexagon* neighbour = map->getHex(neighbourPos);
         neighbours[i] = neighbour;
 
-
-        if(neighbour == nullptr && distToCenter < settings::map::MAP_RADIUS) {
+        if(!neighbour && distToCenter < settings::map::MAP_RADIUS) {
             neighbour = new Hexagon(map, neighbourPos, distToCenter+1);
         }
-
-        if(neighbour != nullptr) {
+        if(neighbour) {
             if (neighbour->relaxDist(distToCenter+1)) neighbour->initNeighbours(map);
-            neighbour->link(this, i);
+            neighbour->neighbours[pos::getOppositePos(i)] = this;
         }
     }
 }
 
-void Hexagon::link(Hexagon *linker, int posRelToLinker) {
-    int posRelToThis = (posRelToLinker + pos::count/2) % pos::count;
 
-    if(neighbours[posRelToThis] != nullptr) return;
-
-    neighbours[posRelToThis] = linker;
-    linker->link(this, posRelToThis);
-}
 
 bool Hexagon::relaxDist(int dist) {
-    if(dist < distToCenter) {
+    if(dist <= distToCenter) {
         distToCenter = dist;
+        initLifeTime();
         return true;
     }
     return false;
@@ -57,9 +50,23 @@ bool Hexagon::relaxDist(int dist) {
 Hexagon::Hexagon(Map* map, sf::Vector2f pos, int dist):
     position(pos),
     hexagonVertexes(sf::TriangleFan, HEX_VERTEX_COUNT+2),
-    distToCenter(dist), neighbours() {
+    distToCenter(dist), neighbours(), isAlive(true) {
         map->addHex(this);
+
+        relaxDist(dist);
         initVertexes();
         initNeighbours(map);
+}
+
+void Hexagon::updateDestroying(sf::Time elapsed) {
+    lifeTime -= elapsed;
+    if(lifeTime < sf::Time::Zero) {
+        isAlive = false;
+    }
+}
+
+void Hexagon::initLifeTime() {
+    lifeTime = (settings::map::centerLifeTime - settings::map::lifeTimeStep*(float)(distToCenter-1)) + settings::map::lifeTimeOffset*( ((rand()%200-100)/100.f) );
+    //std::cout << distToCenter << '\t' << lifeTime.asSeconds() << '\n';
 };
 

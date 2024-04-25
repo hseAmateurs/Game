@@ -3,6 +3,7 @@
 #define GAME_MAP_H
 
 #include "hexagon.h"
+#include "../globalFunctions.h"
 
 
 
@@ -14,10 +15,13 @@ public:
     }
 
     void draw(sf::RenderWindow& window) {
+
         for(auto& hex : hexs)
             hex->draw(window);
     }
 
+
+    void updateDestroying(sf::Time elapsed);
 
     void addHex(Hexagon* hex) { hexs.push_back(hex); }
 
