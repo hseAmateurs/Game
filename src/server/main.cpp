@@ -16,6 +16,3 @@ int main() {
     std::cout<<database.findLogin("biba");
 
 #endif
-
-    return 0;
-}
