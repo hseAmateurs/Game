@@ -9,7 +9,6 @@ StartMenu::StartMenu(const sf::Font& font, MenuManager* menuManager) :
     registerButton(sf::Vector2f(100, 200), "Register", font),
     menuManager(menuManager)
 {
-    // Customize button appearance (sizes, colors) if needed
 }
 
 void StartMenu::draw(sf::RenderWindow& window) {
@@ -23,7 +22,6 @@ MenuManager* StartMenu::getMenuManager() {
 
 void StartMenu::handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) {
     if (loginButton.isPressed(window)) {
-        // Switch to AuthorizationMenu
         MenuManager* menuManager = getMenuManager();
         if (menuManager) {
             menuManager->pushMenu(new AuthorizationMenu(menuManager->getFont(),menuManager));

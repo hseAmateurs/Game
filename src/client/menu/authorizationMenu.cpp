@@ -17,7 +17,6 @@ AuthorizationMenu::AuthorizationMenu(const sf::Font& font, MenuManager* menuMana
     passwordField.setBackgroundColor(sf::Color::Black);
     passwordField.setSize(200.f, 30.f);
 
-    // Customize Buttons (example colors and sizes)
     enterButton.setSize(100.f, 40.f);
     enterButton.setButtonColor(sf::Color(0, 150, 0)); // Green
     enterButton.setHoverColor(sf::Color(0, 200, 0)); // Brighter green

@@ -56,7 +56,6 @@ void Textfield::handleInput(const sf::Event& event, sf::RenderWindow& window) {
         else{
             this->active=false;
         }
-        //std::cout<<this->active;
     }
     
     if (!active) return; // Ignore input if not active
@@ -96,8 +95,7 @@ void Textfield::update(const sf::Time& deltaTime) {
     cursor.setPosition(textObj.getPosition() + sf::Vector2f(textBounds.left + textBounds.width+3.f, 0));
 }
 
-void Textfield::draw(sf::RenderWindow& window) const
-{
+void Textfield::draw(sf::RenderWindow& window) const{
     window.draw(background);
     window.draw(textObj);
     if (active && showCursor) {
@@ -105,14 +103,12 @@ void Textfield::draw(sf::RenderWindow& window) const
     }
 }
 
-void Textfield::setText(const std::string& newText)
-{
+void Textfield::setText(const std::string& newText){
     text = newText;
     textObj.setString(text);
 }
 
-std::string Textfield::getText() const
-{
+std::string Textfield::getText() const{
     return text;
 }
 
@@ -121,7 +117,6 @@ void Textfield::setPosition(const sf::Vector2f& newLocation){
     textObj.setPosition(location);
 }
 
-sf::Vector2f Textfield::getPosition() const
-{
+sf::Vector2f Textfield::getPosition() const{
     return location;
 }

@@ -2,9 +2,7 @@
 
 Controller::Controller() : 
     window(sf::VideoMode(1920, 1080), "Game")
-{
-    
-}
+{}
 
 void Controller::run() {
     window.setFramerateLimit(60);
