@@ -12,7 +12,7 @@ typedef int socklen_t;
 #include <arpa/inet.h> // For inet_pton
 #include <unistd.h> // For read, write, close
 #include <cstring> // For memset
-#define closesocket closesock
+#define closesock close
 #endif
 
 #include <cstdio>
