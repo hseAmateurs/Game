@@ -35,7 +35,7 @@ int main()
         // update hero actions and view parameters
 
         hero.update(elapsed, sf::Mouse::getPosition(window));
-        //mt.updateDestroying(elapsed);
+        mt.updateDestroying(elapsed);
 
         changeView(elapsed, settings::screen::WIDTH, settings::screen::HEIGHT);
 

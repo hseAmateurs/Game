@@ -1,15 +1,18 @@
 #include "map.h"
 #include <SFML/Graphics.hpp>
+#include "positions.h"
 
 
-Hexagon *Map::getHex(sf::Vector2f pos) const {
-    Hexagon* closestHex = hexs[0];
 
-    for(auto& hex : hexs) if(dist(hex->getPos(), pos) < dist(closestHex->getPos(), pos))
-        closestHex = hex;
+Hexagon *Map::getHex(sf::Vector2f pos) {
+    Hexagon* hex;
+    int n = hexs.size();
 
-    if(dist(closestHex->getPos(), pos) < settings::map::HEX_RADIUS)
-        return closestHex;
+    for(int i=n-1; i>=0; --i) {
+        hex = hexs[i];
+        if(dist(hex->getPos(), pos) < pos::h) return hex;
+    }
+
     return nullptr;
 }
 

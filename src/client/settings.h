@@ -18,11 +18,11 @@ namespace settings {
 
     namespace map {
         const int HEX_RADIUS = 80;
-        const int MAP_RADIUS = 9;
+        const int MAP_RADIUS = 15;
 
-        const sf::Time centerLifeTime = sf::seconds(200);
-        const sf::Time lifeTimeStep = sf::seconds(10);
-        const sf::Time lifeTimeOffset = sf::seconds(30);
+        const sf::Time centerLifeTime = sf::seconds(100);
+        const sf::Time lifeTimeStep = sf::seconds(6);
+        const sf::Time lifeTimeOffset = sf::seconds(10);
     }
 
     namespace hero {

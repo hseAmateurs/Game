@@ -12,7 +12,12 @@ class Map {
 public:
     Map(){
         center = new Hexagon(this);
-        std::cout << hexs.size();
+
+        std::cout << hexs.size() << std::endl;
+        std::cout << funcCounter << std::endl;
+        std::cout << Hexagon::initCounter << std::endl;
+
+
     }
 
     void draw(sf::RenderWindow& window) {
@@ -21,20 +26,23 @@ public:
     }
 
 
+
     void updateDestroying(sf::Time elapsed);
 
     void addHex(Hexagon* hex) { hexs.push_back(hex); }
 
     Hexagon* getCenter() { return center; }
 
-    Hexagon* getHex(sf::Vector2f pos) const;
+    Hexagon* getHex(sf::Vector2f pos);
 
 
 
-private:
+//private:
 
     Hexagon* center;
     std::vector<Hexagon*> hexs;
+
+    int funcCounter;
 };
 
 #endif //GAME_MAP_H

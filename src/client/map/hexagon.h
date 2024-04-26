@@ -25,6 +25,14 @@ public:
         window.draw(hexagonVertexes);
     }
 
+//    Hexagon* getClosestHex(sf::Vector2f pos) {
+//        Hexagon* closestHex = this;
+//        for(auto& child : neighbours)
+//            if(child && dist(child->getPos(), pos) < dist(closestHex->getPos(), pos)) closestHex = child;
+//
+//        if()
+//    }
+
 
 
     void updateDestroying(sf::Time elapsed);
@@ -43,6 +51,7 @@ public:
     bool isDead() const { return !isAlive; }
 
 
+    static int initCounter;
 
 private:
     void initVertexes();

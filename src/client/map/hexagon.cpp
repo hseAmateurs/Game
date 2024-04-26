@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "map.h"
 
-
+int Hexagon::initCounter = 0;
 
 void Hexagon::initVertexes() {
     hexagonVertexes[0].position = position;
@@ -21,6 +21,8 @@ void Hexagon::initVertexes() {
 
 
 void Hexagon::initNeighbours(Map* map) {
+    ++Hexagon::initCounter;
+
     for(int i=0; i<pos::count; ++i) {
 
         sf::Vector2f neighbourPos = position + pos::vectorsHex[i];
@@ -40,7 +42,7 @@ void Hexagon::initNeighbours(Map* map) {
 
 
 bool Hexagon::relaxDist(int dist) {
-    if(dist <= distToCenter) {
+    if(dist < distToCenter) {
         distToCenter = dist;
         initLifeTime();
         return true;
@@ -54,7 +56,9 @@ Hexagon::Hexagon(Map* map, sf::Vector2f pos, int dist):
     distToCenter(dist), neighbours(), isAlive(true) {
         map->addHex(this);
 
-        relaxDist(dist);
+        //std::cout << map->hexs.size() << std::endl;
+
+        initLifeTime();
         initVertexes();
         initNeighbours(map);
 }
