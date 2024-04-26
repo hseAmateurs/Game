@@ -1,30 +1,19 @@
 project(Client)
 
 
-include_directories(menu)
-
 add_executable(Client
-        menu/menu.h
-        menu/menuManager.h
-        menu/menuButton.h
-        menu/textField.h
-        menu/authorizationMenu.h
-        menu/registrationMenu.h
-        menu/startMenu.h
-        menu/controller.h
-        menu/controller.cpp
         main.cpp
-        ../common.h
-
-        client.h
-        client.cpp
-        menu/menu.cpp
-        menu/menuManager.cpp
-        menu/menuButton.cpp
-        menu/textField.cpp
-        menu/authorizationMenu.cpp
-        menu/registrationMenu.cpp
-        menu/startMenu.cpp
+        settings.h
+        map/positions.h
+        map/positions.cpp
+        map/hexagon.h
+        map/hexagon.cpp
+        map/map.h
+        map/map.cpp
+        globalFunctions.cpp
+        globalFunctions.h
+        Hero.cpp
+        RangeHit.cpp
 )
 
 
@@ -44,9 +33,5 @@ if (SFML_FOUND)
     # Добавление headers
     target_include_directories(Client PRIVATE ${SFML_INCLUDE_DIR})
     # Линковка библиотек
-    if (WIN32)
-        target_link_libraries(Client PRIVATE m sfml-graphics sfml-window sfml-system Ws2_32)
-    else ()
-        target_link_libraries(Client PRIVATE m sfml-graphics sfml-window sfml-system)
-    endif ()
+    target_link_libraries(Client PRIVATE m sfml-graphics sfml-window sfml-system)
 endif ()
