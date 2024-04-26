@@ -3,25 +3,25 @@
 
 std::list<RangeHit*> RangeHit::hitsList;
 
-void RangeHit::hitsUpdate(float time) {
+void RangeHit::hitsUpdate(sf::Time elapsed) {
     for (RangeHit* hit:hitsList) {
         if (hit->alive)
-            hit->update(time);
+            hit->update(elapsed);
         else {
             delete hit;
-            hitsUpdate(time);
+            hitsUpdate(elapsed);
             return;
         }
     }
 }
 
-void RangeHit::update(float time) {
-    lifeTime -= time;
-    if (lifeTime < 0)
+void RangeHit::update(sf::Time elapsed) {
+    lifeTime -= elapsed;
+    if (lifeTime < sf::Time::Zero)
         alive = false;
 
-    x += direction.x * speed * time;
-    y += direction.y * speed * time;
+    x += direction.x * speed * elapsed.asSeconds()*1000.f;
+    y += direction.y * speed * elapsed.asSeconds()*1000.f;
     hitSprite.setPosition(x,y);
 }
 

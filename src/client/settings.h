@@ -11,13 +11,30 @@ namespace settings {
         const int HEIGHT = 900;
     }
 
-    namespace map {
-        const int HEX_RADIUS = 33;
-        const int MAP_RADIUS = 5;
+    namespace view {
+        const float moveSpeed = 0.0002f;
+        const float zoomSpeed = 0.01f;
+    }
 
-        const sf::Time centerLifeTime = sf::seconds(20);
-        const sf::Time lifeTimeStep = sf::seconds(4);
-        const sf::Time lifeTimeOffset = sf::seconds(2);
+    namespace map {
+        const int HEX_RADIUS = 80;
+        const int MAP_RADIUS = 9;
+
+        const sf::Time centerLifeTime = sf::seconds(200);
+        const sf::Time lifeTimeStep = sf::seconds(10);
+        const sf::Time lifeTimeOffset = sf::seconds(30);
+    }
+
+    namespace hero {
+        namespace hit {
+            const float speed = 0.3f;
+        }
+
+        const float speed = 100;
+    }
+
+    namespace color {
+        const sf::Color hex = sf::Color(96, 244, 59);
     }
 }
 

@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-//
-// Created by vivan on 4/25/2024.
-//
-=======
-#include <SFML/Graphics.hpp>
-#include <cmath>
->>>>>>> origin/hero
-
 #ifndef GAME_GLOBALFUNCTIONS_H
 #define GAME_GLOBALFUNCTIONS_H
 

@@ -1,29 +1,31 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "settings.h"
+
 
 inline sf::View view;
-inline float cameraSpeed = 0.2f;
+inline float cameraSpeed = settings::view::moveSpeed;
+inline float zoomSpeed = settings::view::zoomSpeed;
 inline float currentCameraSize = 1;
-inline float zoomSpeed = 0.001f;
 inline sf::Vector2f currentCameraPos = {0,0};
 inline sf::Vector2f currentCameraOffset = {0,0};
 
-inline void changeView(float time, int viewWidth, int viewHeight) {
+inline void changeView(sf::Time elapsed, int viewWidth, int viewHeight) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        view.move(cameraSpeed*time*currentCameraSize, 0);
-        currentCameraPos.x += cameraSpeed*time*currentCameraSize;
+        view.move(cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
+        currentCameraPos.x += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        view.move(0, cameraSpeed*time*currentCameraSize);
-        currentCameraPos.y += cameraSpeed*time*currentCameraSize;
+        view.move(0, cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
+        currentCameraPos.y += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        view.move(-cameraSpeed*time*currentCameraSize, 0);
-        currentCameraPos.x += -cameraSpeed*time*currentCameraSize;
+        view.move(-cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
+        currentCameraPos.x += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        view.move(0, -cameraSpeed*time*currentCameraSize);
-        currentCameraPos.y += -cameraSpeed*time*currentCameraSize;
+        view.move(0, -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
+        currentCameraPos.y += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {

@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "list"
+#include "settings.h"
+
 
 class RangeHit{
 public:
@@ -23,17 +25,17 @@ public:
         hitsList.erase(std::find(hitsList.begin(), hitsList.end(), this));
     }
 
-    static void hitsUpdate(float time);
+    static void hitsUpdate(sf::Time elapsed);
     static void drawHits(sf::RenderWindow &window);
     sf::Sprite getSprite() { return hitSprite; }
 private:
     float x, y, w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
-    float speed = 0.4;
-    float lifeTime = 1000;
+    float speed = settings::hero::hit::speed;
+    sf::Time lifeTime = sf::seconds(2);
     bool alive {true};
     sf::Texture hitTexture;
     sf::Sprite hitSprite;
 
-    void update(float time);
+    void update(sf::Time elapsed);
 };

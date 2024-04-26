@@ -1,4 +1,5 @@
 #include "hexagon.h"
+#include "../settings.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "map.h"
@@ -7,13 +8,13 @@
 
 void Hexagon::initVertexes() {
     hexagonVertexes[0].position = position;
-    hexagonVertexes[0].color = sf::Color(100,250,100);
+    hexagonVertexes[0].color = sf::Color::Black;
 
     for(int i=1; i<HEX_VERTEX_COUNT+2; ++i) {
         hexagonVertexes[i].position =
                 position +
                 (sf::Vector2f(cosf(M_PI/3.f* (float)i), sinf(M_PI/3.f* (float)i) ))*(float)settings::map::HEX_RADIUS;
-        hexagonVertexes[i].color = sf::Color(100,200,100);
+        hexagonVertexes[i].color = settings::color::hex;
     }
 }
 

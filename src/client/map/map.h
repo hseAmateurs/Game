@@ -12,10 +12,10 @@ class Map {
 public:
     Map(){
         center = new Hexagon(this);
+        std::cout << hexs.size();
     }
 
     void draw(sf::RenderWindow& window) {
-
         for(auto& hex : hexs)
             hex->draw(window);
     }

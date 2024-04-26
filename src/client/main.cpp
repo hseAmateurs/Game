@@ -13,9 +13,9 @@ int main()
     srand(time(nullptr));
     sf::RenderWindow window(sf::VideoMode(settings::screen::WIDTH, settings::screen::HEIGHT), "My window");
     Map mt;
-    view.reset(sf::FloatRect(0, 0, 1200, 800));
+    view.reset(sf::FloatRect(0, 0, settings::screen::WIDTH, settings::screen::HEIGHT));
 
-    Hero hero("../../../src/textures/blue_hero.png", 200, 200, 150, 150);
+    Hero hero("../../../src/textures/blue_hero.png", settings::screen::WIDTH/2, settings::screen::HEIGHT/2, 150, 150);
 
     // access to the time
     sf::Clock clock;
@@ -30,18 +30,21 @@ int main()
         }
         sf::Time elapsed = clock.restart();
 
+
+        //window.clear(sf::Color(96, 244, 59));
         window.clear(sf::Color(100,100,100));
         // update hero actions and view parameters
-        hero.update(time,sf::Mouse::getPosition(window));
-        changeView(time, 1200, 800);
+
+        hero.update(elapsed, sf::Mouse::getPosition(window));
+        //mt.updateDestroying(elapsed);
+
+        changeView(elapsed, settings::screen::WIDTH, settings::screen::HEIGHT);
 
         // set camera view
         window.setView(view);
 
-        // clear the window with green color
-        window.clear(sf::Color(96, 244, 59));
 
-        // draw a grid
+        #ifdef GRID
         sf::RectangleShape col(sf::Vector2f(2,10000));
         sf::RectangleShape row(sf::Vector2f(10000,2));
         for (int i = 0; i < 10000; i+=50) {
@@ -50,11 +53,11 @@ int main()
             row.setPosition(-5000,i-5000);
             window.draw(row);
         }
+        #endif
+
 
         mt.draw(window);
-        hero.drawHero(window);
-
-        mt.updateDestroying(elapsed);
+        hero.draw(window);
 
         window.display();
     }

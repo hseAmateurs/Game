@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "Base.h"
 #include "string"
+#include "settings.h"
+
 
 class Hero: public Base{
 public:
@@ -27,21 +29,22 @@ public:
         destinationSprite.setPosition(position);
     }
 
-    void drawHero(sf::RenderWindow &window);
-    void update(float time, sf::Vector2i mousePosition);
+    void draw(sf::RenderWindow &window);
+    void update(sf::Time elapsed, sf::Vector2i mousePosition);
 
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
-    float speed = 0.2, hitColdown = 0;
-    float flyTime = 0, standTime = 0; // for animation (used in setTexture)
+    float speed = settings::hero::speed;
+    sf::Time hitColdown = sf::Time::Zero;
+    sf::Time flyTime = sf::Time::Zero, standTime = sf::Time::Zero; // for animation (used in setTexture)
     bool lookLeft {false}; // is texture reflected or not
     sf::Vector2f destination; // current movement goal
     sf::Texture heroTexture, destinationTexture;
     sf::Sprite heroSprite, destinationSprite;
 
     void updateDirection(); // calculate direction (used in update)
-    void setTexpure(float time); // for animation (used in update)
+    void setTexture(sf::Time elapsed); // for animation (used in update)
     void createRangeHit(sf::Vector2i mp);
 };

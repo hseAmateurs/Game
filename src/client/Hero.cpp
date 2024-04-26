@@ -5,7 +5,7 @@
 #include "RangeHit.h"
 #include "globalFunctions.h"
 
-void Hero::update(float time, sf::Vector2i mousePosition) {
+void Hero::update(sf::Time elapsed, sf::Vector2i mousePosition) {
     // catch right_button mouse click and set destination
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
         destination = {float(mousePosition.x),float(mousePosition.y)}; // relative to our window, out of window = negative coordinates
@@ -13,19 +13,19 @@ void Hero::update(float time, sf::Vector2i mousePosition) {
     }
 
     // catch left_button mouse click and create/update base hits
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && hitColdown <= 0)
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && hitColdown <= sf::Time::Zero)
         createRangeHit(mousePosition);
-    RangeHit::hitsUpdate(time);
-    hitColdown-=time;
+    RangeHit::hitsUpdate(elapsed);
+    hitColdown -= elapsed;
 
     // update direction (except small changes)
     updateDirection();
 
     // animation
-    setTexpure(time);
+    setTexture(elapsed);
 
     // updating position
-    position += direction * speed * time;
+    position += direction * speed * elapsed.asSeconds();
     heroSprite.setPosition(position);
     destinationSprite.setPosition(destination);
 }
@@ -40,33 +40,34 @@ void Hero::updateDirection() {
     }
 
     //normalizing a vector
-    if (len(direction) != 0) {
-        direction /= len(direction);
+    if (length(direction) != 0) {
+        direction /= length(direction);
     }
 }
 
-void Hero::drawHero(sf::RenderWindow &window) {
+void Hero::draw(sf::RenderWindow &window) {
     RangeHit::drawHits(window);
     window.draw(destinationSprite);
     window.draw(heroSprite);
 }
 
-void Hero::setTexpure(float time) {
+
+void Hero::setTexture(sf::Time elapsed) {
     int rectLeft = 0, rectTop = 0;
     if (direction.x == 0 && direction.y == 0) {
-        standTime += time;
-        flyTime = 0;
+        standTime += elapsed;
+        flyTime = sf::Time::Zero;
         rectLeft = 0;
     }
     else {
-        standTime = 0;
-        flyTime += time;
-        if (flyTime < 50)
+        standTime = sf::Time::Zero;
+        flyTime += elapsed;
+        if (flyTime < sf::seconds(0.06))
             rectLeft = 150;
         else
             rectLeft = 300;
     }
-    rectTop = (int(standTime/800)%4)*150;
+    rectTop = (int(standTime.asSeconds())%4)*150;
     heroSprite.setTextureRect(sf::IntRect(rectLeft, rectTop, 150, 150));
     if (direction.x < 0) {
         heroSprite.setScale(-1, 1);
@@ -83,10 +84,10 @@ void Hero::createRangeHit(sf::Vector2i mp){
     float yh = position.y-93, xh = position.x;
     if (lookLeft) xh -= 55;
     else xh += 35;
-    if (flyTime>0) yh+=48;
+    if (flyTime > sf::Time::Zero) yh+=48;
     if (!(dest.x == xh && dest.y == yh)) {
         dest.x -= xh; dest.y -= yh;
-        new RangeHit("../../../src/textures/fireball.png",xh,yh,70,70,dest.x/len(dest),dest.y/len(dest));
-        hitColdown = 300; // otsosi u traktorista
+        new RangeHit("../../../src/textures/fireball.png",xh,yh,70,70,dest.x/length(dest),dest.y/length(dest));
+        hitColdown = sf::seconds(0.5); // otsosi u traktorista
     }
 }
