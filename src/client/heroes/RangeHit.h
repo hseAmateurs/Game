@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "list"
-#include "settings.h"
+#include "../settings.h"
 
 
 class RangeHit{

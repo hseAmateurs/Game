@@ -2,7 +2,6 @@ project(Server)
 
 add_executable(Server
         main.cpp
-        ../common.h
         network/server.h
         network/server.cpp
         dataBase/playerDatabase.h

@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Base.h"
 #include "string"
-#include "settings.h"
+#include "../settings.h"
 
 
 class Hero: public Base{

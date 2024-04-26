@@ -27,7 +27,7 @@ namespace settings {
 
     namespace hero {
         namespace hit {
-            const float speed = 0.3f;
+            const float speed = 300;
         }
 
         const float speed = 100;

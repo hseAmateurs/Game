@@ -20,8 +20,8 @@ void RangeHit::update(sf::Time elapsed) {
     if (lifeTime < sf::Time::Zero)
         alive = false;
 
-    x += direction.x * speed * elapsed.asSeconds()*1000.f;
-    y += direction.y * speed * elapsed.asSeconds()*1000.f;
+    x += direction.x * speed * elapsed.asSeconds();
+    y += direction.y * speed * elapsed.asSeconds();
     hitSprite.setPosition(x,y);
 }
 

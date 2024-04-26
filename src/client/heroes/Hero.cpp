@@ -1,9 +1,9 @@
 #include "Hero.h"
 #include "cmath"
 #include <iostream>
-#include "view.h"
+#include "../view.h"
 #include "RangeHit.h"
-#include "globalFunctions.h"
+#include "../globalFunctions.h"
 
 void Hero::update(sf::Time elapsed, sf::Vector2i mousePosition) {
     // catch right_button mouse click and set destination

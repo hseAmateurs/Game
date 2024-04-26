@@ -4,7 +4,7 @@
 #include "map/map.h"
 #include "map/positions.h"
 #include "map/hexagon.h"
-#include "Hero.h"
+#include "heroes/Hero.h"
 #include "view.h"
 
 
@@ -31,7 +31,6 @@ int main()
         sf::Time elapsed = clock.restart();
 
 
-        //window.clear(sf::Color(96, 244, 59));
         window.clear(sf::Color(100,100,100));
         // update hero actions and view parameters
 
