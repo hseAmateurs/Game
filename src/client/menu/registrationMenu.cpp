@@ -1,5 +1,6 @@
 #include "registrationMenu.h"
 #include "menuManager.h"
+#include "mainMenu.h"
 #include <iostream>
 
 RegistrationMenu::RegistrationMenu(const sf::Font& font, MenuManager* menuManager) :
@@ -98,15 +99,16 @@ void RegistrationMenu::handleInput(const sf::Event& event, sf::RenderWindow& win
                 client.sendMessage(msg);
                 message=client.getMessage();
                 if(message=="0"){
-                    std::cout << "you're in!";
+                    client.setLogin(username);
+                    menuManager->pushMenu(new MainMenu(menuManager->getFont(),menuManager));
                 }
                 else{
-                    errorMessage.setString("Oops, looks like something's wrong.\n\nYour password has to be more than 6 characters long and your username has to be more than 3 characters long.\n\nIt's also possible that such a login already exists.");
+                    errorMessage.setString("This login is taken already.");
                 }
             }
         }
         else{
-            errorMessage.setString("Oops, looks like something's wrong.\n\nYour password has to be more than 6 characters long and your username has to be more than 3 characters long.\n\nIt's also possible that such a login already exists.");
+            errorMessage.setString("Oops, looks like something's wrong.\n\nYour password has to be more than 6 characters long and your username has to be more than 3 characters long.");
         }
     }
 

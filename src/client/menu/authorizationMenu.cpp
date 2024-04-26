@@ -1,5 +1,6 @@
 #include "AuthorizationMenu.h"
 #include "menuManager.h"
+#include "mainMenu.h"
 #include <iostream>
 
 AuthorizationMenu::AuthorizationMenu(const sf::Font& font, MenuManager* menuManager) :
@@ -79,7 +80,8 @@ void AuthorizationMenu::handleInput(const sf::Event& event, sf::RenderWindow& wi
             client.sendMessage(msg);
             message=client.getMessage();
             if(message=="0"){
-                std::cout << "you're in!";
+                client.setLogin(username);
+                menuManager->pushMenu(new MainMenu(menuManager->getFont(),menuManager));
             }
             else if(message=="1"){
                 errorMessage.setString("Wrong password.");

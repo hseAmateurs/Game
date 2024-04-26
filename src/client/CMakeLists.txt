@@ -11,8 +11,10 @@ add_executable(Client
         menu/authorizationMenu.h
         menu/registrationMenu.h
         menu/startMenu.h
+        menu/mainMenu.h
         menu/controller.h
         menu/controller.cpp
+        menu/statisticsMenu.h
         main.cpp
         ../common.h
 
@@ -25,6 +27,8 @@ add_executable(Client
         menu/authorizationMenu.cpp
         menu/registrationMenu.cpp
         menu/startMenu.cpp
+        menu/mainMenu.cpp
+        menu/statisticsMenu.cpp
 )
 
 
