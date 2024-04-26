@@ -12,6 +12,8 @@ add_executable(Client
         map/map.cpp
         globalFunctions.cpp
         globalFunctions.h
+        Hero.cpp
+        RangeHit.cpp
 )
 
 
