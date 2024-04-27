@@ -4,7 +4,7 @@
 
 #include "list"
 #include "hexagon.h"
-#include "../globalFunctions.h"
+#include "../utils/globalFunctions.h"
 
 #include <iostream>
 
@@ -13,7 +13,6 @@ class Map {
 public:
     Map(){
         center = new Hexagon(this);
-
     }
 
     void draw(sf::RenderWindow& window) {

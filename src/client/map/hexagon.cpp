@@ -1,9 +1,9 @@
 #include "hexagon.h"
-#include "../settings.h"
+#include "../utils/settings.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "map.h"
-#include "../overloads.h"
+#include "../utils/overloads.h"
 
 Hexagon::Hexagon(Map* map, sf::Vector2f pos, int dist):
         position(pos),

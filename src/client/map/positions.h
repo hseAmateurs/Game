@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "../settings.h"
+#include "../utils/settings.h"
 #include <cmath>
 
 

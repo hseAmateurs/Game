@@ -1,9 +1,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "settings.h"
+#include "utils/settings.h"
 #include "map/map.h"
 #include "heroes/Hero.h"
-#include "view.h"
+#include "core/view.h"
 #include "core/assets.h"
 #include "core/field.h"
 

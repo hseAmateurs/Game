@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Base.h"
 #include "string"
-#include "../settings.h"
+#include "../utils/settings.h"
 #include "../core/assets.h"
 
 class Hero: public Base{

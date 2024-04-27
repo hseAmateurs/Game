@@ -1,9 +1,9 @@
 #include "Hero.h"
 #include "cmath"
 #include <iostream>
-#include "../view.h"
+#include "../core/view.h"
 #include "RangeHit.h"
-#include "../globalFunctions.h"
+#include "../utils/globalFunctions.h"
 
 void Hero::update(sf::Time elapsed) {
     // catch left_button mouse click and create/update base hits

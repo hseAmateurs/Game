@@ -3,7 +3,7 @@
 #define GAME_HEXAGON_H
 
 #include "positions.h"
-#include "../globalFunctions.h"
+#include "../utils/globalFunctions.h"
 class Map;
 
 #define HEX_VERTEX_COUNT 6

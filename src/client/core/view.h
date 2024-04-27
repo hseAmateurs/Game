@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "settings.h"
+#include "../utils/settings.h"
 
 
 inline sf::View view;
@@ -12,6 +12,7 @@ inline sf::Vector2f currentCameraOffset = {0,0};
 inline int viewWidth = viewWidth = settings::screen::WIDTH;
 inline int viewHeight = settings::screen::HEIGHT;
 
+#include <iostream>
 
 
 
@@ -41,11 +42,10 @@ inline void changeView(sf::Time elapsed, float wheelDir) {
         currentCameraSize = 1;
     }
 
-    if ( (currentCameraSize < 2 && wheelDir<0) || (currentCameraSize > 0.1 && wheelDir>0) ) {
+    if ( (currentCameraSize < 2 && wheelDir == -1) || (currentCameraSize > 0.1 && wheelDir == 1) ) {
         view.zoom(1 - zoomSpeed * wheelDir);
         currentCameraSize *= (1 - zoomSpeed * wheelDir);
         currentCameraOffset.x = -(viewWidth) * (currentCameraSize - 1) / 2;
         currentCameraOffset.y = -(viewHeight) * (currentCameraSize - 1) / 2;
     }
-    //std::cout << currentCameraSize << ' ' << currentCameraPosX + currentCameraOffsetX << ' ' << currentCameraPosY + currentCameraOffsetY << '\n';
 }
