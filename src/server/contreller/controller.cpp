@@ -123,6 +123,19 @@ std::string Controller::handleAddFriend() {
     std::string login = params[0];
     std::string friendLogin = params[1];
 
-    database.addFriend(login, friendLogin);
-    return "0"; // OK
+    if (database.findLogin(friendLogin) != -1) {
+        bool isntFriendFlag = true;
+        for (auto f : database.getFriends(login)){
+            if (f == friendLogin){
+                isntFriendFlag = false;
+                return "1"; //is friend now
+            }
+        }
+        if (isntFriendFlag) {
+            database.addFriend(login, friendLogin);
+            database.addFriend(friendLogin, login);
+            return "0";// OK
+        }
+    }
+    return "2"; // login doesnt exist
 }
