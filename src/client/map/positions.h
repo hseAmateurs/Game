@@ -12,13 +12,11 @@
 #include "../settings.h"
 #include <cmath>
 
-#
 
 
 namespace pos {
     const float r = settings::map::HEX_RADIUS;
     const float h = r * sinf(M_PI/3.f);
-
 
     enum hexPos{
         rightTop,
@@ -33,12 +31,13 @@ namespace pos {
     int getOppositePos(int pos);
 
     const sf::Vector2f vectorsHex[count] = {
-            {r + h/2.f, -h},
-            {0, -h-h},
-            {-(r + h/2.f), -h},
-            {-(r + h/2.f), h},
-            {0, h+h},
-            {r + h/2.f, h},
+            //{r + h/2.f, -h},
+            {r*1.5f, -h},
+            {0.f, -h*2.f},
+            {-r*1.5f, -h},
+            {-r*1.5f, h},
+            {0.f, h+h},
+            {r*1.5f, h},
     };
 
 }

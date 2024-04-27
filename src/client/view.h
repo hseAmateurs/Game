@@ -9,8 +9,13 @@ inline float zoomSpeed = settings::view::zoomSpeed;
 inline float currentCameraSize = 1;
 inline sf::Vector2f currentCameraPos = {0,0};
 inline sf::Vector2f currentCameraOffset = {0,0};
+inline int viewWidth = viewWidth = settings::screen::WIDTH;
+inline int viewHeight = settings::screen::HEIGHT;
 
-inline void changeView(sf::Time elapsed, int viewWidth, int viewHeight) {
+
+
+
+inline void changeView(sf::Time elapsed, float wheelDir) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         view.move(cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
         currentCameraPos.x += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
@@ -36,15 +41,9 @@ inline void changeView(sf::Time elapsed, int viewWidth, int viewHeight) {
         currentCameraSize = 1;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::J) && currentCameraSize < 2) {
-        view.zoom(1 + zoomSpeed);
-        currentCameraSize *= (1 + zoomSpeed);
-        currentCameraOffset.x = -(viewWidth) * (currentCameraSize - 1) / 2;
-        currentCameraOffset.y = -(viewHeight) * (currentCameraSize - 1) / 2;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && currentCameraSize > 0.1) {
-        view.zoom(1 - zoomSpeed);
-        currentCameraSize *= (1 - zoomSpeed);
+    if ( (currentCameraSize < 2 && wheelDir<0) || (currentCameraSize > 0.1 && wheelDir>0) ) {
+        view.zoom(1 - zoomSpeed * wheelDir);
+        currentCameraSize *= (1 - zoomSpeed * wheelDir);
         currentCameraOffset.x = -(viewWidth) * (currentCameraSize - 1) / 2;
         currentCameraOffset.y = -(viewHeight) * (currentCameraSize - 1) / 2;
     }

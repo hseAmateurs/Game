@@ -2,22 +2,22 @@
 #include <SFML/Graphics.hpp>
 #include "settings.h"
 #include "map/map.h"
-#include "map/positions.h"
-#include "map/hexagon.h"
 #include "heroes/Hero.h"
 #include "view.h"
+#include "core/assets.h"
+#include "core/field.h"
+
 
 
 int main()
 {
     srand(time(nullptr));
     sf::RenderWindow window(sf::VideoMode(settings::screen::WIDTH, settings::screen::HEIGHT), "My window");
-    Map mt;
+    Assets assets;
+    Field field;
+
     view.reset(sf::FloatRect(0, 0, settings::screen::WIDTH, settings::screen::HEIGHT));
 
-    Hero hero("../../../src/textures/blue_hero.png", settings::screen::WIDTH/2, settings::screen::HEIGHT/2, 150, 150);
-
-    // access to the time
     sf::Clock clock;
 
     while (window.isOpen())
@@ -27,37 +27,19 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                field.handleRightClick(sf::Mouse::getPosition(window));
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                field.handleLeftClick(sf::Mouse::getPosition(window));
         }
         sf::Time elapsed = clock.restart();
 
+        field.update(elapsed);
 
         window.clear(sf::Color(100,100,100));
-        // update hero actions and view parameters
-
-        hero.update(elapsed, sf::Mouse::getPosition(window));
-        mt.updateDestroying(elapsed);
-
-        changeView(elapsed, settings::screen::WIDTH, settings::screen::HEIGHT);
-
-        // set camera view
+        changeView(elapsed, event.mouseWheelScroll.delta);
         window.setView(view);
-
-
-        #ifdef GRID
-        sf::RectangleShape col(sf::Vector2f(2,10000));
-        sf::RectangleShape row(sf::Vector2f(10000,2));
-        for (int i = 0; i < 10000; i+=50) {
-            col.setPosition(i-5000,-5000);
-            window.draw(col);
-            row.setPosition(-5000,i-5000);
-            window.draw(row);
-        }
-        #endif
-
-
-        mt.draw(window);
-        hero.draw(window);
-
+        field.draw(window);
         window.display();
     }
 

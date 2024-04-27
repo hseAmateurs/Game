@@ -6,6 +6,7 @@
 
 float length(sf::Vector2f v);
 float dist(sf::Vector2f v1, sf::Vector2f v2);
+float rec(float x);
 
 
 #endif //GAME_GLOBALFUNCTIONS_H

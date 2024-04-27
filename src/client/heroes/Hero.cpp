@@ -5,16 +5,9 @@
 #include "RangeHit.h"
 #include "../globalFunctions.h"
 
-void Hero::update(sf::Time elapsed, sf::Vector2i mousePosition) {
-    // catch right_button mouse click and set destination
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-        destination = {float(mousePosition.x),float(mousePosition.y)}; // relative to our window, out of window = negative coordinates
-        destination = destination * currentCameraSize + currentCameraPos + currentCameraOffset;
-    }
-
+void Hero::update(sf::Time elapsed) {
     // catch left_button mouse click and create/update base hits
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && hitColdown <= sf::Time::Zero)
-        createRangeHit(mousePosition);
+
     RangeHit::hitsUpdate(elapsed);
     hitColdown -= elapsed;
 
@@ -87,7 +80,17 @@ void Hero::createRangeHit(sf::Vector2i mp){
     if (flyTime > sf::Time::Zero) yh+=48;
     if (!(dest.x == xh && dest.y == yh)) {
         dest.x -= xh; dest.y -= yh;
-        new RangeHit("../../../src/textures/fireball.png",xh,yh,70,70,dest.x/length(dest),dest.y/length(dest));
+        new RangeHit(xh,yh,70,70,dest.x/length(dest),dest.y/length(dest));
         hitColdown = sf::seconds(0.5); // otsosi u traktorista
     }
+}
+
+void Hero::setDestination(sf::Vector2i dest) {
+    destination = {float(dest.x),float(dest.y)}; // relative to our window, out of window = negative coordinates
+    destination = destination * currentCameraSize + currentCameraPos + currentCameraOffset;
+}
+
+void Hero::hit(sf::Vector2i hitDest) {
+    if (hitColdown <= sf::Time::Zero)
+        createRangeHit(hitDest);
 }

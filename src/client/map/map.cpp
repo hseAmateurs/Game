@@ -5,26 +5,20 @@
 
 
 Hexagon *Map::getHex(sf::Vector2f pos) {
-    Hexagon* hex;
-    int n = hexs.size();
-
-    for(int i=n-1; i>=0; --i) {
-        hex = hexs[i];
+    for(auto hex : hexs)
         if(dist(hex->getPos(), pos) < pos::h) return hex;
-    }
-
     return nullptr;
 }
 
 void Map::updateDestroying(sf::Time elapsed) {
-    for(int i=0; i<hexs.size(); ++i) {
-        Hexagon* hex = hexs[i];
+    for(auto iter = hexs.begin(); iter != hexs.end(); ++iter) {
+        Hexagon* hex = *iter;
         hex->updateDestroying(elapsed);
         if(hex->isDead()) {
-            hexs.erase(hexs.begin()+i);
+            hexs.erase(iter);
             delete hex;
-            --i;
         }
     }
+
 
 }

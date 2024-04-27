@@ -2,21 +2,17 @@
 #ifndef GAME_MAP_H
 #define GAME_MAP_H
 
+#include "list"
 #include "hexagon.h"
 #include "../globalFunctions.h"
 
-
+#include <iostream>
 
 
 class Map {
 public:
     Map(){
         center = new Hexagon(this);
-
-        std::cout << hexs.size() << std::endl;
-        std::cout << funcCounter << std::endl;
-        std::cout << Hexagon::initCounter << std::endl;
-
 
     }
 
@@ -37,12 +33,10 @@ public:
 
 
 
-//private:
+private:
 
     Hexagon* center;
-    std::vector<Hexagon*> hexs;
-
-    int funcCounter;
+    std::list<Hexagon*> hexs;
 };
 
 #endif //GAME_MAP_H

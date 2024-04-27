@@ -1,18 +1,19 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include "Base.h"
 #include "string"
 #include "../settings.h"
-
+#include "../core/assets.h"
 
 class Hero: public Base{
 public:
-    Hero(const std::string &Image, float X, float Y, float W, float H): position(X,Y), w(W), h(H) {
+    Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H) {
         // w = 150 h = 150 for current texture (blue_hero)
         destination = position;
         direction = {0.f,0.f}; // no destination
         // creating hero sprite
-        sf::Image heroImage;
-        heroImage.loadFromFile(Image);
+        sf::Image heroImage = Assets::getHeroImg();
         heroTexture.loadFromImage(heroImage);
         heroSprite.setTexture(heroTexture);
         heroSprite.setTextureRect(sf::IntRect(0, 0, w, h));
@@ -20,8 +21,7 @@ public:
         heroSprite.setPosition(position);
 
         // creating destination point sprite
-        sf::Image destinationImage;
-        destinationImage.loadFromFile("../../../src/textures/destination point.png");
+        sf::Image destinationImage = Assets::getDestPointImg();
         destinationTexture.loadFromImage(destinationImage);
         destinationSprite.setTexture(destinationTexture);
         destinationSprite.setTextureRect(sf::IntRect (0,0,25,25));
@@ -29,8 +29,12 @@ public:
         destinationSprite.setPosition(position);
     }
 
+    void setDestination(sf::Vector2i dest);
+    void hit(sf::Vector2i hitDest);
+
     void draw(sf::RenderWindow &window);
-    void update(sf::Time elapsed, sf::Vector2i mousePosition);
+    void update(sf::Time elapsed);
+
 
 private:
     sf::Vector2f position;

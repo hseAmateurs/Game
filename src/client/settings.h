@@ -12,8 +12,8 @@ namespace settings {
     }
 
     namespace view {
-        const float moveSpeed = 0.0002f;
-        const float zoomSpeed = 0.01f;
+        const float moveSpeed = 0.001f;
+        const float zoomSpeed = 0.1f;
     }
 
     namespace map {
@@ -30,13 +30,15 @@ namespace settings {
             const float speed = 300;
         }
 
-        const float speed = 100;
+        const float speed = 200;
     }
 
     namespace color {
         const sf::Color hex = sf::Color(96, 244, 59);
+        const sf::Color hexStep = sf::Color(10,10,10);
     }
 }
+
 
 
 #endif //GAME_SETTINGS_H

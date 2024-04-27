@@ -14,6 +14,12 @@ add_executable(Client
         globalFunctions.h
         heroes/Hero.cpp
         heroes/RangeHit.cpp
+        overloads.cpp
+        overloads.h
+        core/assets.cpp
+        core/assets.h
+        core/field.cpp
+        core/field.h
 )
 
 

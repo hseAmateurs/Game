@@ -1,20 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include "list"
 #include "../settings.h"
-
+#include "../core/assets.h"
 
 class RangeHit{
 public:
     static std::list<RangeHit*> hitsList; // all alive hero hits here
-    RangeHit(const std::string &Image, float X, float Y, float W, float H, float dirX, float dirY) {
+    RangeHit(float X, float Y, float W, float H, float dirX, float dirY) {
         hitsList.insert(hitsList.end(),this);
         w = W; h = H; // w = 70 h = 70 for current texture (fireball)
         x = X; y = Y; // spawn coordinates
         direction.x = dirX; direction.y = dirY; // hit direction
 
         // creating hit sprite
-        sf::Image hitImage;
-        hitImage.loadFromFile(Image);
+        sf::Image hitImage = Assets::getFireballImg();
         hitTexture.loadFromImage(hitImage);
         hitSprite.setTexture(hitTexture);
         hitSprite.setTextureRect(sf::IntRect(0, 0, w, h));
