@@ -28,13 +28,18 @@ namespace settings {
     namespace hero {
         namespace hit {
             const float speed = 300;
+            const float rotationSpeed = 400;
         }
 
         const float speed = 200;
     }
 
     namespace color {
-        const sf::Color hex = sf::Color(96, 244, 59);
+        const std::vector<sf::Color> hex = {
+                sf::Color(36, 184, 0),
+                sf::Color(56, 204, 20),
+                sf::Color(76, 224, 40)
+        };
         const sf::Color hexStep = sf::Color(10,10,10);
     }
 }

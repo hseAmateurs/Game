@@ -28,13 +28,17 @@ Hexagon::~Hexagon() {
 
 
 void Hexagon::initVertexes() {
+    int indexColor = distToCenter / (settings::map::MAP_RADIUS / settings::color::hex.size());
+    if(indexColor >= settings::color::hex.size()) indexColor = settings::color::hex.size()-1;
+    sf::Color hexColor = settings::color::hex[indexColor];
+
     hexagonVertexes[0].position = position;
-    hexagonVertexes[0].color = sf::Color::White;
+    hexagonVertexes[0].color = hexColor;
     for(int i=1; i<HEX_VERTEX_COUNT+2; ++i) {
         hexagonVertexes[i].position =
                 position +
                 (sf::Vector2f(cosf(M_PI/3.f* (float)i), sinf(M_PI/3.f* (float)i) ))*(float)settings::map::HEX_RADIUS;
-        hexagonVertexes[i].color = settings::color::hexStep*15.f;
+        hexagonVertexes[i].color = hexColor;
     }
 
     for(int i=0; i<HEX_VERTEX_COUNT+1; ++i) {
@@ -68,6 +72,7 @@ void Hexagon::initNeighbours(Map* map) {
 bool Hexagon::relaxDist(int dist) {
     if(dist < distToCenter) {
         distToCenter = dist;
+        initVertexes();
         initLifeTime();
         return true;
     }

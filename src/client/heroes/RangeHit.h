@@ -17,7 +17,7 @@ public:
         hitTexture.loadFromImage(hitImage);
         hitSprite.setTexture(hitTexture);
         hitSprite.setTextureRect(sf::IntRect(0, 0, w, h));
-        hitSprite.setOrigin(25, 25);
+        hitSprite.setOrigin(35, 35);
         hitSprite.setPosition(x, y);
     }
     ~RangeHit(){

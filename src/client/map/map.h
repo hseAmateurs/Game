@@ -15,22 +15,11 @@ public:
         center = new Hexagon(this);
     }
 
-    void draw(sf::RenderWindow& window) {
-        for(auto& hex : hexs)
-            hex->draw(window);
-    }
-
-
-
+    void draw(sf::RenderWindow& window);
     void updateDestroying(sf::Time elapsed);
-
     void addHex(Hexagon* hex) { hexs.push_back(hex); }
-
     Hexagon* getCenter() { return center; }
-
     Hexagon* getHex(sf::Vector2f pos);
-
-
 
 private:
 

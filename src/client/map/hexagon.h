@@ -20,7 +20,7 @@ public:
     void updateDestroying(sf::Time elapsed);
     sf::Vector2f getPos()const { return position; }
     bool isDead() const { return !isAlive; }
-//private:
+private:
 
     void initVertexes();
     void initLifeTime();

@@ -1,5 +1,6 @@
 #include "RangeHit.h"
 #include <iostream>
+#include "../utils/settings.h"
 
 std::list<RangeHit*> RangeHit::hitsList;
 
@@ -22,6 +23,7 @@ void RangeHit::update(sf::Time elapsed) {
 
     x += direction.x * speed * elapsed.asSeconds();
     y += direction.y * speed * elapsed.asSeconds();
+    hitSprite.rotate(elapsed.asSeconds()*settings::hero::hit::rotationSpeed);
     hitSprite.setPosition(x,y);
 }
 

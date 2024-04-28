@@ -2,8 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "positions.h"
 
-
-
 Hexagon *Map::getHex(sf::Vector2f pos) {
     for(auto hex : hexs)
         if(dist(hex->getPos(), pos) < pos::h) return hex;
@@ -19,6 +17,9 @@ void Map::updateDestroying(sf::Time elapsed) {
             delete hex;
         }
     }
+}
 
-
+void Map::draw(sf::RenderWindow &window) {
+    for(auto& hex : hexs)
+        hex->draw(window);
 }
