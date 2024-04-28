@@ -55,12 +55,12 @@ void Hero::setTexture(sf::Time elapsed) {
     else {
         standTime = sf::Time::Zero;
         flyTime += elapsed;
-        if (flyTime < sf::seconds(0.06))
+        if (flyTime < sf::seconds(0.07))
             rectLeft = 150;
         else
             rectLeft = 300;
     }
-    rectTop = (int(standTime.asSeconds())%4)*150;
+    rectTop = (int(standTime.asSeconds()*3)%4)*150;
     heroSprite.setTextureRect(sf::IntRect(rectLeft, rectTop, 150, 150));
     if (direction.x < 0) {
         heroSprite.setScale(-1, 1);

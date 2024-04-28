@@ -21,22 +21,22 @@ namespace settings {
         const int MAP_RADIUS = 15;
 
         const sf::Time centerLifeTime = sf::seconds(100);
-        const sf::Time lifeTimeStep = sf::seconds(6);
-        const sf::Time lifeTimeOffset = sf::seconds(10);
+        const sf::Time lifeTimeStep = sf::seconds(7);
+        const sf::Time lifeTimeOffset = sf::seconds(5);
     }
 
     namespace hero {
         namespace hit {
-            const float speed = 300;
-            const float rotationSpeed = 400;
+            const float speed = 600;
+            const float rotationSpeed = 500;
         }
 
-        const float speed = 200;
+        const float speed = 300;
     }
 
     namespace color {
         const std::vector<sf::Color> hex = {
-                sf::Color(36, 184, 0),
+                sf::Color(20, 174, 0),
                 sf::Color(56, 204, 20),
                 sf::Color(76, 224, 40)
         };
