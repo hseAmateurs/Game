@@ -7,7 +7,10 @@ add_executable(Server
         network/server.cpp
         dataBase/playerDatabase.h
         dataBase/playerDatabase.cpp
-        contreller/controller.cpp
+        controller/controller.h
+        controller/controller.cpp
+        gameLobby/quickGame.h
+        gameLobby/quickGame.cpp
 )
 
 if (WIN32)

@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include "../dataBase/playerDatabase.h"
+#include "../gameLobby/quickGame.h"
 
 class Controller {
 public:
@@ -16,6 +17,8 @@ private:
     PlayerDatabase& database;
     int requestCode;
     std::vector<std::string> params;
+    QuickGame quickGameQueue;
+
 
     void parseRequest(const std::string& request);
 
@@ -30,6 +33,8 @@ private:
     std::string handleGetFriends();
 
     std::string handleAddFriend();
+
+    std::string handleStartQuick();
 };
 
 
