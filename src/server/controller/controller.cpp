@@ -11,6 +11,7 @@ std::string Controller::handleRequest(const std::string& request) {
         case 302: return handleUpdateStatistics();
         case 401: return handleGetFriends();
         case 402: return handleAddFriend();
+        case 501: return handleStartQuick();
         default: return "UNKNOWN_REQUEST";
     }
 }
@@ -138,4 +139,15 @@ std::string Controller::handleAddFriend() {
         }
     }
     return "2"; // login doesnt exist
+}
+
+std::string Controller::handleStartQuick() {
+    // должна быть проверка на нахождение в очереди
+    if(quickGameQueue.isntInQueue(params[0])) {
+        quickGameQueue.addToQueue(params[0]);
+    }
+
+    quickGameQueue.loadGameLobby();
+
+    return "0";
 }

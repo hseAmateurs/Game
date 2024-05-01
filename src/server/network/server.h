@@ -4,7 +4,7 @@
 #include "../../common.h"
 #include <thread>
 #include "../dataBase/playerDatabase.h"
-#include "../contreller/controller.h"
+#include "../controller/controller.h"
 
 class Server {
 public:
