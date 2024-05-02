@@ -1,7 +1,7 @@
 #include "controller.h"
 #include "client.h"
 
-#define SERVER_TEST
+#define MENU_TEST
 
 #ifdef MENU_TEST
 int main(){

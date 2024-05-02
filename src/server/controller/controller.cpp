@@ -124,7 +124,7 @@ std::string Controller::handleAddFriend() {
     std::string login = params[0];
     std::string friendLogin = params[1];
 
-    if (database.findLogin(friendLogin) != -1) {
+    if (database.findLogin(friendLogin) != -1 && login!=friendLogin) {
         bool isntFriendFlag = true;
         for (auto f : database.getFriends(login)){
             if (f == friendLogin){

@@ -14,9 +14,9 @@ StatisticsMenu::StatisticsMenu(const sf::Font& font, MenuManager* menuManager,Cl
     backButton.setHoverColor(sf::Color(200, 0, 0)); // Brighter red
 
     std::string stats="";
-    stats="\t\tYour stats:\n\n\n\n\n\nDeaths: "+client.getDeaths()+"\n\n\nKills: "+client.getKills()+"\n\n\nGames played: "+client.getGamecount();
+    stats="\t\tYour stats:\n\n\n\n\n\nDeaths: "+client.getDeaths()+"\n\n\nKills: "+client.getKills()+"\n\n\nGames played: "+client.getGamecount(); // unholy
     statistics.setFont(font);
-    statistics.setString(stats); // change
+    statistics.setString(stats);
     statistics.setCharacterSize(25); // Adjust size as needed 
     statistics.setFillColor(sf::Color::Red);
     statistics.setPosition(600.f, 250.f); // Example position (below the buttons)

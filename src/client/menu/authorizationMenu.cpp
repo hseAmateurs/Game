@@ -81,7 +81,7 @@ void AuthorizationMenu::handleInput(const sf::Event& event, sf::RenderWindow& wi
             message=client.getMessage();
             if(message=="0"){
                 client.setLogin(username);
-                menuManager->pushMenu(new MainMenu(menuManager->getFont(),menuManager));
+                menuManager->pushMenu(new MainMenu(menuManager->getFont(),menuManager,client));
             }
             else if(message=="1"){
                 errorMessage.setString("Wrong password.");

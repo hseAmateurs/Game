@@ -1,8 +1,10 @@
 #include "mainMenu.h"
 #include <sstream>
 #include "statisticsMenu.h"
+#include "friendEntry.h"
+#include "friendsMenu.h"
 
-MainMenu::MainMenu(const sf::Font& font,MenuManager* menuManager) :
+MainMenu::MainMenu(const sf::Font& font,MenuManager* menuManager,Client& client) :
     Menu("Main Menu"),
     quickPlayButton(sf::Vector2f(710, 200), "Quick Play", font,25), // Example positions 
     joinLobbyButton(sf::Vector2f(710, 400), "Join Lobby", font,25),
@@ -16,7 +18,12 @@ MainMenu::MainMenu(const sf::Font& font,MenuManager* menuManager) :
     // statisticsButton.setOrigin(statisticsButton.getSize().x / 2.f, 0.f);
     // friendsButton.setOrigin(friendsButton.getSize().x / 2.f, 0.f);
 
-    
+    login.setFont(font);
+    login.setString(client.getLogin()); // Start with an empty string
+    login.setCharacterSize(18); // Adjust size as needed 
+    login.setFillColor(sf::Color::White);
+    login.setPosition(50.f, 50.f);
+
     quickPlayButton.setSize(500.f, 100.f);
     quickPlayButton.setButtonColor(sf::Color(0, 0, 150));
     quickPlayButton.setHoverColor(sf::Color(0, 0, 200)); 
@@ -41,6 +48,7 @@ void MainMenu::draw(sf::RenderWindow& window){
     joinLobbyButton.draw(window);
     statisticsButton.draw(window);
     friendsButton.draw(window);
+    window.draw(login);
 }
 
 MenuManager* MainMenu::getMenuManager() {
@@ -68,6 +76,31 @@ void MainMenu::handleInput(const sf::Event& event, sf::RenderWindow& window,Clie
                 client.setKills(kills);
                 client.setGamecount(gamecount);
                 menuManager->pushMenu(new StatisticsMenu(menuManager->getFont(),menuManager,client));
+            }
+        }
+    }
+
+    if(friendsButton.isPressed(window)){
+        MenuManager* menuManager=getMenuManager();
+        if(menuManager){
+            std::string message;
+            message="401 "+client.getLogin();
+            client.sendMessage(message.c_str());
+            message=client.getMessage();
+            if(message=="1"){
+                return;
+            }
+            else{
+                std::stringstream ss(message);
+                std::vector<FriendEntry> vec;
+                std::string username;
+                while(std::getline(ss,username,' ')){
+                    if(username!="0"){
+                        FriendEntry friendentry(username,menuManager->getFont());
+                        vec.push_back(friendentry);
+                    }
+                }   
+                menuManager->pushMenu(new FriendsMenu(menuManager->getFont(),menuManager,client,vec));
             }
         }
     }

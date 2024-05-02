@@ -56,12 +56,14 @@ bool RegistrationMenu::isValidLogin(const std::string& username, const std::stri
     if (password.length() < 6) {
         return false;
     }
-    for (char c : password) {
-        if (!isalnum(c) && !ispunct(c)) {
+    bool flag=false;
+    for (char c : username) {
+        if (!isalnum(c) && !ispunct(c))
             return false; // Invalid character found
-        }
+        if(!isdigit(c))
+            flag=true;
     }
-    return true; // Credentials are valid
+    return flag; // Credentials are valid
 }
 
 
@@ -100,7 +102,7 @@ void RegistrationMenu::handleInput(const sf::Event& event, sf::RenderWindow& win
                 message=client.getMessage();
                 if(message=="0"){
                     client.setLogin(username);
-                    menuManager->pushMenu(new MainMenu(menuManager->getFont(),menuManager));
+                    menuManager->pushMenu(new MainMenu(menuManager->getFont(),menuManager,client));
                 }
                 else{
                     errorMessage.setString("This login is taken already.");

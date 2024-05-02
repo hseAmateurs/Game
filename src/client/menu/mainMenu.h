@@ -7,7 +7,7 @@
 
 class MainMenu : public Menu {
 public:
-    MainMenu(const sf::Font& font, MenuManager* menuManager);
+    MainMenu(const sf::Font& font, MenuManager* menuManager,Client& client);
 
     void draw(sf::RenderWindow& window) override;
     void handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) override;
@@ -20,6 +20,7 @@ private:
     MenuButton joinLobbyButton;
     MenuButton statisticsButton;
     MenuButton friendsButton;
+    sf::Text login;
     MenuManager* menuManager;
 };
 

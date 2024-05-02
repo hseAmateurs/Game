@@ -15,6 +15,8 @@ add_executable(Client
         menu/controller.h
         menu/controller.cpp
         menu/statisticsMenu.h
+        menu/friendEntry.h
+        menu/friendsMenu.h
         main.cpp
         ../common.h
 
@@ -29,6 +31,8 @@ add_executable(Client
         menu/startMenu.cpp
         menu/mainMenu.cpp
         menu/statisticsMenu.cpp
+        menu/friendEntry.cpp
+        menu/friendsMenu.cpp
 )
 
 
