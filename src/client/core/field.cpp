@@ -14,7 +14,7 @@ void Field::handleRightClick(sf::Vector2i clickCoords) {
 }
 
 void Field::handleLeftClick(sf::Vector2i clickCoords) {
-    hero.hit(clickCoords);
+    hero.createHit(clickCoords);
 }
 
 void Field::draw(sf::RenderWindow &window) {

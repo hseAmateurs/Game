@@ -6,8 +6,7 @@
 #include "../utils/globalFunctions.h"
 
 void Hero::update(sf::Time elapsed) {
-    // catch left_button mouse click and create/update base hits
-
+    // update base hits
     RangeHit::hitsUpdate(elapsed);
     hitColdown -= elapsed;
 
@@ -90,7 +89,7 @@ void Hero::setDestination(sf::Vector2i dest) {
     destination = destination * currentCameraSize + currentCameraPos + currentCameraOffset;
 }
 
-void Hero::hit(sf::Vector2i hitDest) {
+void Hero::createHit(sf::Vector2i hitDest) {
     if (hitColdown <= sf::Time::Zero)
         createRangeHit(hitDest);
 }

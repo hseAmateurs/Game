@@ -30,7 +30,7 @@ public:
     }
 
     void setDestination(sf::Vector2i dest);
-    void hit(sf::Vector2i hitDest);
+    void createHit(sf::Vector2i hitDest);
 
     void draw(sf::RenderWindow &window);
     void update(sf::Time elapsed);
