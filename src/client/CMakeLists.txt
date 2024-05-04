@@ -21,6 +21,7 @@ add_executable(Client
         core/field.cpp
         core/field.h
         heroes/FrostWave.cpp
+        heroes/IceSpikes.cpp
 )
 
 

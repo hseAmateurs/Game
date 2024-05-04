@@ -9,27 +9,28 @@ inline float zoomSpeed = settings::view::zoomSpeed;
 inline float currentCameraSize = 1;
 inline sf::Vector2f currentCameraPos = {0,0};
 inline sf::Vector2f currentCameraOffset = {0,0};
-inline int viewWidth = viewWidth = settings::screen::WIDTH;
+inline int viewWidth = settings::screen::WIDTH;
 inline int viewHeight = settings::screen::HEIGHT;
 
 #include <iostream>
 
 
 
-inline void changeView(sf::Time elapsed, float wheelDir) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+inline void changeView(sf::Time elapsed, float wheelDir, sf::Vector2i mouseCoords) {
+
+    if (mouseCoords.x > settings::screen::WIDTH-50) {
         view.move(cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
         currentCameraPos.x += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    if (mouseCoords.y > settings::screen::HEIGHT-50) {
         view.move(0, cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
         currentCameraPos.y += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    if (mouseCoords.x < 50) {
         view.move(-cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
         currentCameraPos.x += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+    if (mouseCoords.y < 50) {
         view.move(0, -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
         currentCameraPos.y += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }

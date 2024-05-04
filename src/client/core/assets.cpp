@@ -5,3 +5,4 @@ sf::Image Assets::heroImg;
 sf::Image Assets::fireballImg;
 sf::Image Assets::destPointImg;
 sf::Image Assets::frostWaveImg;
+sf::Image Assets::IceSpikesImg;

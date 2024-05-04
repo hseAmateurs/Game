@@ -33,13 +33,15 @@ int main()
                 field.handleLeftClick(sf::Mouse::getPosition(window));
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
                 field.handleButtonE();
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+                field.handleButtonQ();
         }
         sf::Time elapsed = clock.restart();
 
         field.update(elapsed);
 
         window.clear(sf::Color(100,100,100));
-        changeView(elapsed, event.mouseWheelScroll.delta);
+        changeView(elapsed, event.mouseWheelScroll.delta, sf::Mouse::getPosition(window));
         window.setView(view);
         field.draw(window);
         window.display();

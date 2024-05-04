@@ -43,7 +43,7 @@ private:
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::speed;
-    sf::Time hitCooldown = sf::Time::Zero, skillCooldownE = sf::Time::Zero;
+    sf::Time generalCooldown = sf::Time::Zero, hitCooldown = sf::Time::Zero, skillCooldownE = sf::Time::Zero;
     sf::Time flyTime = sf::Time::Zero, standTime = sf::Time::Zero; // for animation (used in setTexture)
     bool lookLeft {false}; // is texture reflected or not
     sf::Vector2f destination; // current movement goal
@@ -56,5 +56,7 @@ private:
     void setTexture(sf::Time elapsed); // for animation (used in update)
     void createRangeHit(sf::Vector2i mp);
     void createFrostWave(sf::Vector2i mp);
+    void createBigIceSpikes(sf::Vector2i mp);
     void teleportToWave();
+    void genCD() {generalCooldown = sf::seconds(0.1);}
 };

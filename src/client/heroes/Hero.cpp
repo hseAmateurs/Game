@@ -4,14 +4,18 @@
 #include "../core/view.h"
 #include "RangeHit.h"
 #include "FrostWave.h"
+#include "IceSpikes.h"
 #include "../utils/globalFunctions.h"
 
 void Hero::update(sf::Time elapsed) {
+    generalCooldown -= elapsed;
+
     // update base hits
     RangeHit::hitsUpdate(elapsed);
     hitCooldown -= elapsed;
 
     //update skills
+    IceSpikes::spikesUpdate(elapsed);
     FrostWave::wavesUpdate(elapsed);
     skillCooldownE -= elapsed;
 
@@ -43,6 +47,7 @@ void Hero::updateDirection() {
 }
 
 void Hero::draw(sf::RenderWindow &window) {
+    IceSpikes::drawSpikes(window);
     FrostWave::drawWaves(window);
     RangeHit::drawHits(window);
     window.draw(destinationSprite);
@@ -87,6 +92,7 @@ void Hero::createRangeHit(sf::Vector2i mp){
         dest.x -= xh; dest.y -= yh;
         new RangeHit(xh,yh,70,70,dest.x/length(dest),dest.y/length(dest));
         hitCooldown = sf::seconds(0.5);
+        genCD();
     }
 }
 
@@ -99,8 +105,15 @@ void Hero::createFrostWave(sf::Vector2i mp){
     if (!(dest.x == xh && dest.y == yh)) {
         dest.x -= xh; dest.y -= yh;
         new FrostWave(xh,yh,136.f,323.f,dest.x/length(dest),dest.y/length(dest));
-        skillCooldownE = sf::seconds(1);
+        skillCooldownE = sf::seconds(7);
+        genCD();
     }
+}
+
+void Hero::createBigIceSpikes(sf::Vector2i mp){
+    sf::Vector2f dest = sf::Vector2f (float(mp.x),float(mp.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
+    new IceSpikes(dest.x,dest.y,126.f,126.f,1,0);
+    genCD();
 }
 
 void Hero::setDestination(sf::Vector2i dest) {
@@ -115,13 +128,19 @@ void Hero::skillActivate(char button) {
         activeSkill = 3;
     if (button == 'E' && FrostWave::isWaveExist())
         teleportToWave();
+    if (button == 'Q')
+        activeSkill = 1;
 }
 
 void Hero::skillCast(sf::Vector2i dest) {
+    if (generalCooldown > sf::Time::Zero) return;
     switch (activeSkill) {
         case 0:
             if (hitCooldown <= sf::Time::Zero)
                 createRangeHit(dest);
+            break;
+        case 1:
+            createBigIceSpikes(dest);
             break;
         case 3:
             if (skillCooldownE <= sf::Time::Zero) {

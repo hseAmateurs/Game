@@ -22,6 +22,10 @@ void Field::handleButtonE() {
     hero.skillActivate('E');
 }
 
+void Field::handleButtonQ() {
+    hero.skillActivate('Q');
+}
+
 void Field::draw(sf::RenderWindow &window) {
 
     map.draw(window);

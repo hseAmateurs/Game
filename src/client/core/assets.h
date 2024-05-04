@@ -13,6 +13,7 @@ public:
         if(!fireballImg.loadFromFile("../../../src/client/resources/textures/fireball.png")) std::cout << "FIREBALL IMG DO NOT LOADED\n";
         if(!destPointImg.loadFromFile("../../../src/client/resources/textures/dest_point.png")) std::cout << "DEST POINT IMG DO NOT LOADED\n";
         if(!frostWaveImg.loadFromFile("../../../src/client/resources/textures/frost_wave.png")) std::cout << "DEST POINT IMG DO NOT LOADED\n";
+        if(!IceSpikesImg.loadFromFile("../../../src/client/resources/textures/ice_spikes.png")) std::cout << "DEST POINT IMG DO NOT LOADED\n";
     }
 
     static sf::Font& getFont() { return font; }
@@ -20,7 +21,7 @@ public:
     static sf::Image& getFireballImg() { return fireballImg; }
     static sf::Image& getDestPointImg() { return destPointImg; }
     static sf::Image& getFrostWaveImg() { return frostWaveImg; }
-
+    static sf::Image& getIceSpikesImg() { return IceSpikesImg; }
 
 private:
     static sf::Font font;
@@ -28,6 +29,7 @@ private:
     static sf::Image fireballImg;
     static sf::Image destPointImg;
     static sf::Image frostWaveImg;
+    static sf::Image IceSpikesImg;
 };
 
 
