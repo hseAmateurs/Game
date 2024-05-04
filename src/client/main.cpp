@@ -31,6 +31,8 @@ int main()
                 field.handleRightClick(sf::Mouse::getPosition(window));
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 field.handleLeftClick(sf::Mouse::getPosition(window));
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+                field.handleButtonE();
         }
         sf::Time elapsed = clock.restart();
 

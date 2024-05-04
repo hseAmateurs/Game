@@ -21,10 +21,9 @@ void RangeHit::update(sf::Time elapsed) {
     if (lifeTime < sf::Time::Zero)
         alive = false;
 
-    x += direction.x * speed * elapsed.asSeconds();
-    y += direction.y * speed * elapsed.asSeconds();
-    hitSprite.rotate(elapsed.asSeconds()*settings::hero::hit::rotationSpeed);
-    hitSprite.setPosition(x,y);
+    position += direction * speed * elapsed.asSeconds();
+    hitSprite.rotate(-elapsed.asSeconds()*settings::hero::hit::rotationSpeed);
+    hitSprite.setPosition(position);
 }
 
 void RangeHit::drawHits(sf::RenderWindow &window) {

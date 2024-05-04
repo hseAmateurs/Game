@@ -20,6 +20,7 @@ add_executable(Client
         core/assets.h
         core/field.cpp
         core/field.h
+        heroes/FrostWave.cpp
 )
 
 

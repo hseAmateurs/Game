@@ -27,8 +27,11 @@ namespace settings {
 
     namespace hero {
         namespace hit {
-            const float speed = 300;
+            const float speed = 500;
             const float rotationSpeed = 400;
+        }
+        namespace frostWave {
+            const float speed = 300;
         }
 
         const float speed = 200;

@@ -6,10 +6,9 @@
 class RangeHit{
 public:
     static std::list<RangeHit*> hitsList; // all alive hero hits here
-    RangeHit(float X, float Y, float W, float H, float dirX, float dirY) {
+    RangeHit(float X, float Y, float W, float H, float dirX, float dirY): position(X,Y), w(W), h(H) {
         hitsList.insert(hitsList.end(),this);
-        w = W; h = H; // w = 70 h = 70 for current texture (fireball)
-        x = X; y = Y; // spawn coordinates
+        // w = 70 h = 70 for current texture (fireball)
         direction.x = dirX; direction.y = dirY; // hit direction
 
         // creating hit sprite
@@ -18,7 +17,7 @@ public:
         hitSprite.setTexture(hitTexture);
         hitSprite.setTextureRect(sf::IntRect(0, 0, w, h));
         hitSprite.setOrigin(35, 35);
-        hitSprite.setPosition(x, y);
+        hitSprite.setPosition(position);
     }
     ~RangeHit(){
         hitsList.erase(std::find(hitsList.begin(), hitsList.end(), this));
@@ -28,7 +27,8 @@ public:
     static void drawHits(sf::RenderWindow &window);
     sf::Sprite getSprite() { return hitSprite; }
 private:
-    float x, y, w, h; // basic parameters: x, y - location; w, h - width and height of the texture
+    sf::Vector2f position;
+    float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::hit::speed;
     sf::Time lifeTime = sf::seconds(2);

@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Base.h"
 #include "string"
+#include "queue"
 #include "../utils/settings.h"
 #include "../core/assets.h"
 
@@ -30,7 +31,8 @@ public:
     }
 
     void setDestination(sf::Vector2i dest);
-    void createHit(sf::Vector2i hitDest);
+    void skillActivate(char button);
+    void skillCast(sf::Vector2i dest);
 
     void draw(sf::RenderWindow &window);
     void update(sf::Time elapsed);
@@ -41,14 +43,18 @@ private:
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::speed;
-    sf::Time hitColdown = sf::Time::Zero;
+    sf::Time hitCooldown = sf::Time::Zero, skillCooldownE = sf::Time::Zero;
     sf::Time flyTime = sf::Time::Zero, standTime = sf::Time::Zero; // for animation (used in setTexture)
     bool lookLeft {false}; // is texture reflected or not
     sf::Vector2f destination; // current movement goal
     sf::Texture heroTexture, destinationTexture;
     sf::Sprite heroSprite, destinationSprite;
+    int activeSkill = 0;
 
     void updateDirection(); // calculate direction (used in update)
+    void resetDestination();
     void setTexture(sf::Time elapsed); // for animation (used in update)
     void createRangeHit(sf::Vector2i mp);
+    void createFrostWave(sf::Vector2i mp);
+    void teleportToWave();
 };

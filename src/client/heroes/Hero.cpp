@@ -3,12 +3,17 @@
 #include <iostream>
 #include "../core/view.h"
 #include "RangeHit.h"
+#include "FrostWave.h"
 #include "../utils/globalFunctions.h"
 
 void Hero::update(sf::Time elapsed) {
     // update base hits
     RangeHit::hitsUpdate(elapsed);
-    hitColdown -= elapsed;
+    hitCooldown -= elapsed;
+
+    //update skills
+    FrostWave::wavesUpdate(elapsed);
+    skillCooldownE -= elapsed;
 
     // update direction (except small changes)
     updateDirection();
@@ -38,6 +43,7 @@ void Hero::updateDirection() {
 }
 
 void Hero::draw(sf::RenderWindow &window) {
+    FrostWave::drawWaves(window);
     RangeHit::drawHits(window);
     window.draw(destinationSprite);
     window.draw(heroSprite);
@@ -80,7 +86,20 @@ void Hero::createRangeHit(sf::Vector2i mp){
     if (!(dest.x == xh && dest.y == yh)) {
         dest.x -= xh; dest.y -= yh;
         new RangeHit(xh,yh,70,70,dest.x/length(dest),dest.y/length(dest));
-        hitColdown = sf::seconds(0.5); // otsosi u traktorista
+        hitCooldown = sf::seconds(0.5);
+    }
+}
+
+void Hero::createFrostWave(sf::Vector2i mp){
+    sf::Vector2f dest = sf::Vector2f (float(mp.x),float(mp.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
+    float yh = position.y-93, xh = position.x;
+    if (lookLeft) xh -= 55;
+    else xh += 35;
+    if (flyTime > sf::Time::Zero) yh+=48;
+    if (!(dest.x == xh && dest.y == yh)) {
+        dest.x -= xh; dest.y -= yh;
+        new FrostWave(xh,yh,136.f,323.f,dest.x/length(dest),dest.y/length(dest));
+        skillCooldownE = sf::seconds(1);
     }
 }
 
@@ -89,7 +108,36 @@ void Hero::setDestination(sf::Vector2i dest) {
     destination = destination * currentCameraSize + currentCameraPos + currentCameraOffset;
 }
 
-void Hero::createHit(sf::Vector2i hitDest) {
-    if (hitColdown <= sf::Time::Zero)
-        createRangeHit(hitDest);
+void Hero::skillActivate(char button) {
+    if (button == '0')
+        activeSkill = 0;
+    if (button == 'E' && !FrostWave::isWaveExist() && skillCooldownE <= sf::Time::Zero)
+        activeSkill = 3;
+    if (button == 'E' && FrostWave::isWaveExist())
+        teleportToWave();
+}
+
+void Hero::skillCast(sf::Vector2i dest) {
+    switch (activeSkill) {
+        case 0:
+            if (hitCooldown <= sf::Time::Zero)
+                createRangeHit(dest);
+            break;
+        case 3:
+            if (skillCooldownE <= sf::Time::Zero) {
+                createFrostWave(dest);
+                activeSkill = 0;
+            }
+            break;
+    }
+}
+
+void Hero::teleportToWave() {
+    position = FrostWave::getFirstWavePos();
+    resetDestination();
+    FrostWave::killFirstWave();
+}
+
+void Hero::resetDestination() {
+    destination = position;
 }
