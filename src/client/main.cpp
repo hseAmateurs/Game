@@ -7,8 +7,6 @@
 #include "core/assets.h"
 #include "core/field.h"
 
-
-
 int main()
 {
     srand(time(nullptr));
@@ -31,10 +29,12 @@ int main()
                 field.handleRightClick(sf::Mouse::getPosition(window));
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 field.handleLeftClick(sf::Mouse::getPosition(window));
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-                field.handleButtonE();
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
                 field.handleButtonQ();
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+                field.handleButtonW();
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+                field.handleButtonE();
         }
         sf::Time elapsed = clock.restart();
 

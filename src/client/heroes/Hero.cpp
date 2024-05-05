@@ -19,6 +19,10 @@ void Hero::update(sf::Time elapsed, sf::Vector2i mousePos) {
     updateShapes(dest);
     IceSpikes::spikesUpdate(elapsed);
     skillCooldownQ -= elapsed;
+    skillCooldownW -= elapsed;
+    iceSequenceCreationTimer -= elapsed;
+    if (iceSequenceCreationTimer>sf::Time::Zero)
+        createIceSequence(dest);
     FrostWave::wavesUpdate(elapsed);
     skillCooldownE -= elapsed;
 
@@ -54,6 +58,8 @@ void Hero::draw(sf::RenderWindow &window) {
         rangeShapeQ.drawShape(window);
         aimShapeQ.draw(window);
     }
+    if (activeSkill == 2)
+        aimShapeW.draw(window);
     if (activeSkill == 3)
         rangeShapeE.drawShape(window);
     window.setMouseCursorVisible(!activeSkill);
@@ -126,20 +132,28 @@ void Hero::createBigIceSpikes(sf::Vector2f dest){
     activeSkill = 0;
 }
 
+void Hero::createIceSpikes(sf::Vector2f dest){
+    new IceSpikes(dest.x, dest.y, 126.f, 126.f, 0.66, 0.66);
+}
+
 void Hero::setDestination(sf::Vector2i dest) {
     destination = {float(dest.x),float(dest.y)}; // relative to our window, out of window = negative coordinates
     destination = destination * currentCameraSize + currentCameraPos + currentCameraOffset;
 }
 
 void Hero::skillActivate(char button) {
+    if (iceSequenceCreationTimer >= sf::Time::Zero)
+        return;
     if (button == '0')
         activeSkill = 0;
+    if (button == 'Q' && skillCooldownQ <= sf::Time::Zero)
+        activeSkill = 1;
+    if (button == 'W' && skillCooldownW <= sf::Time::Zero)
+        activeSkill = 2;
     if (button == 'E' && !FrostWave::isWaveExist() && skillCooldownE <= sf::Time::Zero)
         activeSkill = 3;
     if (button == 'E' && FrostWave::isWaveExist())
         teleportToWave();
-    if (button == 'Q' && skillCooldownQ <= sf::Time::Zero)
-        activeSkill = 1;
 }
 
 void Hero::skillCast(sf::Vector2i mp) {
@@ -153,6 +167,10 @@ void Hero::skillCast(sf::Vector2i mp) {
         case 1:
             if (skillCooldownQ <= sf::Time::Zero && dist(dest,position)<1000)
                 createBigIceSpikes(dest);
+            break;
+        case 2:
+            if (skillCooldownW <= sf::Time::Zero && iceSequenceCreationTimer != sf::Time::Zero)
+                iceSequenceCreationTimer = sf::seconds(3);
             break;
         case 3:
             if (skillCooldownE <= sf::Time::Zero)
@@ -180,7 +198,25 @@ void Hero::updateShapes(sf::Vector2f dest) {
             aimShapeQ.paint(sf::Color::White);
         aimShapeQ.relocate(dest);
     }
+    if (activeSkill == 2) {
+        aimShapeW.relocate(dest);
+    }
     if (activeSkill == 3) {
         rangeShapeE.relocate(position);
+    }
+}
+
+void Hero::createIceSequence(sf::Vector2f dest) {
+    resetDestination();
+    if (20 - iceSequenceCreationTimer.asMilliseconds() / 250 != iceSpikesCount) {
+        createIceSpikes(dest);
+        iceSpikesCount++;
+    }
+    if (iceSequenceCreationTimer.asMilliseconds() / 250 == 0) {
+        iceSequenceCreationTimer = sf::Time::Zero;
+        iceSpikesCount = 0;
+        genCD();
+        activeSkill = 0;
+        skillCooldownW = sf::seconds(5);
     }
 }

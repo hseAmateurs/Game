@@ -18,13 +18,18 @@ void Field::handleLeftClick(sf::Vector2i clickCoords) {
     hero.skillCast(clickCoords);
 }
 
+void Field::handleButtonQ() {
+    hero.skillActivate('Q');
+}
+
+void Field::handleButtonW() {
+    hero.skillActivate('W');
+}
+
 void Field::handleButtonE() {
     hero.skillActivate('E');
 }
 
-void Field::handleButtonQ() {
-    hero.skillActivate('Q');
-}
 
 void Field::draw(sf::RenderWindow &window) {
 
@@ -35,3 +40,5 @@ void Field::draw(sf::RenderWindow &window) {
     window.draw(fps);
 #endif
 }
+
+

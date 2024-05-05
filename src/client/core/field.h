@@ -21,8 +21,9 @@ public:
     void draw(sf::RenderWindow& window);
     void handleRightClick(sf::Vector2i clickCoords);
     void handleLeftClick(sf::Vector2i clickCoords);
-    void handleButtonE();
     void handleButtonQ();
+    void handleButtonW();
+    void handleButtonE();
 
 private:
     Map map;

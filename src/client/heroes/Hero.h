@@ -12,6 +12,7 @@ class Hero: public Base{
 public:
     Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H),
     aimShapeQ({X,Y},67,sf::Color::White),
+    aimShapeW({X,Y},43,sf::Color::White),
     rangeShapeQ({X,Y},1000,sf::Color::White),
     rangeShapeE({X,Y},1500,sf::Color::White){
 
@@ -49,14 +50,16 @@ private:
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::speed;
     sf::Time generalCooldown = sf::Time::Zero, hitCooldown = sf::Time::Zero,
-    skillCooldownE = sf::Time::Zero, skillCooldownQ = sf::Time::Zero;
+    skillCooldownE = sf::Time::Zero, skillCooldownQ = sf::Time::Zero, skillCooldownW = sf::Time::Zero,
+    iceSequenceCreationTimer = sf::Time::Zero;
     sf::Time flyTime = sf::Time::Zero, standTime = sf::Time::Zero; // for animation (used in setTexture)
     bool lookLeft {false}; // is texture reflected or not
     sf::Vector2f destination; // current movement goal
     sf::Texture heroTexture, destinationTexture;
     sf::Sprite heroSprite, destinationSprite;
     int activeSkill = 0; // 0 - RangeHit, 1 - Q, 2 - W, 3 - E, 4 - R
-    CircleShape aimShapeQ;
+    int iceSpikesCount = 0;
+    CircleShape aimShapeQ, aimShapeW;
     CircleShape rangeShapeQ, rangeShapeE;
 
     void updateDirection(); // calculate direction (used in update)
@@ -65,6 +68,8 @@ private:
     void createRangeHit(sf::Vector2f dest);
     void createFrostWave(sf::Vector2f dest);
     void createBigIceSpikes(sf::Vector2f dest);
+    void createIceSpikes(sf::Vector2f dest);
+    void createIceSequence(sf::Vector2f dest);
     void teleportToWave();
     void genCD() {generalCooldown = sf::seconds(0.1);}
     void updateShapes(sf::Vector2f dest);
