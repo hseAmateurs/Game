@@ -67,7 +67,8 @@ void Server::handle_client(int client_socket) {
         printf("Client %d: %s\n", client_socket, message.c_str());
         //sendMessage(client_socket, "Hello from server");
         //sendMessage(client_socket, (std::to_string(database.findLogin(message))).c_str());
-        sendMessage(client_socket, controller.handleRequest(message).c_str());
+        std::string answer = controller.handleRequest(message, client_socket);
+        sendMessage(client_socket, answer.c_str());
     }
     closesock(client_socket);
 }
