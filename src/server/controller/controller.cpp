@@ -169,6 +169,6 @@ std::string Controller::handleStopQuickSearch() {
     std::string login = params[0];
     quickGameQueue.removeFromQueue(login);
     // Return a message indicating that the search has stopped
-    return "SEARCH_STOPPED";
+    return "0";
 }
 
