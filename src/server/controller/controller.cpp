@@ -1,6 +1,7 @@
 #include "controller.h"
 
-std::string Controller::handleRequest(const std::string& request) {
+
+std::string Controller::handleRequest(const std::string& request, int &client_socket) {
     parseRequest(request);
 
     // Call the appropriate handler based on the request code
@@ -11,7 +12,8 @@ std::string Controller::handleRequest(const std::string& request) {
         case 302: return handleUpdateStatistics();
         case 401: return handleGetFriends();
         case 402: return handleAddFriend();
-        case 501: return handleStartQuick();
+        case 501: return handleStartQuickSearch(client_socket);
+        case 502: return handleStopQuickSearch();
         default: return "UNKNOWN_REQUEST";
     }
 }
@@ -141,13 +143,32 @@ std::string Controller::handleAddFriend() {
     return "2"; // login doesnt exist
 }
 
-std::string Controller::handleStartQuick() {
-    // должна быть проверка на нахождение в очереди
-    if(quickGameQueue.isntInQueue(params[0])) {
-        quickGameQueue.addToQueue(params[0]);
+std::string Controller::handleStartQuickSearch(int &client_socket) {
+    if (params.size() < 1) {
+        return "WRONG_REQUEST";
     }
-
-    quickGameQueue.loadGameLobby();
-
-    return "0";
+    std::string login = params[0];
+    // Check if the player is already in the queue
+    //quickGameQueue.matchmake(params[0]);
+    if (quickGameQueue.isPlayerInAnyLobby(params[0])){
+        return "1";
+    }else if (quickGameQueue.isntInQueue(login)) {
+        return quickGameQueue.addToQueue(login, client_socket);
+    } else if (!quickGameQueue.isPlayerInAnyLobby(params[0])){
+        return quickGameQueue.matchmake(params[0]);
+    }
+    // Return a message indicating that the search has started
+    //return "SEARCH_STARTED";
+    return "SMTH_WENT_WRONG";
 }
+
+std::string Controller::handleStopQuickSearch() {
+    if (params.size() < 1) {
+        return "WRONG_REQUEST";
+    }
+    std::string login = params[0];
+    quickGameQueue.removeFromQueue(login);
+    // Return a message indicating that the search has stopped
+    return "SEARCH_STOPPED";
+}
+
