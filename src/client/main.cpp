@@ -38,7 +38,7 @@ int main()
         }
         sf::Time elapsed = clock.restart();
 
-        field.update(elapsed);
+        field.update(elapsed, sf::Mouse::getPosition(window));
 
         window.clear(sf::Color(100,100,100));
         changeView(elapsed, event.mouseWheelScroll.delta, sf::Mouse::getPosition(window));

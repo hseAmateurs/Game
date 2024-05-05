@@ -2,11 +2,13 @@
 #include "list"
 #include "../utils/settings.h"
 #include "../core/assets.h"
+#include "circleShape.h"
 
 class IceSpikes{
 public:
     static std::list<IceSpikes*> spikesList; // all alive hero spikes here
-    IceSpikes(float X, float Y, float W, float H, float Scale, float Delay): position(X,Y), w(W), h(H), scale(Scale), delay(Delay) {
+    IceSpikes(float X, float Y, float W, float H, float Scale, float Delay): position(X,Y), w(W), h(H), scale(Scale), delay(Delay),
+                                                                             warningShape(sf::Vector2f (X,Y),68,sf::Color(215,215,255)){
         spikesList.insert(spikesList.end(),this);
         // w = 126 h = 126 for current texture (ice_spikes)
         lifeTime = sf::seconds(delay+1);
@@ -36,6 +38,7 @@ private:
     bool alive {true};
     sf::Texture spikeTexture;
     sf::Sprite spikeSprite;
+    CircleShape warningShape;
 
     void update(sf::Time elapsed);
     void animate();

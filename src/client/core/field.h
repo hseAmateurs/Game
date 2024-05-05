@@ -17,7 +17,7 @@ public:
     #endif
     }
 
-    void update(sf::Time elapsed);
+    void update(sf::Time elapsed, sf::Vector2i mousePos);
     void draw(sf::RenderWindow& window);
     void handleRightClick(sf::Vector2i clickCoords);
     void handleLeftClick(sf::Vector2i clickCoords);

@@ -6,10 +6,15 @@
 #include "queue"
 #include "../utils/settings.h"
 #include "../core/assets.h"
+#include "circleShape.h"
 
 class Hero: public Base{
 public:
-    Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H) {
+    Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H),
+    aimShapeQ({X,Y},67,sf::Color::White),
+    rangeShapeQ({X,Y},1000,sf::Color::White),
+    rangeShapeE({X,Y},1500,sf::Color::White){
+
         // w = 150 h = 150 for current texture (blue_hero)
         destination = position;
         direction = {0.f,0.f}; // no destination
@@ -35,7 +40,7 @@ public:
     void skillCast(sf::Vector2i dest);
 
     void draw(sf::RenderWindow &window);
-    void update(sf::Time elapsed);
+    void update(sf::Time elapsed, sf::Vector2i mousePos);
 
 
 private:
@@ -43,20 +48,24 @@ private:
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::speed;
-    sf::Time generalCooldown = sf::Time::Zero, hitCooldown = sf::Time::Zero, skillCooldownE = sf::Time::Zero;
+    sf::Time generalCooldown = sf::Time::Zero, hitCooldown = sf::Time::Zero,
+    skillCooldownE = sf::Time::Zero, skillCooldownQ = sf::Time::Zero;
     sf::Time flyTime = sf::Time::Zero, standTime = sf::Time::Zero; // for animation (used in setTexture)
     bool lookLeft {false}; // is texture reflected or not
     sf::Vector2f destination; // current movement goal
     sf::Texture heroTexture, destinationTexture;
     sf::Sprite heroSprite, destinationSprite;
-    int activeSkill = 0;
+    int activeSkill = 0; // 0 - RangeHit, 1 - Q, 2 - W, 3 - E, 4 - R
+    CircleShape aimShapeQ;
+    CircleShape rangeShapeQ, rangeShapeE;
 
     void updateDirection(); // calculate direction (used in update)
     void resetDestination();
     void setTexture(sf::Time elapsed); // for animation (used in update)
-    void createRangeHit(sf::Vector2i mp);
-    void createFrostWave(sf::Vector2i mp);
-    void createBigIceSpikes(sf::Vector2i mp);
+    void createRangeHit(sf::Vector2f dest);
+    void createFrostWave(sf::Vector2f dest);
+    void createBigIceSpikes(sf::Vector2f dest);
     void teleportToWave();
     void genCD() {generalCooldown = sf::seconds(0.1);}
+    void updateShapes(sf::Vector2f dest);
 };

@@ -7,7 +7,8 @@
 #include "IceSpikes.h"
 #include "../utils/globalFunctions.h"
 
-void Hero::update(sf::Time elapsed) {
+void Hero::update(sf::Time elapsed, sf::Vector2i mousePos) {
+    sf::Vector2f dest = sf::Vector2f (float(mousePos.x),float(mousePos.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
     generalCooldown -= elapsed;
 
     // update base hits
@@ -15,7 +16,9 @@ void Hero::update(sf::Time elapsed) {
     hitCooldown -= elapsed;
 
     //update skills
+    updateShapes(dest);
     IceSpikes::spikesUpdate(elapsed);
+    skillCooldownQ -= elapsed;
     FrostWave::wavesUpdate(elapsed);
     skillCooldownE -= elapsed;
 
@@ -47,6 +50,13 @@ void Hero::updateDirection() {
 }
 
 void Hero::draw(sf::RenderWindow &window) {
+    if (activeSkill == 1) {
+        rangeShapeQ.drawShape(window);
+        aimShapeQ.draw(window);
+    }
+    if (activeSkill == 3)
+        rangeShapeE.drawShape(window);
+    window.setMouseCursorVisible(!activeSkill);
     IceSpikes::drawSpikes(window);
     FrostWave::drawWaves(window);
     RangeHit::drawHits(window);
@@ -82,8 +92,7 @@ void Hero::setTexture(sf::Time elapsed) {
     }
 }
 
-void Hero::createRangeHit(sf::Vector2i mp){
-    sf::Vector2f dest = sf::Vector2f (float(mp.x),float(mp.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
+void Hero::createRangeHit(sf::Vector2f dest){
     float yh = position.y-93, xh = position.x;
     if (lookLeft) xh -= 55;
     else xh += 35;
@@ -96,8 +105,7 @@ void Hero::createRangeHit(sf::Vector2i mp){
     }
 }
 
-void Hero::createFrostWave(sf::Vector2i mp){
-    sf::Vector2f dest = sf::Vector2f (float(mp.x),float(mp.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
+void Hero::createFrostWave(sf::Vector2f dest){
     float yh = position.y-93, xh = position.x;
     if (lookLeft) xh -= 55;
     else xh += 35;
@@ -107,13 +115,15 @@ void Hero::createFrostWave(sf::Vector2i mp){
         new FrostWave(xh,yh,136.f,323.f,dest.x/length(dest),dest.y/length(dest));
         skillCooldownE = sf::seconds(7);
         genCD();
+        activeSkill = 0;
     }
 }
 
-void Hero::createBigIceSpikes(sf::Vector2i mp){
-    sf::Vector2f dest = sf::Vector2f (float(mp.x),float(mp.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
-    new IceSpikes(dest.x,dest.y,126.f,126.f,1,0);
+void Hero::createBigIceSpikes(sf::Vector2f dest){
+    new IceSpikes(dest.x, dest.y, 126.f, 126.f, 1, 1);
+    skillCooldownQ = sf::seconds(5);
     genCD();
+    activeSkill = 0;
 }
 
 void Hero::setDestination(sf::Vector2i dest) {
@@ -128,25 +138,25 @@ void Hero::skillActivate(char button) {
         activeSkill = 3;
     if (button == 'E' && FrostWave::isWaveExist())
         teleportToWave();
-    if (button == 'Q')
+    if (button == 'Q' && skillCooldownQ <= sf::Time::Zero)
         activeSkill = 1;
 }
 
-void Hero::skillCast(sf::Vector2i dest) {
+void Hero::skillCast(sf::Vector2i mp) {
     if (generalCooldown > sf::Time::Zero) return;
+    sf::Vector2f dest = sf::Vector2f (float(mp.x),float(mp.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
     switch (activeSkill) {
         case 0:
             if (hitCooldown <= sf::Time::Zero)
                 createRangeHit(dest);
             break;
         case 1:
-            createBigIceSpikes(dest);
+            if (skillCooldownQ <= sf::Time::Zero && dist(dest,position)<1000)
+                createBigIceSpikes(dest);
             break;
         case 3:
-            if (skillCooldownE <= sf::Time::Zero) {
+            if (skillCooldownE <= sf::Time::Zero)
                 createFrostWave(dest);
-                activeSkill = 0;
-            }
             break;
     }
 }
@@ -159,4 +169,18 @@ void Hero::teleportToWave() {
 
 void Hero::resetDestination() {
     destination = position;
+}
+
+void Hero::updateShapes(sf::Vector2f dest) {
+    if (activeSkill == 1) {
+        rangeShapeQ.relocate(position);
+        if (dist(position,dest) > 1000)
+            aimShapeQ.paint(sf::Color::Red);
+        else
+            aimShapeQ.paint(sf::Color::White);
+        aimShapeQ.relocate(dest);
+    }
+    if (activeSkill == 3) {
+        rangeShapeE.relocate(position);
+    }
 }

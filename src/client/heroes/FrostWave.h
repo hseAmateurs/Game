@@ -41,7 +41,7 @@ private:
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::frostWave::speed;
-    sf::Time lifeTime = sf::seconds(4);
+    sf::Time lifeTime = sf::seconds(5);
     bool alive {true};
     sf::Texture waveTexture;
     sf::Sprite waveSprite;

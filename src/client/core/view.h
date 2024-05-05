@@ -18,19 +18,19 @@ inline int viewHeight = settings::screen::HEIGHT;
 
 inline void changeView(sf::Time elapsed, float wheelDir, sf::Vector2i mouseCoords) {
 
-    if (mouseCoords.x > settings::screen::WIDTH-50) {
+    if (mouseCoords.x > settings::screen::WIDTH-30) {
         view.move(cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
         currentCameraPos.x += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
-    if (mouseCoords.y > settings::screen::HEIGHT-50) {
+    if (mouseCoords.y > settings::screen::HEIGHT-30) {
         view.move(0, cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
         currentCameraPos.y += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
-    if (mouseCoords.x < 50) {
+    if (mouseCoords.x < 30) {
         view.move(-cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
         currentCameraPos.x += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }
-    if (mouseCoords.y < 50) {
+    if (mouseCoords.y < 30) {
         view.move(0, -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
         currentCameraPos.y += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
     }

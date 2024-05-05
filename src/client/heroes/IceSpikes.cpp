@@ -32,6 +32,8 @@ void IceSpikes::drawSpikes(sf::RenderWindow &window) {
 void IceSpikes::draw(sf::RenderWindow &window) {
     if (lifeTime<sf::seconds(1))
         window.draw(spikeSprite);
+    else
+        warningShape.draw(window);
 }
 
 void IceSpikes::animate() {
