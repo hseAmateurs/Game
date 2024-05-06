@@ -35,6 +35,8 @@ int main()
                 field.handleButtonW();
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
                 field.handleButtonE();
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+                field.handleButtonR();
         }
         sf::Time elapsed = clock.restart();
 

@@ -25,6 +25,7 @@ public:
     void handleButtonQ();
     void handleButtonW();
     void handleButtonE();
+    void handleButtonR();
 
 private:
     Map map;

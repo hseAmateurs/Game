@@ -13,8 +13,10 @@ public:
     Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H),
     aimShapeQ({X,Y},settings::textures::iceSpikesWidth/2+5,sf::Color::White),
     aimShapeW({X,Y},(settings::textures::iceSpikesWidth/2+5) * settings::hero::iceSequence::spikesScale,sf::Color::White),
+    aimShapeR({X,Y},(settings::textures::blizzardWidth/2+5) * settings::hero::blizzard::blizzardScale,sf::Color::White),
     rangeShapeQ({X,Y},settings::hero::iceSpikes::rangeRadius,sf::Color::White),
-    rangeShapeE({X,Y},settings::hero::frostWave::speed * settings::hero::frostWave::lifeTime,sf::Color::White){
+    rangeShapeE({X,Y},settings::hero::frostWave::speed * settings::hero::frostWave::lifeTime,sf::Color::White),
+    rangeShapeR({X,Y},settings::hero::blizzard::rangeRadius,sf::Color::White){
 
         // w = 150 h = 150 for current texture (blue_hero)
         destination = position;
@@ -50,7 +52,7 @@ private:
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::speed;
     sf::Time generalCooldown = sf::Time::Zero, hitCooldown = sf::Time::Zero,
-    skillCooldownE = sf::Time::Zero, skillCooldownQ = sf::Time::Zero, skillCooldownW = sf::Time::Zero,
+    skillCooldownE = sf::Time::Zero, skillCooldownQ = sf::Time::Zero, skillCooldownW = sf::Time::Zero, skillCooldownR = sf::Time::Zero,
     iceSequenceCreationTimer = sf::Time::Zero; // timer for IceSequence (W)
     sf::Time flyTime = sf::Time::Zero, standTime = sf::Time::Zero; // for animation (used in setTexture)
     bool lookLeft {false}; // is texture reflected or not
@@ -61,8 +63,8 @@ private:
     int iceSpikesCount = 0; // for IceSequence (W)
     bool iceSequenceStarted{false}; // for slowing IceSequence (W) and correct cursor visibility
     sf::Vector2f lastIceSpikes; // for slowing IceSequence (W)
-    CircleShape aimShapeQ, aimShapeW; // shapes instead of cursor while skill is active
-    CircleShape rangeShapeQ, rangeShapeE; // shapes showing skill range while skill is active
+    CircleShape aimShapeQ, aimShapeW, aimShapeR; // shapes instead of cursor while skill is active
+    CircleShape rangeShapeQ, rangeShapeE, rangeShapeR; // shapes showing skill range while skill is active
 
     void updateDirection(); // calculate direction (used in update)
     void resetDestination(); // set dest to pos
@@ -71,6 +73,7 @@ private:
     void createFrostWave(sf::Vector2f dest);
     void createBigIceSpikes(sf::Vector2f dest);
     void createIceSequence(sf::Vector2f dest);
+    void createBlizzard(sf::Vector2f dest);
     void teleportToWave(); // for FrostWave (E) recall
     void genCD() {generalCooldown = sf::seconds(0.1);} // prevention from skill spamming
     void updateShapes(sf::Vector2f dest); // for correct active skills display

@@ -35,6 +35,8 @@ namespace settings {
         const float iceSpikesHeight = 126;
         const float frostWaveWidth = 136;
         const float frostWaveHeight = 323;
+        const float blizzardWidth = 1100;
+        const float blizzardHeight = 1100;
     }
 
     namespace hero {
@@ -59,6 +61,14 @@ namespace settings {
             const float speed = 300;
             const float lifeTime = 5;
             const float coolDown = 7;
+        }
+        namespace blizzard {
+            const float rangeRadius = 1000;
+            const float coolDown = 10;
+            const float rotationSpeedSnow = 100;
+            const float rotationSpeedCloud = 200;
+            const float lifeTime = 8;
+            const float blizzardScale = 1;
         }
 
         const float speed = 200;

@@ -6,3 +6,5 @@ sf::Image Assets::fireballImg;
 sf::Image Assets::destPointImg;
 sf::Image Assets::frostWaveImg;
 sf::Image Assets::IceSpikesImg;
+sf::Image Assets::BlizzardImg;
+sf::Image Assets::BlizzardCloudImg;

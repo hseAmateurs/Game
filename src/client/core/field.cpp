@@ -30,6 +30,10 @@ void Field::handleButtonE() {
     hero.skillActivate('E');
 }
 
+void Field::handleButtonR() {
+    hero.skillActivate('R');
+}
+
 
 void Field::draw(sf::RenderWindow &window) {
 
