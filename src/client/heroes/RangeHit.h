@@ -16,7 +16,7 @@ public:
         hitTexture.loadFromImage(hitImage);
         hitSprite.setTexture(hitTexture);
         hitSprite.setTextureRect(sf::IntRect(0, 0, w, h));
-        hitSprite.setOrigin(35, 35);
+        hitSprite.setOrigin(w/2, h/2); // origin to center
         hitSprite.setPosition(position);
     }
     ~RangeHit(){
@@ -31,7 +31,7 @@ private:
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::hit::speed;
-    sf::Time lifeTime = sf::seconds(2);
+    sf::Time lifeTime = sf::seconds(settings::hero::hit::lifeTime);
     bool alive {true};
     sf::Texture hitTexture;
     sf::Sprite hitSprite;

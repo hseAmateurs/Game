@@ -8,7 +8,7 @@
 
 class FrostWave{
 public:
-    static std::list<FrostWave*> wavesList; // all alive hero hits here
+    static std::list<FrostWave*> wavesList; // all alive hero waves here
     FrostWave(float X, float Y, float W, float H, float dirX, float dirY): position(X,Y), w(W), h(H) {
         wavesList.insert(wavesList.end(),this);
         // w = 136 h = 323 for current texture (frost_wave)
@@ -19,7 +19,7 @@ public:
         waveTexture.loadFromImage(waveImage);
         waveSprite.setTexture(waveTexture);
         waveSprite.setTextureRect(sf::IntRect(0, 0, w, h));
-        waveSprite.setOrigin(120, 162);
+        waveSprite.setOrigin(w-16, h/2);
         waveSprite.setPosition(position);
         if(dirY>0) waveSprite.setRotation(acosf(dirX)*180.f/M_PI);
         else waveSprite.setRotation(-acosf(dirX)*180.f/M_PI);
@@ -31,7 +31,7 @@ public:
     }
 
     static sf::Vector2f getFirstWavePos() {return wavesList.back()->position;}
-    static void killFirstWave() {delete wavesList.back();}
+    static void killFirstWave() { delete wavesList.back(); }
     static bool isWaveExist() { return !wavesList.empty(); }
     sf::Sprite getSprite() { return waveSprite; }
     static void drawWaves(sf::RenderWindow &window);
@@ -41,7 +41,7 @@ private:
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::frostWave::speed;
-    sf::Time lifeTime = sf::seconds(5);
+    sf::Time lifeTime = sf::seconds(settings::hero::frostWave::lifeTime);
     bool alive {true};
     sf::Texture waveTexture;
     sf::Sprite waveSprite;

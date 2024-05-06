@@ -38,6 +38,6 @@ void IceSpikes::draw(sf::RenderWindow &window) {
 
 void IceSpikes::animate() {
     if (lifeTime<sf::seconds(1) && lifeTime.asMilliseconds()/172>2) {
-        spikeSprite.setTextureRect(sf::IntRect ((5-lifeTime.asMilliseconds()/172)*126,0,w,h));
+        spikeSprite.setTextureRect(sf::IntRect ((5-lifeTime.asMilliseconds()/172) * w,0,w,h));
     }
 }
