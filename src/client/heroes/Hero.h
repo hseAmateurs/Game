@@ -58,7 +58,9 @@ private:
     sf::Texture heroTexture, destinationTexture;
     sf::Sprite heroSprite, destinationSprite;
     int activeSkill = 0; // 0 - RangeHit, 1 - Q, 2 - W, 3 - E, 4 - R
-    int iceSpikesCount = 0;
+    int iceSpikesCount = 0; // for IceSequence (W)
+    bool iceSequenceStarted{false}; // for slowing IceSequence (W)
+    sf::Vector2f lastIceSpikes; // for slowing IceSequence (W)
     CircleShape aimShapeQ, aimShapeW;
     CircleShape rangeShapeQ, rangeShapeE;
 

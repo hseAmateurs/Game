@@ -62,7 +62,7 @@ void Hero::draw(sf::RenderWindow &window) {
         aimShapeW.draw(window);
     if (activeSkill == 3)
         rangeShapeE.drawShape(window);
-    window.setMouseCursorVisible(!activeSkill);
+    window.setMouseCursorVisible(!activeSkill || iceSequenceStarted);
     IceSpikes::drawSpikes(window);
     FrostWave::drawWaves(window);
     RangeHit::drawHits(window);
@@ -198,9 +198,8 @@ void Hero::updateShapes(sf::Vector2f dest) {
             aimShapeQ.paint(sf::Color::White);
         aimShapeQ.relocate(dest);
     }
-    if (activeSkill == 2) {
+    if (activeSkill == 2 && !iceSequenceStarted)
         aimShapeW.relocate(dest);
-    }
     if (activeSkill == 3) {
         rangeShapeE.relocate(position);
     }
@@ -208,9 +207,20 @@ void Hero::updateShapes(sf::Vector2f dest) {
 
 void Hero::createIceSequence(sf::Vector2f dest) {
     resetDestination();
-    if (20 - iceSequenceCreationTimer.asMilliseconds() / 250 != iceSpikesCount) {
-        createIceSpikes(dest);
+    if (12 - iceSequenceCreationTimer.asMilliseconds() / 250 != iceSpikesCount) {
+        sf::Vector2f destSlowed = {0,0};
+        if (!iceSequenceStarted)
+            destSlowed = dest;
+        else {
+            if (length(dest-lastIceSpikes) > 30.f)
+                destSlowed = lastIceSpikes + (dest-lastIceSpikes)/length(dest-lastIceSpikes)*30.f;
+            else
+                destSlowed = lastIceSpikes + (dest-lastIceSpikes);
+        }
+        iceSequenceStarted = true;
+        createIceSpikes(destSlowed);
         iceSpikesCount++;
+        lastIceSpikes = destSlowed;
     }
     if (iceSequenceCreationTimer.asMilliseconds() / 250 == 0) {
         iceSequenceCreationTimer = sf::Time::Zero;
@@ -218,5 +228,6 @@ void Hero::createIceSequence(sf::Vector2f dest) {
         genCD();
         activeSkill = 0;
         skillCooldownW = sf::seconds(5);
+        iceSequenceStarted = false;
     }
 }
