@@ -3,6 +3,7 @@
 #include "statisticsMenu.h"
 #include "friendEntry.h"
 #include "friendsMenu.h"
+#include "quickplayMenu.h"
 
 MainMenu::MainMenu(const sf::Font& font,MenuManager* menuManager,Client& client) :
     Menu("Main Menu"),
@@ -102,6 +103,17 @@ void MainMenu::handleInput(const sf::Event& event, sf::RenderWindow& window,Clie
                 }   
                 menuManager->pushMenu(new FriendsMenu(menuManager->getFont(),menuManager,client,vec));
             }
+        }
+    }
+
+    if(quickPlayButton.isPressed(window)){
+        MenuManager* menuManager=getMenuManager();
+        if(menuManager){
+            std::string message;
+            message="501 "+client.getLogin();
+            client.sendMessage(message.c_str());
+            message=client.getMessage();
+            menuManager->pushMenu(new QuickplayMenu(menuManager->getFont(),menuManager,client));            
         }
     }
 

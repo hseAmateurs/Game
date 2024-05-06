@@ -12,7 +12,7 @@ public:
     void draw(sf::RenderWindow& window) override;
     void handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) override;
 
-    void update(const sf::Time& deltaTime);
+    void update(const sf::Time& deltaTime,Client& client);
     MenuManager* getMenuManager();
 
 

@@ -90,7 +90,7 @@ void FriendsMenu::handleInput(const sf::Event& event, sf::RenderWindow& window,C
 
 }
 
-void FriendsMenu::update(const sf::Time& deltaTime){
+void FriendsMenu::update(const sf::Time& deltaTime,Client& client){
     addFriendField.update(deltaTime);
 }
 

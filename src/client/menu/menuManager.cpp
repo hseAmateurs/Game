@@ -26,9 +26,9 @@ void MenuManager::handleInput(const sf::Event& event, sf::RenderWindow& window,C
     }
 }
 
-void MenuManager::update(const sf::Time& deltaTime) {
+void MenuManager::update(const sf::Time& deltaTime,Client& client) {
     if (!menus.empty()) {
-        menus.top()->update(deltaTime); 
+        menus.top()->update(deltaTime,client); 
     }
 }
 

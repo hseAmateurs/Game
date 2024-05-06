@@ -13,7 +13,7 @@ public:
 
     virtual void draw(sf::RenderWindow& window);
     virtual void handleInput(const sf::Event& event, sf::RenderWindow& window, Client& client);
-    virtual void update(const sf::Time& deltaTime);
+    virtual void update(const sf::Time& deltaTime,Client& client);
     virtual ~Menu() {} // Virtual destructor
 
     std::string getTitle() const { return title; }

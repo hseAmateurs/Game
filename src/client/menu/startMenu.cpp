@@ -5,10 +5,13 @@
 
 StartMenu::StartMenu(const sf::Font& font, MenuManager* menuManager) :
     Menu("Start Menu"),
-    loginButton(sf::Vector2f(100, 100), "Login", font),
-    registerButton(sf::Vector2f(100, 200), "Register", font),
+    loginButton(sf::Vector2f(710, 400), "Login", font),
+    registerButton(sf::Vector2f(710, 600), "Register", font),
     menuManager(menuManager)
 {
+    loginButton.setSize(500.f, 100.f);
+    registerButton.setSize(500.f, 100.f);
+
 }
 
 void StartMenu::draw(sf::RenderWindow& window) {

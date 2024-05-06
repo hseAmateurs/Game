@@ -7,4 +7,4 @@ void Menu::draw(sf::RenderWindow& window) {}
 
 void Menu::handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client) {}
 
-void Menu::update(const sf::Time& deltaTime) {}
+void Menu::update(const sf::Time& deltaTime,Client& client) {}

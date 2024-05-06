@@ -14,7 +14,7 @@ public:
 
     bool isValidLogin(const std::string& username, const std::string& password);
 
-    void update(const sf::Time& deltaTime);
+    void update(const sf::Time& deltaTime,Client& client);
     MenuManager* getMenuManager();
 
 

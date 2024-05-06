@@ -81,7 +81,7 @@ MenuManager* RegistrationMenu::getMenuManager(){
     return menuManager; 
 }
 
-void RegistrationMenu::update(const sf::Time& deltaTime){
+void RegistrationMenu::update(const sf::Time& deltaTime,Client& client){
     usernameField.update(deltaTime);
     passwordField.update(deltaTime);
 }

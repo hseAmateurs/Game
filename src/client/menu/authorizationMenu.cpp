@@ -60,7 +60,7 @@ MenuManager* AuthorizationMenu::getMenuManager() {
     return menuManager; 
 }
 
-void AuthorizationMenu::update(const sf::Time& deltaTime){
+void AuthorizationMenu::update(const sf::Time& deltaTime,Client& client){
     usernameField.update(deltaTime);
     passwordField.update(deltaTime);
 }

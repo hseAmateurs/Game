@@ -25,7 +25,7 @@ void Controller::run() {
         }
 
         sf::Time deltaTime = clock.restart();
-        menuManager.update(deltaTime);
+        menuManager.update(deltaTime,client);
 
         window.clear(sf::Color(50,50,50));
         menuManager.draw(window);

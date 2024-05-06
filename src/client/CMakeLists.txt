@@ -17,6 +17,7 @@ add_executable(Client
         menu/statisticsMenu.h
         menu/friendEntry.h
         menu/friendsMenu.h
+        menu/quickplayMenu.h
         main.cpp
         ../common.h
 
@@ -33,6 +34,7 @@ add_executable(Client
         menu/statisticsMenu.cpp
         menu/friendEntry.cpp
         menu/friendsMenu.cpp
+        menu/quickplayMenu.cpp
 )
 
 
