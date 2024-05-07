@@ -1,5 +1,6 @@
 #include "QuickplayMenu.h"
 #include <iostream>
+#include "gameScreen.h"
 
 QuickplayMenu::QuickplayMenu(const sf::Font& font, MenuManager* menuManager,Client& client) :
     Menu("Quick Play"),
@@ -55,7 +56,8 @@ void QuickplayMenu::update(const sf::Time& deltaTime,Client& client){
         message=client.getMessage();
         if(message=="1"){
             searchingText.setString("Lobby found! Launching game...");
-            //pushmenu "game" to the menumanager
+            menuManager->pushMenu(new GameScreen(menuManager->getFont(),menuManager,client));            
+
         }
     }
 
