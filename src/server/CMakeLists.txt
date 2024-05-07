@@ -16,7 +16,7 @@ add_executable(Server
         gameLobby/gameLobby.cpp
         gameLobby/quickGame.h
         gameLobby/quickGame.cpp
-
+        gameLobby/utils.cpp
 
 
 )

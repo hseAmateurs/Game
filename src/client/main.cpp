@@ -28,6 +28,10 @@ int main() {
 
         std::string buffer = client.getMessage();
         std::cout<<"Server: "<<buffer<<"\n";
+        if (message[0] == '/') {
+            std::string a = client.getMessage();
+            std::cout<<"Server: "<<a<<"\n";
+        }
     }
 
 

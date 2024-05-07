@@ -6,19 +6,20 @@
 #include <sstream>
 #include "../dataBase/playerDatabase.h"
 #include "../gameLobby/quickGame.h"
-
+#include "../gameLobby/utils.cpp"
 
 
 class Controller {
 public:
-    Controller(PlayerDatabase& database) : database(database),  quickGameQueue() {}
-    std::string handleRequest(const std::string& request, int &client_socket);
+    Controller(PlayerDatabase& database, std::vector<GameLobby*> &activelobbies, QuickGame &quickGameQueue) : database(database),  quickGameQueue(quickGameQueue), activelobbies(activelobbies) {}
+    std::string handleRequest(const std::string& request, int &client_socket, bool enteringLobby, GameLobby *clientLobby);
 
 private:
     PlayerDatabase& database;
     int requestCode;
     std::vector<std::string> params;
-    QuickGame quickGameQueue;
+    QuickGame &quickGameQueue;
+    std::vector<GameLobby*> &activelobbies;
 
 
 
@@ -36,9 +37,12 @@ private:
 
     std::string handleAddFriend();
 
-    std::string handleStartQuickSearch(int &client_socket);
+    std::string handleStartQuickSearch(int &client_socket, bool enteringLobby);
 
     std::string handleStopQuickSearch();
+
+    std::string handleGameCommand(int clientSocket, GameLobby *clientLobby);
+
 
 };
 

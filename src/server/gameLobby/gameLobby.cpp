@@ -1,15 +1,9 @@
 #include "gameLobby.h"
 #include <algorithm>
 #include "../../common.h"
+#include <algorithm>
+#include <memory>
 
-
-
-//GameLobby::~GameLobby() {
-//    // Close client sockets when the lobby is destroyed
-//    for (int clientSocket : playerSockets) {
-//        closesock(clientSocket);
-//    }
-//}
 
 void GameLobby::addPlayer(const std::string& username, int clientSocket) {
     playerLogins.push_back(username);
@@ -31,3 +25,12 @@ bool GameLobby::hasPlayer(const std::string& username) {
     }
     return false; // Player not found in this lobby
 }
+
+void GameLobby::gameLoop() {
+    test+=1;
+}
+
+
+
+
+
