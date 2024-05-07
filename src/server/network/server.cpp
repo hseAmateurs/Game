@@ -82,6 +82,9 @@ void Server::handle_client(int client_socket, QuickGame &quickGameQueue, std::ve
         }
         printf("Client %d: %s\n", client_socket, message.c_str());
 
+        if(clientLobby == nullptr)
+            clientLobby = findLobbyBySocket(activeLobbies, client_socket);
+
         std::string answer = controller.handleRequest(message, client_socket, enteringLobby, clientLobby);
         if (enteringLobby){
             enteringLobby = false;
