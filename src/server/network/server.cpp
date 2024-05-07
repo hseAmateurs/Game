@@ -134,7 +134,7 @@ void Server::lobbyLoop(GameLobby *lobby){ // здесь будет считат�
             char *mesage = const_cast<char *>(std::to_string(lobby->test).c_str());
             std::cout<<mesage<<"\n";
             sendMessage(client_socket, mesage);//std::to_string(lobby->test).c_str());
-            std::this_thread::sleep_for(std::chrono::milliseconds(5));//sleep before sent
+            std::this_thread::sleep_for(std::chrono::milliseconds(16));//sleep before sent
         };
     }
 }
