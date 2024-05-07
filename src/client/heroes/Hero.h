@@ -7,12 +7,14 @@
 #include "../utils/settings.h"
 #include "../core/assets.h"
 #include "circleShape.h"
+#include "rectangleShape.h"
 
 class Hero: public Base{
 public:
     Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H),
     aimShapeQ({X,Y},settings::textures::iceSpikesWidth/2+5,sf::Color::White),
     aimShapeW({X,Y},(settings::textures::iceSpikesWidth/2+5) * settings::hero::iceSequence::spikesScale,sf::Color::White),
+    aimShapeE({X,Y},{settings::hero::frostWave::lifeTime * settings::hero::frostWave::speed, settings::textures::frostWaveWidth}),
     aimShapeR({X,Y},(settings::textures::blizzardWidth/2+5) * settings::hero::blizzard::blizzardScale,sf::Color::White),
     rangeShapeQ({X,Y},settings::hero::iceSpikes::rangeRadius,sf::Color::White),
     rangeShapeE({X,Y},settings::hero::frostWave::speed * settings::hero::frostWave::lifeTime,sf::Color::White),
@@ -47,7 +49,7 @@ public:
 
 
 private:
-    sf::Vector2f position;
+    sf::Vector2f position, staffPosition;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::speed;
@@ -64,6 +66,7 @@ private:
     bool iceSequenceStarted{false}; // for slowing IceSequence (W) and correct cursor visibility
     sf::Vector2f lastIceSpikes; // for slowing IceSequence (W)
     CircleShape aimShapeQ, aimShapeW, aimShapeR; // shapes instead of cursor while skill is active
+    RectangleShape aimShapeE; // shapes instead of cursor while skill is active
     CircleShape rangeShapeQ, rangeShapeE, rangeShapeR; // shapes showing skill range while skill is active
 
     void updateDirection(); // calculate direction (used in update)

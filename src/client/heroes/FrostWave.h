@@ -9,7 +9,7 @@
 class FrostWave{
 public:
     static std::list<FrostWave*> wavesList; // all alive hero waves here
-    FrostWave(float X, float Y, float W, float H, float dirX, float dirY): position(X,Y), w(W), h(H) {
+    FrostWave(sf::Vector2f POS, float W, float H, float dirX, float dirY): position(POS), w(W), h(H) {
         wavesList.insert(wavesList.end(),this);
         // w = 136 h = 323 for current texture (frost_wave)
         direction.x = dirX; direction.y = dirY; // wave direction

@@ -7,8 +7,8 @@
 class IceSpikes{
 public:
     static std::list<IceSpikes*> spikesList; // all alive hero spikes here
-    IceSpikes(float X, float Y, float W, float H, float Scale, float Delay): position(X,Y), w(W), h(H), scale(Scale), delay(Delay),
-                                                                             warningShape(sf::Vector2f (X,Y),(settings::textures::iceSpikesWidth/2+5) * Scale,sf::Color(215,215,255)){
+    IceSpikes(sf::Vector2f POS, float W, float H, float Scale, float Delay): position(POS), w(W), h(H), scale(Scale), delay(Delay),
+                                                                             warningShape(sf::Vector2f (POS),(settings::textures::iceSpikesWidth/2+5) * Scale,sf::Color(215,215,255)){
         spikesList.insert(spikesList.end(),this);
         // w = 126 h = 126 for current texture (ice_spikes)
         lifeTime = sf::seconds(delay+1);

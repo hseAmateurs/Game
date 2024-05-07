@@ -39,6 +39,11 @@ void Hero::update(sf::Time elapsed, sf::Vector2i mousePos) {
     position += direction * speed * elapsed.asSeconds();
     heroSprite.setPosition(position);
     destinationSprite.setPosition(destination);
+    staffPosition.y = position.y-88;
+    staffPosition.x = position.x;
+    if (lookLeft) staffPosition.x -= 55;
+    else staffPosition.x += 52;
+    if (flyTime > sf::Time::Zero) staffPosition.y +=48;
 }
 
 void Hero::updateDirection() {
@@ -63,8 +68,10 @@ void Hero::draw(sf::RenderWindow &window) {
     }
     if (activeSkill == 2)
         aimShapeW.draw(window);
-    if (activeSkill == 3)
+    if (activeSkill == 3) {
         rangeShapeE.drawShape(window);
+        aimShapeE.draw(window);
+    }
     if (activeSkill == 4) {
         rangeShapeR.drawShape(window);
         aimShapeR.draw(window);
@@ -107,26 +114,18 @@ void Hero::setTexture(sf::Time elapsed) {
 }
 
 void Hero::createRangeHit(sf::Vector2f dest){
-    float yh = position.y-93, xh = position.x;
-    if (lookLeft) xh -= 55;
-    else xh += 35;
-    if (flyTime > sf::Time::Zero) yh+=48;
-    if (!(dest.x == xh && dest.y == yh)) {
-        dest.x -= xh; dest.y -= yh;
-        new RangeHit(xh,yh,settings::textures::hitWidth,settings::textures::hitHeight,dest.x/length(dest),dest.y/length(dest));
+    if (dest != staffPosition) {
+        dest -= staffPosition;
+        new RangeHit(staffPosition,settings::textures::hitWidth,settings::textures::hitHeight,dest.x/length(dest),dest.y/length(dest));
         hitCooldown = sf::seconds(settings::hero::hit::coolDown);
         genCD();
     }
 }
 
 void Hero::createFrostWave(sf::Vector2f dest){
-    float yh = position.y-93, xh = position.x;
-    if (lookLeft) xh -= 55;
-    else xh += 35;
-    if (flyTime > sf::Time::Zero) yh+=48;
-    if (!(dest.x == xh && dest.y == yh)) {
-        dest.x -= xh; dest.y -= yh;
-        new FrostWave(xh,yh,settings::textures::frostWaveWidth,settings::textures::frostWaveHeight,dest.x/length(dest),dest.y/length(dest));
+    if (dest != staffPosition) {
+        dest -= staffPosition;
+        new FrostWave(staffPosition,settings::textures::frostWaveWidth,settings::textures::frostWaveHeight,dest.x/length(dest),dest.y/length(dest));
         skillCooldownE = sf::seconds(settings::hero::frostWave::coolDown);
         genCD();
         activeSkill = 0;
@@ -134,14 +133,14 @@ void Hero::createFrostWave(sf::Vector2f dest){
 }
 
 void Hero::createBigIceSpikes(sf::Vector2f dest){
-    new IceSpikes(dest.x, dest.y, settings::textures::iceSpikesWidth, settings::textures::iceSpikesHeight, 1, 1);
+    new IceSpikes(dest, settings::textures::iceSpikesWidth, settings::textures::iceSpikesHeight, 1, 1);
     skillCooldownQ = sf::seconds(settings::hero::iceSpikes::coolDown);
     genCD();
     activeSkill = 0;
 }
 
 void Hero::createBlizzard(sf::Vector2f dest){
-    new Blizzard(dest.x, dest.y, settings::textures::blizzardWidth, settings::textures::blizzardHeight, settings::hero::blizzard::blizzardScale);
+    new Blizzard(dest, settings::textures::blizzardWidth, settings::textures::blizzardHeight, settings::hero::blizzard::blizzardScale);
     skillCooldownR = sf::seconds(settings::hero::blizzard::coolDown);
     genCD();
     activeSkill = 0;
@@ -218,7 +217,8 @@ void Hero::updateShapes(sf::Vector2f dest) {
     if (activeSkill == 2 && !iceSequenceStarted)
         aimShapeW.relocate(dest);
     if (activeSkill == 3) {
-        rangeShapeE.relocate(position);
+        aimShapeE.relocate(staffPosition,dest);
+        rangeShapeE.relocate(staffPosition);
     }
     if (activeSkill == 4) {
         rangeShapeR.relocate(position);
@@ -245,7 +245,7 @@ void Hero::createIceSequence(sf::Vector2f dest) {
                 destSlowed = lastIceSpikes + (dest-lastIceSpikes);
         }
         iceSequenceStarted = true;
-        new IceSpikes(destSlowed.x, destSlowed.y, settings::textures::iceSpikesWidth, settings::textures::iceSpikesHeight, settings::hero::iceSequence::spikesScale, 0.66);
+        new IceSpikes(destSlowed, settings::textures::iceSpikesWidth, settings::textures::iceSpikesHeight, settings::hero::iceSequence::spikesScale, 0.66);
         iceSpikesCount++;
         lastIceSpikes = destSlowed;
     }

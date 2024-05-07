@@ -7,8 +7,8 @@
 class Blizzard{
 public:
     static std::list<Blizzard*> blizzardsList; // all alive hero blizzards here
-    Blizzard(float X, float Y, float W, float H, float Scale): position(X,Y), w(W), h(H), scale(Scale),
-                                                                             warningShape(sf::Vector2f (X,Y),(settings::textures::blizzardWidth/2+5) * Scale,sf::Color(215,215,255)){
+    Blizzard(sf::Vector2f POS, float W, float H, float Scale): position(POS), w(W), h(H), scale(Scale),
+                                                                             warningShape(POS,(settings::textures::blizzardWidth/2+5) * Scale,sf::Color(215,215,255)){
         blizzardsList.insert(blizzardsList.end(),this);
         // w = 580 h = 580 for current texture (blizzard)
         lifeTime = sf::seconds(settings::hero::blizzard::lifeTime);

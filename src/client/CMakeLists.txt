@@ -24,6 +24,7 @@ add_executable(Client
         heroes/IceSpikes.cpp
         heroes/circleShape.cpp
         heroes/Blizzard.cpp
+        heroes/rectangleShape.cpp
 )
 
 

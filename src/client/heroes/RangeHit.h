@@ -6,7 +6,7 @@
 class RangeHit{
 public:
     static std::list<RangeHit*> hitsList; // all alive hero hits here
-    RangeHit(float X, float Y, float W, float H, float dirX, float dirY): position(X,Y), w(W), h(H) {
+    RangeHit(sf::Vector2f POS, float W, float H, float dirX, float dirY): position(POS), w(W), h(H) {
         hitsList.insert(hitsList.end(),this);
         // w = 70 h = 70 for current texture (fireball)
         direction.x = dirX; direction.y = dirY; // hit direction
