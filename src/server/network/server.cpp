@@ -1,7 +1,8 @@
 #include "server.h"
 #include "../dataBase/playerDatabase.h"
 
-Server::Server(int port) : port(port), server_fd(0), database("players.txt"), controller(database) {}
+Server::Server(int port) : port(port), server_fd(0), database("players.txt"), controller(database, activeLobbies, quickGameQueue),
+                           quickGameQueue(activeLobbies) {}
 
 Server::~Server() {
     closesock(server_fd);
@@ -53,22 +54,50 @@ void Server::start() {
             exit(EXIT_FAILURE);
         }
 
-        std::thread client_thread(&Server::handle_client, this, new_socket);
+        std::thread client_thread(&Server::handle_client, this, new_socket, std::ref(quickGameQueue), std::ref(activeLobbies));
         client_thread.detach();
     }
 }
+GameLobby* findLobbyBySocket(const std::vector<GameLobby*>& gameLobbies, int clientSocket) {
+    for (const auto& lobby : gameLobbies) {
+        if (std::find(lobby->playerSockets.begin(), lobby->playerSockets.end(), clientSocket) != lobby->playerSockets.end()) {
+            // Найдено лобби, содержащее заданный сокет
+            return lobby; // Приведение const
+        }
+    }
+    // Если не найдено, вернуть nullptr, чтобы обозначить, что лобби не найдено
+    return nullptr;
+}
 
-void Server::handle_client(int client_socket) {
+void Server::handle_client(int client_socket, QuickGame &quickGameQueue, std::vector<GameLobby*> &activeLobbies) {
+    GameLobby *clientLobby = nullptr;
+    bool enteringLobby = false;
     while (true) {
+//        std::lock_guard<std::mutex> quickGameQueueLock(quickGameQueueMutex);
+//        std::lock_guard<std::mutex> activeLobbiesLock(activeLobbiesMutex);
+
         std::string message = getMessage(client_socket);
         if (message.empty()) {
             break; // Client disconnected
         }
         printf("Client %d: %s\n", client_socket, message.c_str());
-        //sendMessage(client_socket, "Hello from server");
-        //sendMessage(client_socket, (std::to_string(database.findLogin(message))).c_str());
-        std::string answer = controller.handleRequest(message, client_socket);
-        sendMessage(client_socket, answer.c_str());
+
+        std::string answer = controller.handleRequest(message, client_socket, enteringLobby, clientLobby);
+        if (enteringLobby){
+            enteringLobby = false;
+            clientLobby = findLobbyBySocket(activeLobbies, client_socket); // получаем лобби для игрока
+        }
+        //if (!quickGameQueue.lobbyCreatedFlag)
+            sendMessage(client_socket, answer.c_str());
+
+        if (quickGameQueue.lobbyCreatedFlag) {
+            std::thread lobbyThread(&Server::lobbyLoop, this, quickGameQueue.pendingLobby);
+            lobbyThread.detach();
+            quickGameQueue.lobbyCreatedFlag = false;
+            quickGameQueue.pendingLobby = nullptr;
+        }
+
+
     }
     closesock(client_socket);
 }
@@ -85,4 +114,21 @@ std::string Server::getMessage(int client_socket) {
         return ""; // Возвращаем пустую строку, если ничего не получено
     }
     return std::string(buffer, bytes_received);
+}
+
+//void Server::createLobbyThread(GameLobby* lobby) {
+//    std::thread lobbyThread(&Server::lobbyLoop, this, lobby);
+//    lobbyThread.detach();
+//}
+
+void Server::lobbyLoop(GameLobby *lobby){ // здесь будет считаться карта и отправляться данные
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
+    while (true) {
+        lobby->gameLoop();
+        //std::lock_guard<std::mutex> activeLobbiesLock(activeLobbiesMutex);
+        for (auto client_socket: lobby->playerSockets) {
+            sendMessage(client_socket, std::to_string(lobby->test).c_str());//std::to_string(lobby->test).c_str());
+        };
+    }
 }

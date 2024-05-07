@@ -14,7 +14,7 @@ void QuickGame::loadGameLobby() {
     if (playerQueue.size() >= 2) { // Assuming 2 players for a game
         // Create a new GameLobby instance
         GameLobby* newLobby = new GameLobby();
-        activeLobbies.push_back(newLobby);
+        activelobbies.push_back(newLobby);
 
         // Add the first two players from the queue to the lobby
         for (int i = 0; i < 2; ++i) {
@@ -40,10 +40,11 @@ std::string QuickGame::matchmake(const std::string login) {
 
         // Remove those players from the queue
         playerQueue.erase(playerQueue.begin(), playerQueue.begin() + 3);
-
+        lobbyCreatedFlag = true;
+        pendingLobby = newLobby;
         // Notify players about the new lobby (implementation in GameLobby)
         //newLobby->notifyPlayers("abc");
-        activeLobbies.push_back(newLobby);
+        activelobbies.push_back(newLobby);
         return "1";
 
 
@@ -73,7 +74,7 @@ std::string QuickGame::removeFromQueue(const std::string& username) {
 }
 
 bool QuickGame::isPlayerInAnyLobby(const std::string& username) {
-    for (GameLobby* lobby : activeLobbies) {
+    for (GameLobby* lobby : activelobbies) {
         if (lobby->hasPlayer(username)) {
             return true; // Player found in this lobby
         }

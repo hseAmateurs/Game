@@ -10,12 +10,14 @@
 
 class QuickGame {
 public:
-//    QuickGame();
+    QuickGame(std::vector<GameLobby*> &activelobbies): activelobbies(activelobbies) {};
     std::string addToQueue(const std::string& username, int clientSocket);
     void loadGameLobby();
     bool isntInQueue(const std::string& username);
     std::string removeFromQueue(const std::string& username);
     bool isPlayerInAnyLobby(const std::string& username);
+    bool lobbyCreatedFlag = false;
+    GameLobby* pendingLobby = nullptr;
 
 
     //bool isPlayerInAnyLobby(const std::string& username)
@@ -23,13 +25,16 @@ public:
     std::string matchmake(const std::string login);
 
 private:
+    std::vector<GameLobby*> &activelobbies;
     struct PlayerInfo {
         std::string username;
         int clientSocket;
     };
 
     std::vector<PlayerInfo> playerQueue;
-    std::vector<GameLobby*> activeLobbies;
+
+
+
 
 };
 

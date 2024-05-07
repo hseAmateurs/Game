@@ -1,7 +1,7 @@
 #include "controller.h"
+//#include "../gameLobby/utils.cpp"
 
-
-std::string Controller::handleRequest(const std::string& request, int &client_socket) {
+std::string Controller::handleRequest(const std::string& request, int &client_socket, bool enteringLobby, GameLobby *clientLobby) {
     parseRequest(request);
 
     // Call the appropriate handler based on the request code
@@ -12,8 +12,9 @@ std::string Controller::handleRequest(const std::string& request, int &client_so
         case 302: return handleUpdateStatistics();
         case 401: return handleGetFriends();
         case 402: return handleAddFriend();
-        case 501: return handleStartQuickSearch(client_socket);
+        case 501: return handleStartQuickSearch(client_socket, enteringLobby);
         case 502: return handleStopQuickSearch();
+        case 601: return handleGameCommand(client_socket, clientLobby);
         default: return "UNKNOWN_REQUEST";
     }
 }
@@ -143,22 +144,22 @@ std::string Controller::handleAddFriend() {
     return "2"; // login doesnt exist
 }
 
-std::string Controller::handleStartQuickSearch(int &client_socket) {
+
+
+std::string Controller::handleStartQuickSearch(int &client_socket, bool enteringLobby) {
     if (params.size() < 1) {
         return "WRONG_REQUEST";
     }
     std::string login = params[0];
-    // Check if the player is already in the queue
-    //quickGameQueue.matchmake(params[0]);
     if (quickGameQueue.isPlayerInAnyLobby(params[0])){
-        return "1";
+        enteringLobby = true;
+        return "1";    // Return a message indicating that the search has started
     }else if (quickGameQueue.isntInQueue(login)) {
         return quickGameQueue.addToQueue(login, client_socket);
     } else if (!quickGameQueue.isPlayerInAnyLobby(params[0])){
         return quickGameQueue.matchmake(params[0]);
     }
-    // Return a message indicating that the search has started
-    //return "SEARCH_STARTED";
+
     return "SMTH_WENT_WRONG";
 }
 
@@ -172,3 +173,9 @@ std::string Controller::handleStopQuickSearch() {
     return "0";
 }
 
+
+
+std::string Controller::handleGameCommand(int clientSocket, GameLobby *clientLobby) {
+    clientLobby->test=atoi(params[2].c_str());
+    return "0";
+}
