@@ -15,11 +15,20 @@ public:
     std::string handleRequest(const std::string& request, int &client_socket, bool enteringLobby, GameLobby *clientLobby);
 
 private:
+    struct Invite{
+
+        std::string host, friend1, friend2;
+        GameLobby *lobby = nullptr;
+        bool connection1 = false, connection2 = false;
+        int sock1, sock2;
+    };
+
     PlayerDatabase& database;
     int requestCode;
     std::vector<std::string> params;
     QuickGame &quickGameQueue;
     std::vector<GameLobby*> &activelobbies;
+    std::vector<Invite> invites;
 
 
 
@@ -42,6 +51,10 @@ private:
     std::string handleStopQuickSearch();
 
     std::string handleGameCommand(int clientSocket, GameLobby *clientLobby);
+
+    std::string handleStartFriendLobby(int &client_socket, bool enteringLobby,GameLobby *client_lobby);
+
+    std::string handleWaitingFriendLobby(int &client_socket, bool enteringLobby, GameLobby *client_lobby);
 
 
 };

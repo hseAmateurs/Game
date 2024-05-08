@@ -15,6 +15,8 @@ std::string Controller::handleRequest(const std::string& request, int &client_so
         case 501: return handleStartQuickSearch(client_socket, enteringLobby);
         case 502: return handleStopQuickSearch();
         case 601: return handleGameCommand(client_socket, clientLobby);
+        case 602: return handleStartFriendLobby(client_socket, enteringLobby, clientLobby); // 602 login friendLogin friendLogin
+        case 603: return handleWaitingFriendLobby(client_socket, enteringLobby, clientLobby); // 603 login
         default: return "UNKNOWN_REQUEST";
     }
 }
@@ -173,9 +175,71 @@ std::string Controller::handleStopQuickSearch() {
     return "0";
 }
 
-
-
 std::string Controller::handleGameCommand(int clientSocket, GameLobby *clientLobby) {
     clientLobby->test=atoi(params[2].c_str());
+    return "0";
+}
+
+std::string Controller::handleStartFriendLobby(int &client_socket, bool enteringLobby, GameLobby *client_lobby) {
+    if (params.size() < 3) {
+        return "WRONG_REQUEST";
+    }
+    bool notCreated = true;
+    Invite *currInvite;
+    for (auto &invite : invites){
+        if (invite.host == params[0]){
+            notCreated = false;
+            currInvite = &invite;
+        }
+    }
+    if (notCreated) {
+        Invite invite;
+        invite.host = params[0];
+        invite.friend1 = params[1];
+        invite.friend2 = params[2];
+
+        invites.push_back(invite);
+    } else if (currInvite->connection1 && currInvite->connection2) {
+        GameLobby* newLobby = new GameLobby();
+
+        newLobby->addPlayer(params[1], client_socket);
+        newLobby->addPlayer(currInvite->friend1, currInvite->sock1);
+        newLobby->addPlayer(currInvite->friend2, currInvite->sock2);
+
+        currInvite->lobby = newLobby;
+        quickGameQueue.lobbyCreatedFlag = true;
+        quickGameQueue.pendingLobby = newLobby;
+
+        activelobbies.push_back(newLobby);
+        return "1";
+    }
+
+
+
+
+    return "0";
+}
+
+std::string Controller::handleWaitingFriendLobby(int &client_socket, bool enteringLobby, GameLobby *client_lobby) {
+    if (params.size() < 1) {
+        return "WRONG_REQUEST";
+    }
+    bool isInv = false;
+    for (auto &invite: invites){
+        if (invite.friend1 == params[0]) {
+            invite.connection1 = true;
+            invite.sock1 = client_socket;
+            isInv = true;
+        } else if (invite.friend2 == params[0]) {
+            invite.connection2 = true;
+            invite.sock2 = client_socket;
+            isInv = true;
+        }
+
+        if (isInv && invite.lobby != nullptr){
+            client_lobby = invite.lobby;
+            return "1";
+        }
+    }
     return "0";
 }
