@@ -19,6 +19,10 @@ add_executable(Client
         menu/friendsMenu.h
         menu/quickplayMenu.h
         menu/gameScreen.h
+        menu/createjoinMenu.h
+        menu/lobbyMenu.h
+        menu/awaitingMenu.h
+        menu/invitationMenu.h
         main.cpp
         ../common.h
 
@@ -37,6 +41,10 @@ add_executable(Client
         menu/friendsMenu.cpp
         menu/quickplayMenu.cpp
         menu/gameScreen.cpp
+        menu/createjoinMenu.cpp
+        menu/lobbyMenu.cpp
+        menu/awaitingMenu.cpp
+        menu/invitationMenu.cpp
 )
 
 

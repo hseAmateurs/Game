@@ -4,6 +4,7 @@
 #include "friendEntry.h"
 #include "friendsMenu.h"
 #include "quickplayMenu.h"
+#include "createjoinMenu.h"
 
 MainMenu::MainMenu(const sf::Font& font,MenuManager* menuManager,Client& client) :
     Menu("Main Menu"),
@@ -117,46 +118,10 @@ void MainMenu::handleInput(const sf::Event& event, sf::RenderWindow& window,Clie
         }
     }
 
-    // if (enterButton.isPressed(window)) {
-    //     std::string username=usernameField.getText();
-    //     std::string password=passwordField.getText();
-    //     MenuManager* menuManager=getMenuManager();
-    //     if(menuManager){
-    //         std::string message;
-    //         message="100 "+username+" "+password;
-    //         const char* msg=message.c_str();
-    //         client.sendMessage(msg);
-    //         message=client.getMessage();
-    //         if(message=="0"){
-    //             std::cout << "you're in!";
-    //         }
-    //         else if(message=="1"){
-    //             errorMessage.setString("Wrong password.");
-    //         }
-    //         else if(message=="2"){
-    //             errorMessage.setString("No such login exists.");
-    //         }
-    //     }
-    // }
-
-    // if (backButton.isPressed(window)) {
-    //     MenuManager* menuManager = getMenuManager();
-    //     if(menuManager){
-    //         menuManager->popMenu();
-    //     } 
-    // }
+    if(joinLobbyButton.isPressed(window)){
+        MenuManager* menuManager=getMenuManager();
+        if(menuManager){
+            menuManager->pushMenu(new CreateJoinMenu(menuManager->getFont(),menuManager,client));            
+        }
+    }
 }
-
-// MenuManager* menuManager=getMenuManager();
-//         if(menuManager){
-//             std::string message;
-//             message="300 "+client.getLogin();
-//             client.sendMessage(message.c_str());
-//             message=client.getMessage();
-//             if(message=="1"){
-//                 return; // output something to the user?
-//             }
-//             else{
-                
-//             }
-//         }

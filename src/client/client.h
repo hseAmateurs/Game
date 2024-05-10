@@ -16,9 +16,11 @@ public:
     void setDeaths(std::string num){deaths=num;};
     void setKills(std::string num){kills=num;};
     void setGamecount(std::string num){gamecount=num;};
+    void setMsg(std::string msg){message=msg;};
     std::string getDeaths(){return deaths;};
     std::string getKills(){return kills;};
     std::string getGamecount(){return gamecount;};
+    std::string getMsg(){return message;};
 
 private:
     std::string address;
@@ -28,6 +30,7 @@ private:
     std::string deaths; // во время игры можно менять эти поля, а не отправлять сразу изменения на сервер
     std::string kills; // главное НЕ ЗАБЫТЬ ПОТОМ ОБ ЭТОМ РАССКАЗАТЬ СЕРВЕРУ!!!!!!!
     std::string gamecount;
+    std::string message;
 };
 
 #endif // CLIENT_H
