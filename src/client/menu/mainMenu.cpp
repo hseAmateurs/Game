@@ -9,7 +9,7 @@
 MainMenu::MainMenu(const sf::Font& font,MenuManager* menuManager,Client& client) :
     Menu("Main Menu"),
     quickPlayButton(sf::Vector2f(710, 200), "Quick Play", font,25), // Example positions 
-    joinLobbyButton(sf::Vector2f(710, 400), "Join Lobby", font,25),
+    joinLobbyButton(sf::Vector2f(710, 400), "Lobby", font,25),
     statisticsButton(sf::Vector2f(710, 600), "Statistics", font,25),
     friendsButton(sf::Vector2f(710, 800), "Friends", font,25),
     menuManager(menuManager)
