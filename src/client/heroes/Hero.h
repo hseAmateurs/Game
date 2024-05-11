@@ -21,14 +21,14 @@ enum HeroSkill {
 
 class Hero: public Base{
 public:
-    Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H),
-    aimShapeQ({X,Y},settings::textures::iceSpikesWidth/2+5,sf::Color::White),
-    aimShapeW({X,Y},(settings::textures::iceSpikesWidth/2+5) * settings::hero::iceSequence::spikesScale,sf::Color::White),
-    aimShapeE({X,Y},{settings::hero::frostWave::lifeTime * settings::hero::frostWave::speed, settings::textures::frostWaveWidth}),
-    aimShapeR({X,Y},(settings::textures::blizzardWidth/2+5) * settings::hero::blizzard::blizzardScale,sf::Color::White),
-    rangeShapeQ({X,Y},settings::hero::iceSpikes::rangeRadius,sf::Color::White),
-    rangeShapeE({X,Y},settings::hero::frostWave::speed * settings::hero::frostWave::lifeTime,sf::Color::White),
-    rangeShapeR({X,Y},settings::hero::blizzard::rangeRadius,sf::Color::White){
+    Hero(sf::Vector2f pos, float W, float H): position(pos), w(W), h(H),
+    aimShapeQ(pos,settings::textures::iceSpikesWidth/2+5,sf::Color::White),
+    aimShapeW(pos,(settings::textures::iceSpikesWidth/2+5) * settings::hero::iceSequence::spikesScale,sf::Color::White),
+    aimShapeE(pos,{settings::hero::frostWave::lifeTime * settings::hero::frostWave::speed, settings::textures::frostWaveWidth}),
+    aimShapeR(pos,(settings::textures::blizzardWidth/2+5) * settings::hero::blizzard::blizzardScale,sf::Color::White),
+    rangeShapeQ(pos,settings::hero::iceSpikes::rangeRadius,sf::Color::White),
+    rangeShapeE(pos,settings::hero::frostWave::speed * settings::hero::frostWave::lifeTime,sf::Color::White),
+    rangeShapeR(pos,settings::hero::blizzard::rangeRadius,sf::Color::White){
 
         // w = 150 h = 150 for current texture (blue_hero)
         destination = position;

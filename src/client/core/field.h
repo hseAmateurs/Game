@@ -9,7 +9,7 @@
 class Field {
 public:
     Field() : map(),
-    hero(settings::screen::WIDTH/2.f, settings::screen::HEIGHT/2.f, settings::textures::heroWidth, settings::textures::heroHeight)
+    hero(settings::screen::CENTER, settings::textures::heroWidth, settings::textures::heroHeight)
     {
     #ifdef SHOW_FPS
         fps.setFont(Assets::getFont());
