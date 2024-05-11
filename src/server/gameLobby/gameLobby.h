@@ -20,8 +20,8 @@ public:
     std::vector<int> playerSockets;
     std::vector<std::string> playerLogins;
 private:
-    Assets assets;
-    Field field;
+//    Assets assets;
+//    Field field;
 };
 
 

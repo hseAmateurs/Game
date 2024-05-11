@@ -30,9 +30,9 @@ void GameLobby::gameLoop() {
     test+=1;
 }
 
-void GameLobby::setNames() {
-    field.setNames(playerLogins);
-}
+//void GameLobby::setNames() {
+//    field.setNames(playerLogins);
+//}
 
 
 

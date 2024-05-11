@@ -94,7 +94,7 @@ void Server::handle_client(int client_socket, QuickGame &quickGameQueue, std::ve
             sendMessage(client_socket, answer.c_str());
 
         if (quickGameQueue.lobbyCreatedFlag) {
-            quickGameQueue.pendingLobby->setNames();
+            //quickGameQueue.pendingLobby->setNames();
             std::thread lobbyThread(&Server::lobbyLoop, this, quickGameQueue.pendingLobby);
             lobbyThread.detach();
             quickGameQueue.lobbyCreatedFlag = false;
