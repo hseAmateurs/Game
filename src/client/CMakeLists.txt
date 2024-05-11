@@ -45,6 +45,31 @@ add_executable(Client
         menu/lobbyMenu.cpp
         menu/awaitingMenu.cpp
         menu/invitationMenu.cpp
+        utils/settings.h
+        map/positions.h
+        map/positions.cpp
+        map/hexagon.h
+        map/hexagon.cpp
+        map/map.h
+        map/map.cpp
+        utils/globalFunctions.cpp
+        utils/globalFunctions.h
+        heroes/Hero.cpp
+        heroes/RangeHit.cpp
+        utils/overloads.cpp
+        utils/overloads.h
+        core/assets.cpp
+        core/assets.h
+        core/field.cpp
+        core/field.h
+        utils/secondOrderDynamics.h
+        map/tree.cpp
+        map/tree.h
+        heroes/FrostWave.cpp
+        heroes/IceSpikes.cpp
+        heroes/circleShape.cpp
+        heroes/Blizzard.cpp
+        heroes/rectangleShape.cpp
 )
 
 
