@@ -23,7 +23,7 @@ void Hero::update(sf::Time elapsed) {
     destinationSprite.setPosition(destination);
 
     Hexagon* ground = Map::getHex(position);
-    if(ground == nullptr || ground->isDead()) std::cout << "HERO DIED\n"; // TODO
+    if(ground == nullptr || ground->isDead()) ; // TODO
 }
 
 void Hero::updateDirection() {
