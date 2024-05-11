@@ -70,6 +70,8 @@ add_executable(Client
         heroes/circleShape.cpp
         heroes/Blizzard.cpp
         heroes/rectangleShape.cpp
+        menu/gameController.h
+        menu/gameController.cpp
 )
 
 

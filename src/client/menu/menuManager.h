@@ -12,7 +12,7 @@ public:
     void pushMenu(Menu* menu);  // Add a menu to the top
     void popMenu();           // Remove the top menu 
     void clearMenus();         // Remove all menus 
-
+    
     Menu* getCurrentMenu() {return menus.top(); }
 
     void handleInput(const sf::Event& event, sf::RenderWindow& window,Client& client);

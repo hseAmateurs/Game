@@ -17,8 +17,6 @@ public:
     MenuManager* getMenuManager();
 
 private:
-    MenuButton testButton;
-    sf::Text testText;
     MenuManager* menuManager;
 };
 

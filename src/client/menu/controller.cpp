@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include "gameController.h"
 
 Controller::Controller() : 
     window(sf::VideoMode(1920, 1080), "Game")
@@ -30,5 +31,9 @@ void Controller::run() {
         window.clear(sf::Color(50,50,50));
         menuManager.draw(window);
         window.display();
+        if(menuManager.getCurrentMenu()->getTitle()=="GameScreen"){ // Если запущена игра, то палку перехватывает gameController.
+            GameController gameController(menuManager.getFont(),&menuManager,client);
+            gameController.run(window);
+        }
     }
 }

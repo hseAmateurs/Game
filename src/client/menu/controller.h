@@ -1,5 +1,5 @@
-#ifndef ECOSYSTEM_CONTROLLER_H
-#define ECOSYSTEM_CONTROLLER_H
+#ifndef MENUCONTROLLER_H
+#define MENUCONTROLLER_H
 
 
 #include <SFML/Graphics.hpp>
