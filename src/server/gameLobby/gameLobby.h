@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include "../game/core/field.h"
+#include "../game/core/assets.h"
 
 
 
@@ -17,10 +19,8 @@ public:
     std::vector<int> playerSockets;
     std::vector<std::string> playerLogins;
 private:
-    //Map map;
-    //Hero hero1, hero2, hero3;
-    //any game info;
-
+    Assets assets;
+    Field field;
 };
 
 

@@ -6,7 +6,6 @@
 #include <sstream>
 #include "../dataBase/playerDatabase.h"
 #include "../gameLobby/quickGame.h"
-#include "../gameLobby/utils.cpp"
 
 
 class Controller {
@@ -55,6 +54,12 @@ private:
     std::string handleStartFriendLobby(int &client_socket, bool enteringLobby,GameLobby *client_lobby);
 
     std::string handleWaitingFriendLobby(int &client_socket, bool enteringLobby, GameLobby *client_lobby);
+
+    std::string handleButtonPress(int &client_socket, GameLobby *client_lobby);
+
+    std::string handleMouseAndButtonPress(int &client_socket, GameLobby *client_lobby);
+
+    std::string handleMousePress(int &client_socket, GameLobby *client_lobby);
 
 
 };

@@ -17,6 +17,9 @@ std::string Controller::handleRequest(const std::string& request, int &client_so
         case 601: return handleGameCommand(client_socket, clientLobby);
         case 602: return handleStartFriendLobby(client_socket, enteringLobby, clientLobby); // 602 login friendLogin friendLogin
         case 603: return handleWaitingFriendLobby(client_socket, enteringLobby, clientLobby); // 603 login
+        case 701: return handleMouseAndButtonPress(client_socket, clientLobby);
+        case 702: return handleButtonPress(client_socket, clientLobby);
+        case 703: return handleMousePress(client_socket, clientLobby);
         default: return "UNKNOWN_REQUEST";
     }
 }
@@ -242,4 +245,19 @@ std::string Controller::handleWaitingFriendLobby(int &client_socket, bool enteri
         }
     }
     return "0";
+}
+
+std::string Controller::handleMouseAndButtonPress(int &client_socket, GameLobby *client_lobby) {
+
+    return "9";
+}
+
+std::string Controller::handleMousePress(int &client_socket, GameLobby *client_lobby) {
+
+    return "9";
+}
+
+std::string Controller::handleButtonPress(int &client_socket, GameLobby *client_lobby) {
+
+    return "9";
 }
