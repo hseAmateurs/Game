@@ -9,6 +9,13 @@ namespace settings {
     namespace screen {
         const int WIDTH = 1600;
         const int HEIGHT = 900;
+        const sf::Vector2f CENTER = {WIDTH/2., HEIGHT/2.};
+    }
+
+    namespace anim {
+        const double f = 2.5;
+        const double z = 1;
+        const double r = 0;
     }
 
     namespace view {
@@ -17,12 +24,34 @@ namespace settings {
     }
 
     namespace map {
-        const int HEX_RADIUS = 80;
+        const float HEX_RADIUS = 80;
         const int MAP_RADIUS = 15;
 
-        const sf::Time centerLifeTime = sf::seconds(100);
-        const sf::Time lifeTimeStep = sf::seconds(7);
+        const sf::Time centerLifeTime = sf::seconds(150);
+        const sf::Time lifeTimeStep = sf::seconds(12);
         const sf::Time lifeTimeOffset = sf::seconds(5);
+        const sf::Time destroyStep = sf::seconds(1); // 2 destroy step
+
+        const sf::Vector2f HEX_TEXTURE_SIZE = {275,300};
+
+        namespace tree {
+            const float avgDistAlphaInner = 13;
+            const float distAlphaOffsetInner = 3;
+            const float distRadiusScaleOffsetInner = 0.1f;
+
+            const float avgDistAlphaOuter = 2;
+            const float distAlphaOffsetOuter = 2;
+            const float distRadiusScaleOffsetOuter = 0.05f;
+
+            const float innerTreesRadiusInHex = 7;
+            const float outerTreesRadiusInHex = 15;
+
+            const float noTreesAlpha = 35;
+            const float treesAlpha = (360-noTreesAlpha*4) / 4;
+
+            const float radius = 110;
+            const sf::Vector2f imgSize = {275, 275};
+        }
     }
 
     namespace hero {

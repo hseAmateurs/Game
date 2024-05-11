@@ -21,6 +21,9 @@ void Hero::update(sf::Time elapsed) {
     position += direction * speed * elapsed.asSeconds();
     heroSprite.setPosition(position);
     destinationSprite.setPosition(destination);
+
+    Hexagon* ground = Map::getHex(position);
+    if(ground == nullptr || ground->isDead()) std::cout << "HERO DIED\n"; // TODO
 }
 
 void Hero::updateDirection() {
@@ -81,7 +84,7 @@ void Hero::createRangeHit(sf::Vector2i mp){
     if (!(dest.x == xh && dest.y == yh)) {
         dest.x -= xh; dest.y -= yh;
         new RangeHit(xh,yh,70,70,dest.x/length(dest),dest.y/length(dest));
-        hitColdown = sf::seconds(0.5); // otsosi u traktorista
+        hitColdown = sf::seconds(0.4); // otsosi u traktorista
     }
 }
 

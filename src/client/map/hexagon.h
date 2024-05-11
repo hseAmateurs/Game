@@ -12,7 +12,7 @@ class Map;
 class Hexagon {
 public:
 
-    Hexagon(Map* map, sf::Vector2f pos = {settings::screen::WIDTH/2.f, settings::screen::HEIGHT/2.f},
+    Hexagon(sf::Vector2f pos = {settings::screen::WIDTH/2.f, settings::screen::HEIGHT/2.f},
                      int dist = 0);
     ~Hexagon();
 
@@ -20,21 +20,30 @@ public:
     void updateDestroying(sf::Time elapsed);
     sf::Vector2f getPos()const { return position; }
     bool isDead() const { return !isAlive; }
+    Hexagon* getClosestHex(sf::Vector2f& pos);
+
 private:
 
-    void initVertexes();
     void initLifeTime();
     bool relaxDist(int dist);
-    void initNeighbours(Map* map);
+    void initNeighbours();
+    void initSpritePos();
+    void updateTextureStage();
+    void initSprite();
+
 
     Hexagon* neighbours[pos::hexPos::count];
     int distToCenter;
     sf::Vector2f position;
-    sf::VertexArray hexagonVertexes;
-    sf::VertexArray borderVertexes;
 
     sf::Time lifeTime;
+    sf::Time timeToDie;
     bool isAlive;
+
+    int textureStage = 0;
+
+    sf::Texture texture;
+    sf::Sprite sprite;
 };
 
 

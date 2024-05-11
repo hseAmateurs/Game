@@ -4,21 +4,22 @@
 #include <SFML/Graphics.hpp>
 #include "map.h"
 #include "../utils/overloads.h"
+#include "../core/assets.h"
 
-Hexagon::Hexagon(Map* map, sf::Vector2f pos, int dist):
+
+Hexagon::Hexagon(sf::Vector2f pos, int dist):
         position(pos),
-        hexagonVertexes(sf::TriangleFan, HEX_VERTEX_COUNT+2),
-        borderVertexes(sf::LinesStrip, HEX_VERTEX_COUNT+1),
         distToCenter(dist), neighbours(), isAlive(true) {
-    map->addHex(this);
+    Map::addHex(this);
     initLifeTime();
-    initVertexes();
-    initNeighbours(map);
+    initSprite();
+    initSpritePos();
+    initNeighbours();
 }
 
 void Hexagon::draw(sf::RenderWindow &window) {
-    window.draw(hexagonVertexes);
-    window.draw(borderVertexes);
+    if(isAlive)
+        window.draw(sprite);
 }
 
 Hexagon::~Hexagon() {
@@ -27,41 +28,23 @@ Hexagon::~Hexagon() {
 };
 
 
-void Hexagon::initVertexes() {
-    int indexColor = distToCenter / (settings::map::MAP_RADIUS / settings::color::hex.size());
-    if(indexColor >= settings::color::hex.size()) indexColor = settings::color::hex.size()-1;
-    sf::Color hexColor = settings::color::hex[indexColor];
-
-    hexagonVertexes[0].position = position;
-    hexagonVertexes[0].color = hexColor;
-    for(int i=1; i<HEX_VERTEX_COUNT+2; ++i) {
-        hexagonVertexes[i].position =
-                position +
-                (sf::Vector2f(cosf(M_PI/3.f* (float)i), sinf(M_PI/3.f* (float)i) ))*(float)settings::map::HEX_RADIUS;
-        hexagonVertexes[i].color = hexColor;
-    }
-
-    for(int i=0; i<HEX_VERTEX_COUNT+1; ++i) {
-        borderVertexes[i].position =
-                position +
-                (sf::Vector2f(cosf(M_PI/3.f* (float)i), sinf(M_PI/3.f* (float)i) ))*(float)settings::map::HEX_RADIUS;
-        borderVertexes[i].color = sf::Color::Black;
-    }
+void Hexagon::initSpritePos() {
+    sprite.setPosition(position);
 }
 
 
 
-void Hexagon::initNeighbours(Map* map) {
+void Hexagon::initNeighbours() {
     for(int i=0; i<pos::count; ++i) {
         sf::Vector2f neighbourPos = position + pos::vectorsHex[i];
-        Hexagon* neighbour = map->getHex(neighbourPos);
+        Hexagon* neighbour = Map::getHexAtMapInit(neighbourPos);
         neighbours[i] = neighbour;
 
         if(!neighbour && distToCenter < settings::map::MAP_RADIUS)
-            neighbour = new Hexagon(map, neighbourPos, distToCenter+1);
+            neighbour = new Hexagon(neighbourPos, distToCenter+1);
 
         if(neighbour) {
-            if (neighbour->relaxDist(distToCenter+1)) neighbour->initNeighbours(map);
+            if (neighbour->relaxDist(distToCenter+1)) neighbour->initNeighbours();
             neighbour->neighbours[pos::getOppositePos(i)] = this;
         }
     }
@@ -72,7 +55,7 @@ void Hexagon::initNeighbours(Map* map) {
 bool Hexagon::relaxDist(int dist) {
     if(dist < distToCenter) {
         distToCenter = dist;
-        initVertexes();
+        initSpritePos();
         initLifeTime();
         return true;
     }
@@ -81,14 +64,38 @@ bool Hexagon::relaxDist(int dist) {
 
 
 void Hexagon::updateDestroying(sf::Time elapsed) {
-    lifeTime -= elapsed;
-    if(lifeTime < sf::Time::Zero) {
-        isAlive = false;
-    }
+    lifeTime += elapsed;
+    if(lifeTime >= timeToDie + settings::map::destroyStep + settings::map::destroyStep) isAlive = false;
+    else if(lifeTime >= timeToDie + settings::map::destroyStep) textureStage = 2;
+    else if(lifeTime >= timeToDie) textureStage = 1;
+    updateTextureStage();
 }
 
 void Hexagon::initLifeTime() {
-    lifeTime = (settings::map::centerLifeTime - settings::map::lifeTimeStep*(float)(distToCenter-1)) + settings::map::lifeTimeOffset*( ((rand()%200-100)/100.f) );
+    timeToDie = (settings::map::centerLifeTime - settings::map::lifeTimeStep*(float)(distToCenter-1)) + settings::map::lifeTimeOffset*( ((rand()%200-100)/100.f) );
+}
+
+void Hexagon::initSprite() {
+    sf::Image img = Assets::getRandomHexImg();
+    texture.loadFromImage(img);
+    sprite.setTexture(texture);
+    textureStage = 0;
+    updateTextureStage();
+    float scale = settings::map::HEX_RADIUS*2 / settings::map::HEX_TEXTURE_SIZE.x;
+    sprite.scale(scale,scale);
+    sprite.setOrigin(275./2.,275./2.);
+}
+
+void Hexagon::updateTextureStage() {
+    sprite.setTextureRect(sf::IntRect(settings::map::HEX_TEXTURE_SIZE.x*textureStage, 0, settings::map::HEX_TEXTURE_SIZE.x, settings::map::HEX_TEXTURE_SIZE.y));
+}
+
+Hexagon *Hexagon::getClosestHex(sf::Vector2f& pos) {
+    Hexagon* closestHex = this;
+
+    for(auto& hex : neighbours)
+        if(hex && dist(hex->getPos(), pos) < dist(closestHex->getPos(), pos)) closestHex = hex;
+    return closestHex;
 }
 
 

@@ -6,15 +6,17 @@
 #include "core/view.h"
 #include "core/assets.h"
 #include "core/field.h"
-
+#include "map/tree.h"
 
 
 int main()
 {
+
     srand(time(nullptr));
     sf::RenderWindow window(sf::VideoMode(settings::screen::WIDTH, settings::screen::HEIGHT), "My window");
     Assets assets;
     Field field;
+
 
     view.reset(sf::FloatRect(0, 0, settings::screen::WIDTH, settings::screen::HEIGHT));
 
@@ -36,8 +38,8 @@ int main()
 
         field.update(elapsed);
 
-        window.clear(sf::Color(100,100,100));
-        changeView(elapsed, event.mouseWheelScroll.delta);
+        window.clear(sf::Color(0,160,180));
+        changeView(elapsed, event.mouseWheelScroll.delta, sf::Mouse::getPosition(window));
         window.setView(view);
         field.draw(window);
         window.display();

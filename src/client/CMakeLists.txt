@@ -20,6 +20,9 @@ add_executable(Client
         core/assets.h
         core/field.cpp
         core/field.h
+        utils/secondOrderDynamics.h
+        map/tree.cpp
+        map/tree.h
 )
 
 

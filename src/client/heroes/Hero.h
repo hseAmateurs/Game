@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Base.h"
 #include "string"
+#include "../map/map.h"
 #include "../utils/settings.h"
 #include "../core/assets.h"
 
