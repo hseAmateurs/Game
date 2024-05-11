@@ -11,12 +11,29 @@ void Field::update(sf::Time elapsed) {
 
 void Field::handleRightClick(sf::Vector2i clickCoords) {
     hero.setDestination(clickCoords);
+    hero.skillActivate('0');
 }
 
 void Field::handleLeftClick(sf::Vector2i clickCoords) {
-    //std::cout << Map::getHex({(float)clickCoords.x, (float)clickCoords.y}) << std::endl;
-    hero.hit(clickCoords);
+    hero.skillCast(clickCoords);
 }
+
+void Field::handleButtonQ() {
+    hero.skillActivate('Q');
+}
+
+void Field::handleButtonW() {
+    hero.skillActivate('W');
+}
+
+void Field::handleButtonE() {
+    hero.skillActivate('E');
+}
+
+void Field::handleButtonR() {
+    hero.skillActivate('R');
+}
+
 
 void Field::draw(sf::RenderWindow &window) {
     Map::draw(window);

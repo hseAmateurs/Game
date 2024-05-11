@@ -18,6 +18,22 @@ inline int viewHeight = settings::screen::HEIGHT;
 
 inline void changeView(sf::Time elapsed, float wheelDir, sf::Vector2i mouseCoords) {
 
+    if (mouseCoords.x > settings::screen::WIDTH-30) {
+        view.move(cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
+        currentCameraPos.x += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
+    }
+    if (mouseCoords.y > settings::screen::HEIGHT-30) {
+        view.move(0, cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
+        currentCameraPos.y += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
+    }
+    if (mouseCoords.x < 30) {
+        view.move(-cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
+        currentCameraPos.x += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
+    }
+    if (mouseCoords.y < 30) {
+        view.move(0, -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
+        currentCameraPos.y += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
         view.setCenter(viewWidth/2,viewHeight/2);
@@ -27,29 +43,10 @@ inline void changeView(sf::Time elapsed, float wheelDir, sf::Vector2i mouseCoord
         currentCameraSize = 1;
     }
 
-    if ( (currentCameraSize < 2 && wheelDir == -1) || (currentCameraSize > 0.01 && wheelDir == 1) ) {
+    if ( (currentCameraSize < 2 && wheelDir == -1) || (currentCameraSize > 0.1 && wheelDir == 1) ) {
         view.zoom(1 - zoomSpeed * wheelDir);
         currentCameraSize *= (1 - zoomSpeed * wheelDir);
         currentCameraOffset.x = -(viewWidth) * (currentCameraSize - 1) / 2;
         currentCameraOffset.y = -(viewHeight) * (currentCameraSize - 1) / 2;
     }
-
-    if (mouseCoords.x > settings::screen::WIDTH-50) {
-        view.move(cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
-        currentCameraPos.x += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
-    }
-    if (mouseCoords.y > settings::screen::HEIGHT-50) {
-        view.move(0, cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
-        currentCameraPos.y += cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
-    }
-    if (mouseCoords.x < 50) {
-        view.move(-cameraSpeed*elapsed.asMicroseconds()*currentCameraSize, 0);
-        currentCameraPos.x += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
-    }
-    if (mouseCoords.y < 50) {
-        view.move(0, -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize);
-        currentCameraPos.y += -cameraSpeed*elapsed.asMicroseconds()*currentCameraSize;
-    }
-
-
 }

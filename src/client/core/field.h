@@ -4,11 +4,12 @@
 
 #include "../map/map.h"
 #include "../heroes/hero.h"
+#include "../utils/settings.h"
 
 class Field {
 public:
     Field() : map(),
-    hero(settings::screen::WIDTH/2.f, settings::screen::HEIGHT/2.f, 150, 150)
+    hero(settings::screen::WIDTH/2.f, settings::screen::HEIGHT/2.f, settings::textures::heroWidth, settings::textures::heroHeight)
     {
     #ifdef SHOW_FPS
         fps.setFont(Assets::getFont());
@@ -17,10 +18,14 @@ public:
     #endif
     }
 
-    void update(sf::Time elapsed);
+    void update(sf::Time elapsed, sf::Vector2i mousePos);
     void draw(sf::RenderWindow& window);
     void handleRightClick(sf::Vector2i clickCoords);
     void handleLeftClick(sf::Vector2i clickCoords);
+    void handleButtonQ();
+    void handleButtonW();
+    void handleButtonE();
+    void handleButtonR();
 
 private:
     Map map;

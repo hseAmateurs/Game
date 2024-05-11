@@ -13,6 +13,10 @@ public:
         if(!heroImg.loadFromFile("../../../src/client/resources/textures/blue_hero.png")) std::cout << "HERO IMG DO NOT LOADED\n";
         if(!fireballImg.loadFromFile("../../../src/client/resources/textures/fireball.png")) std::cout << "FIREBALL IMG DO NOT LOADED\n";
         if(!destPointImg.loadFromFile("../../../src/client/resources/textures/dest_point.png")) std::cout << "DEST POINT IMG DO NOT LOADED\n";
+        if(!frostWaveImg.loadFromFile("../../../src/client/resources/textures/frost_wave.png")) std::cout << "DEST POINT IMG DO NOT LOADED\n";
+        if(!IceSpikesImg.loadFromFile("../../../src/client/resources/textures/ice_spikes.png")) std::cout << "DEST POINT IMG DO NOT LOADED\n";
+        if(!BlizzardImg.loadFromFile("../../../src/client/resources/textures/blizzard_snow.png")) std::cout << "DEST POINT IMG DO NOT LOADED\n";
+        if(!BlizzardCloudImg.loadFromFile("../../../src/client/resources/textures/blizzard_cloud.png")) std::cout << "DEST POINT IMG DO NOT LOADED\n";
         if(!hexImgs[0].loadFromFile("../../../src/client/resources/textures/hex_texture_1.png"))std::cout << "HEX IMG 1 DO NOT LOADED\n";
         if(!hexImgs[1].loadFromFile("../../../src/client/resources/textures/hex_texture_2.png"))std::cout << "HEX IMG 2 DO NOT LOADED\n";
         if(!hexImgs[2].loadFromFile("../../../src/client/resources/textures/hex_texture_3.png"))std::cout << "HEX IMG 3 DO NOT LOADED\n";
@@ -30,6 +34,10 @@ public:
         return hexImgs[0];
     }
     static sf::Image& getTreeImg() { return treeImg; }
+    static sf::Image& getFrostWaveImg() { return frostWaveImg; }
+    static sf::Image& getIceSpikesImg() { return IceSpikesImg; }
+    static sf::Image& getBlizzardImg() { return BlizzardImg; }
+    static sf::Image& getBlizzardCloudImg() { return BlizzardCloudImg; }
 
 private:
     static sf::Font font;
@@ -38,6 +46,10 @@ private:
     static sf::Image destPointImg;
     static sf::Image hexImgs[HEX_IMG_COUNT];
     static sf::Image treeImg;
+    static sf::Image frostWaveImg;
+    static sf::Image IceSpikesImg;
+    static sf::Image BlizzardImg;
+    static sf::Image BlizzardCloudImg;
 };
 
 

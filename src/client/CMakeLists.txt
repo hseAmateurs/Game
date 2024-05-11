@@ -23,6 +23,11 @@ add_executable(Client
         utils/secondOrderDynamics.h
         map/tree.cpp
         map/tree.h
+        heroes/FrostWave.cpp
+        heroes/IceSpikes.cpp
+        heroes/circleShape.cpp
+        heroes/Blizzard.cpp
+        heroes/rectangleShape.cpp
 )
 
 

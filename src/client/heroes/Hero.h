@@ -4,12 +4,23 @@
 #include "Base.h"
 #include "string"
 #include "../map/map.h"
+#include "queue"
 #include "../utils/settings.h"
 #include "../core/assets.h"
+#include "circleShape.h"
+#include "rectangleShape.h"
 
 class Hero: public Base{
 public:
-    Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H) {
+    Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H),
+    aimShapeQ({X,Y},settings::textures::iceSpikesWidth/2+5,sf::Color::White),
+    aimShapeW({X,Y},(settings::textures::iceSpikesWidth/2+5) * settings::hero::iceSequence::spikesScale,sf::Color::White),
+    aimShapeE({X,Y},{settings::hero::frostWave::lifeTime * settings::hero::frostWave::speed, settings::textures::frostWaveWidth}),
+    aimShapeR({X,Y},(settings::textures::blizzardWidth/2+5) * settings::hero::blizzard::blizzardScale,sf::Color::White),
+    rangeShapeQ({X,Y},settings::hero::iceSpikes::rangeRadius,sf::Color::White),
+    rangeShapeE({X,Y},settings::hero::frostWave::speed * settings::hero::frostWave::lifeTime,sf::Color::White),
+    rangeShapeR({X,Y},settings::hero::blizzard::rangeRadius,sf::Color::White){
+
         // w = 150 h = 150 for current texture (blue_hero)
         destination = position;
         direction = {0.f,0.f}; // no destination
@@ -18,7 +29,7 @@ public:
         heroTexture.loadFromImage(heroImage);
         heroSprite.setTexture(heroTexture);
         heroSprite.setTextureRect(sf::IntRect(0, 0, w, h));
-        heroSprite.setOrigin(80, 140); // для удобности поставил origin к ногам примерно
+        heroSprite.setOrigin(W/2, H-10); // для удобности поставил origin к ногам примерно
         heroSprite.setPosition(position);
 
         // creating destination point sprite
@@ -26,30 +37,48 @@ public:
         destinationTexture.loadFromImage(destinationImage);
         destinationSprite.setTexture(destinationTexture);
         destinationSprite.setTextureRect(sf::IntRect (0,0,25,25));
-        destinationSprite.setOrigin(12.5,12.5);
+        destinationSprite.setOrigin(settings::textures::destWidth/2,settings::textures::destHeight/2);
         destinationSprite.setPosition(position);
     }
 
     void setDestination(sf::Vector2i dest);
-    void hit(sf::Vector2i hitDest);
+    void skillActivate(char button);
+    void skillCast(sf::Vector2i dest);
 
     void draw(sf::RenderWindow &window);
-    void update(sf::Time elapsed);
+    void update(sf::Time elapsed, sf::Vector2i mousePos);
 
 
 private:
-    sf::Vector2f position;
+    sf::Vector2f position, staffPosition;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
     float speed = settings::hero::speed;
-    sf::Time hitColdown = sf::Time::Zero;
+    sf::Time generalCooldown = sf::Time::Zero, hitCooldown = sf::Time::Zero,
+    skillCooldownE = sf::Time::Zero, skillCooldownQ = sf::Time::Zero, skillCooldownW = sf::Time::Zero, skillCooldownR = sf::Time::Zero,
+    iceSequenceCreationTimer = sf::Time::Zero; // timer for IceSequence (W)
     sf::Time flyTime = sf::Time::Zero, standTime = sf::Time::Zero; // for animation (used in setTexture)
     bool lookLeft {false}; // is texture reflected or not
     sf::Vector2f destination; // current movement goal
     sf::Texture heroTexture, destinationTexture;
     sf::Sprite heroSprite, destinationSprite;
+    int activeSkill = 0; // 0 - RangeHit, 1 - Q, 2 - W, 3 - E, 4 - R
+    int iceSpikesCount = 0; // for IceSequence (W)
+    bool iceSequenceStarted{false}; // for slowing IceSequence (W) and correct cursor visibility
+    sf::Vector2f lastIceSpikes; // for slowing IceSequence (W)
+    CircleShape aimShapeQ, aimShapeW, aimShapeR; // shapes instead of cursor while skill is active
+    RectangleShape aimShapeE; // shapes instead of cursor while skill is active
+    CircleShape rangeShapeQ, rangeShapeE, rangeShapeR; // shapes showing skill range while skill is active
 
     void updateDirection(); // calculate direction (used in update)
+    void resetDestination(); // set dest to pos
     void setTexture(sf::Time elapsed); // for animation (used in update)
-    void createRangeHit(sf::Vector2i mp);
+    void createRangeHit(sf::Vector2f dest);
+    void createFrostWave(sf::Vector2f dest);
+    void createBigIceSpikes(sf::Vector2f dest);
+    void createIceSequence(sf::Vector2f dest);
+    void createBlizzard(sf::Vector2f dest);
+    void teleportToWave(); // for FrostWave (E) recall
+    void genCD() {generalCooldown = sf::seconds(0.1);} // prevention from skill spamming
+    void updateShapes(sf::Vector2f dest); // for correct active skills display
 };
