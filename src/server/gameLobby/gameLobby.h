@@ -16,6 +16,7 @@ public:
     void notifyPlayers(const std::string& message);
     bool hasPlayer(const std::string& username);
     void gameLoop();//обрабатывает карту и возвращает информацию игрокам
+    void setNames();
     std::vector<int> playerSockets;
     std::vector<std::string> playerLogins;
 private:

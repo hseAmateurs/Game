@@ -59,9 +59,10 @@ public:
     void draw(sf::RenderWindow &window);
     void update(sf::Time elapsed, sf::Vector2i mousePos);
 
+    std::string login;
 
 private:
-    std::string login;
+
     sf::Vector2f position, staffPosition;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1

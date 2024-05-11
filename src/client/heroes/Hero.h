@@ -57,6 +57,7 @@ public:
 
     void draw(sf::RenderWindow &window);
     void update(sf::Time elapsed, sf::Vector2i mousePos);
+    std::string login;
 
 
 private:

@@ -31,3 +31,9 @@ void Field::draw(sf::RenderWindow &window) {
 void Field::handleButton(int SFMLKeyCode) {
     hero.skillActivate(SFMLKeyCode);
 }
+
+void Field::setNames(const std::vector<std::string> &logins) {
+    hero.login = logins[0];
+    biba.login = logins[1];
+    boba.login = logins[2];
+}
