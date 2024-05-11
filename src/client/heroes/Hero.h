@@ -10,6 +10,15 @@
 #include "circleShape.h"
 #include "rectangleShape.h"
 
+enum HeroSkill {
+    none,
+    shapeQ,
+    aimShapeW,
+    rangeShapeE,
+    rangeShapeW,
+};
+
+
 class Hero: public Base{
 public:
     Hero(float X, float Y, float W, float H): position(X,Y), w(W), h(H),
@@ -42,7 +51,8 @@ public:
     }
 
     void setDestination(sf::Vector2i dest);
-    void skillActivate(char button);
+    void skillActivate(int SFMLKeyCode);
+    void resetSkill();
     void skillCast(sf::Vector2i dest);
 
     void draw(sf::RenderWindow &window);

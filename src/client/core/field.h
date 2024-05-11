@@ -22,10 +22,7 @@ public:
     void draw(sf::RenderWindow& window);
     void handleRightClick(sf::Vector2i clickCoords);
     void handleLeftClick(sf::Vector2i clickCoords);
-    void handleButtonQ();
-    void handleButtonW();
-    void handleButtonE();
-    void handleButtonR();
+    void handleButton(int keyCode);
 
 private:
     Map map;

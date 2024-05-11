@@ -27,18 +27,12 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if(event.type == sf::Event::KeyPressed)
+                field.handleButton(event.key.code);
             if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
                 field.handleRightClick(sf::Mouse::getPosition(window));
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 field.handleLeftClick(sf::Mouse::getPosition(window));
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-                field.handleButtonQ();
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-                field.handleButtonW();
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-                field.handleButtonE();
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-                field.handleButtonR();
         }
         sf::Time elapsed = clock.restart();
 

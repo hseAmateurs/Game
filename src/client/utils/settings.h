@@ -70,16 +70,13 @@ namespace settings {
 
     namespace hero {
         namespace hit {
-            const float speed = 600;
-            const float rotationSpeed = 500;
-        }
-
-        const float speed = 300;
             const float speed = 500;
             const float rotationSpeed = 400;
             const float lifeTime = 1.4;
             const float coolDown = 0.7;
         }
+
+
         namespace iceSpikes {
             const float rangeRadius = 1000;
             const float coolDown = 5;
