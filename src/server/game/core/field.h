@@ -9,7 +9,9 @@
 class Field {
 public:
     Field() : map(),
-    hero(settings::screen::CENTER, settings::textures::heroWidth, settings::textures::heroHeight)
+    hero(settings::screen::CENTER+sf::Vector2f(0,-50), settings::textures::heroWidth, settings::textures::heroHeight),
+    biba(settings::screen::CENTER+sf::Vector2f(-43.3,25), settings::textures::heroWidth, settings::textures::heroHeight),
+    boba(settings::screen::CENTER+sf::Vector2f(43.3,25), settings::textures::heroWidth, settings::textures::heroHeight)
     {
     #ifdef SHOW_FPS
         fps.setFont(Assets::getFont());
@@ -17,6 +19,7 @@ public:
         fps.setFillColor(sf::Color::Red);
     #endif
     }
+
 
     void update(sf::Time elapsed, sf::Vector2i mousePos);
     void draw(sf::RenderWindow& window);
@@ -27,7 +30,7 @@ public:
 private:
     Map map;
     sf::Text fps;
-    Hero hero;
+    Hero hero, biba, boba;
 };
 
 

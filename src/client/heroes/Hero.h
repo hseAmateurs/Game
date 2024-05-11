@@ -12,10 +12,10 @@
 
 enum HeroSkill {
     none,
-    shapeQ,
-    aimShapeW,
-    rangeShapeE,
-    rangeShapeW,
+    Q,
+    W,
+    E,
+    R,
 };
 
 

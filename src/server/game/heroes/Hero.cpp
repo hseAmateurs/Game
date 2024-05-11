@@ -67,17 +67,17 @@ void Hero::updateDirection() {
 }
 
 void Hero::draw(sf::RenderWindow &window) {
-    if (activeSkill == HeroSkill::shapeQ) {
+    if (activeSkill == HeroSkill::Q) {
         rangeShapeQ.drawShape(window);
         aimShapeQ.draw(window);
     }
-    if (activeSkill == HeroSkill::aimShapeW)
+    if (activeSkill == HeroSkill::W)
         aimShapeW.draw(window);
-    if (activeSkill == HeroSkill::rangeShapeE) {
+    if (activeSkill == HeroSkill::E) {
         rangeShapeE.drawShape(window);
         aimShapeE.draw(window);
     }
-    if (activeSkill == HeroSkill::rangeShapeW) {
+    if (activeSkill == HeroSkill::R) {
         rangeShapeR.drawShape(window);
         aimShapeR.draw(window);
     }
@@ -160,17 +160,17 @@ void Hero::skillActivate(int SFMLKeyCode) {
     if (iceSequenceCreationTimer >= sf::Time::Zero)
         return;
     if (SFMLKeyCode == sf::Keyboard::Q && skillCooldownQ <= sf::Time::Zero)
-        activeSkill = HeroSkill::shapeQ;
+        activeSkill = HeroSkill::Q;
     if (SFMLKeyCode == sf::Keyboard::W && skillCooldownW <= sf::Time::Zero)
-        activeSkill = HeroSkill::aimShapeW;
+        activeSkill = HeroSkill::W;
     if (SFMLKeyCode == sf::Keyboard::E) {
         if (FrostWave::isWaveExist())
             teleportToWave();
         else if (skillCooldownE <= sf::Time::Zero)
-            activeSkill = HeroSkill::rangeShapeE;
+            activeSkill = HeroSkill::E;
     }
     if (SFMLKeyCode == sf::Keyboard::R && skillCooldownR <= sf::Time::Zero)
-        activeSkill = HeroSkill::rangeShapeW;
+        activeSkill = HeroSkill::R;
 }
 
 void Hero::resetSkill() {
@@ -185,19 +185,19 @@ void Hero::skillCast(sf::Vector2i mp) {
             if (hitCooldown <= sf::Time::Zero)
                 createRangeHit(dest);
             break;
-        case HeroSkill::shapeQ:
+        case HeroSkill::Q:
             if (skillCooldownQ <= sf::Time::Zero && dist(dest,position) < settings::hero::iceSpikes::rangeRadius)
                 createBigIceSpikes(dest);
             break;
-        case HeroSkill::aimShapeW:
+        case HeroSkill::W:
             if (skillCooldownW <= sf::Time::Zero)
                 iceSequenceCreationTimer = sf::seconds(settings::hero::iceSequence::castDuration);
             break;
-        case HeroSkill::rangeShapeE:
+        case HeroSkill::E:
             if (skillCooldownE <= sf::Time::Zero)
                 createFrostWave(dest);
             break;
-        case HeroSkill::rangeShapeW:
+        case HeroSkill::R:
             if (skillCooldownR <= sf::Time::Zero && dist(dest,position) < settings::hero::blizzard::rangeRadius)
                 createBlizzard(dest);
             break;
@@ -215,7 +215,7 @@ void Hero::resetDestination() {
 }
 
 void Hero::updateShapes(sf::Vector2f dest) {
-    if (activeSkill == HeroSkill::shapeQ) {
+    if (activeSkill == HeroSkill::Q) {
         rangeShapeQ.relocate(position);
         if (dist(position,dest) > settings::hero::iceSpikes::rangeRadius)
             aimShapeQ.paint(sf::Color::Red);
@@ -223,13 +223,13 @@ void Hero::updateShapes(sf::Vector2f dest) {
             aimShapeQ.paint(sf::Color::White);
         aimShapeQ.relocate(dest);
     }
-    if (activeSkill == HeroSkill::aimShapeW && !iceSequenceStarted)
+    if (activeSkill == HeroSkill::W && !iceSequenceStarted)
         aimShapeW.relocate(dest);
-    if (activeSkill == HeroSkill::rangeShapeE) {
+    if (activeSkill == HeroSkill::E) {
         aimShapeE.relocate(staffPosition,dest);
         rangeShapeE.relocate(staffPosition);
     }
-    if (activeSkill == HeroSkill::rangeShapeW) {
+    if (activeSkill == HeroSkill::R) {
         rangeShapeR.relocate(position);
         if (dist(position,dest) > settings::hero::blizzard::rangeRadius)
             aimShapeR.paint(sf::Color::Red);

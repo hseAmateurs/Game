@@ -9,13 +9,14 @@
 #include "../core/assets.h"
 #include "circleShape.h"
 #include "rectangleShape.h"
+#include "string"
 
 enum HeroSkill {
     none,
-    shapeQ,
-    aimShapeW,
-    rangeShapeE,
-    rangeShapeW,
+    Q,
+    W,
+    E,
+    R,
 };
 
 
@@ -60,6 +61,7 @@ public:
 
 
 private:
+    std::string login;
     sf::Vector2f position, staffPosition;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
