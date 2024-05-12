@@ -25,6 +25,7 @@ void GameController::run(sf::RenderWindow& window,Client& client){
             std::string mouseposx;
             std::string mouseposy;
             bool flag=false;
+            int cn=0;
             if(mousePos.x>0)
                 mouseposx="+"+std::to_string(mousePos.x);
             else
@@ -35,38 +36,25 @@ void GameController::run(sf::RenderWindow& window,Client& client){
                 mouseposy=std::to_string(mousePos.y);
             if (event.type == sf::Event::Closed)
                 window.close();
-            if(event.type==sf::Event::TextEntered){
-                if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-                    std::string message;
-                    message="701 "+client.getLogin()+" "+static_cast<char>(event.text.unicode)+" 2 "+mouseposx+mouseposy;
-                    client.sendMessage(message.c_str());
-                    flag=true;
-                }
-                else if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                    std::string message;
-                    message="701 "+client.getLogin()+" "+static_cast<char>(event.text.unicode)+" 1 "+mouseposx+mouseposy;
-                    client.sendMessage(message.c_str());
-                    flag=true;
-                }
-                else if(flag==false){
-                    std::string message;
-                    message="702 "+client.getLogin()+" "+static_cast<char>(event.text.unicode)+" "+mouseposx+mouseposy;
-                    client.sendMessage(message.c_str());
-                    // only key pressed
-                }
+            std::string message="701 "+client.getLogin();
+            if(event.type==sf::Event::TextEntered)
+                message=message+" 1 "+static_cast<char>(event.text.unicode);
+            else{
+                message+=" 0 0";
+                cn++;
             }
-            else if(flag==false){
-                if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-                    std::string message;
-                    message="703 "+client.getLogin()+" 2 "+mouseposx+mouseposy;
-                    client.sendMessage(message.c_str());
-                }
-                else if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                    std::string message;                           
-                    message="703 "+client.getLogin()+" 1 "+mouseposx+mouseposy;
-                    client.sendMessage(message.c_str());
-                }
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Right)||sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                    message+=" 1 2 "+mouseposx+mouseposy;
+                if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                    message+=" 1 1 "+mouseposx+mouseposy;
             }
+            else{
+                message+=" 0 0 "+mouseposx+mouseposy;
+                cn++;
+            }
+            if(cn!=2)
+                client.sendMessage(message.c_str());
         }
         sf::Time elapsed = clock.restart();
 
