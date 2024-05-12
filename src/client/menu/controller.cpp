@@ -33,7 +33,7 @@ void Controller::run() {
         window.display();
         if(menuManager.getCurrentMenu()->getTitle()=="GameScreen"){ // Если запущена игра, то палку перехватывает gameController.
             GameController gameController(menuManager.getFont(),&menuManager,client);
-            gameController.run(window);
+            gameController.run(window,client);
         }
     }
 }

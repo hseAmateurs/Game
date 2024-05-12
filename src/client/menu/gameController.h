@@ -17,7 +17,7 @@
 class GameController {
 public:
     GameController(const sf::Font& font, MenuManager* menuManager,Client& client);
-    void run(sf::RenderWindow& window);
+    void run(sf::RenderWindow& window,Client& client);
 
 private:
     sf::RenderWindow window;

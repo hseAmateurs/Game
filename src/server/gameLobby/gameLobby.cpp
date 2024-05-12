@@ -27,7 +27,7 @@ bool GameLobby::hasPlayer(const std::string& username) {
 }
 
 void GameLobby::gameLoop() {
-    test+=1;
+    //test+=1;
 }
 
 //void GameLobby::setNames() {
