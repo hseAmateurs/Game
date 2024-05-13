@@ -295,7 +295,5 @@ std::string Controller::handleGameRequest(int &socket, GameLobby *pLobby) {
     sf::Vector2i mousePos(x, y); // mouse pos
     std::cout<<login<<" "<<keyPress<<" "<<keyCode<<" "<<mousePress<<" "<<mouseCode<<" "<<mousePos.x<<" "<<mousePos.y<<"\n";
 
-
-
     return "9";
 }

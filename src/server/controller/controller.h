@@ -15,7 +15,6 @@ public:
 
 private:
     struct Invite{
-
         std::string host, friend1, friend2;
         GameLobby *lobby = nullptr;
         bool connection1 = false, connection2 = false;
