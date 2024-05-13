@@ -61,7 +61,7 @@ private:
 
     std::string handleMousePress(int &client_socket, GameLobby *client_lobby);
 
-
+    std::string handleGameRequest(int &socket, GameLobby *pLobby);
 };
 
 

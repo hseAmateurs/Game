@@ -37,8 +37,8 @@ void GameController::run(sf::RenderWindow& window,Client& client){
             if (event.type == sf::Event::Closed)
                 window.close();
             std::string message="701 "+client.getLogin();
-            if(event.type==sf::Event::TextEntered)
-                message=message+" 1 "+static_cast<char>(event.text.unicode);
+            if(event.type==sf::Event::KeyPressed)
+                message=message+" 1 "+std::to_string(event.key.code);
             else{
                 message+=" 0 0";
                 cn++;
@@ -53,8 +53,10 @@ void GameController::run(sf::RenderWindow& window,Client& client){
                 message+=" 0 0 "+mouseposx+mouseposy;
                 cn++;
             }
-            if(cn!=2)
+            if(cn!=2) {
+                message+=" /";
                 client.sendMessage(message.c_str());
+            }
         }
         sf::Time elapsed = clock.restart();
 

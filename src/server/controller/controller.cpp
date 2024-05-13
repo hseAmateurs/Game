@@ -17,9 +17,9 @@ std::string Controller::handleRequest(const std::string& request, int &client_so
         case 601: return handleGameCommand(client_socket, clientLobby);
         case 602: return handleStartFriendLobby(client_socket, enteringLobby, clientLobby); // 602 login friendLogin friendLogin
         case 603: return handleWaitingFriendLobby(client_socket, enteringLobby, clientLobby); // 603 login
-        case 701: return handleMouseAndButtonPress(client_socket, clientLobby);
-        case 702: return handleButtonPress(client_socket, clientLobby);
-        case 703: return handleMousePress(client_socket, clientLobby);
+        case 701: return handleGameRequest(client_socket, clientLobby);
+        //case 702: return handleButtonPress(client_socket, clientLobby);
+        //case 703: return handleMousePress(client_socket, clientLobby);
         default: return "UNKNOWN_REQUEST";
     }
 }
@@ -258,6 +258,44 @@ std::string Controller::handleMousePress(int &client_socket, GameLobby *client_l
 }
 
 std::string Controller::handleButtonPress(int &client_socket, GameLobby *client_lobby) {
+
+    return "9";
+}
+
+std::string Controller::handleGameRequest(int &socket, GameLobby *pLobby) {
+    std::string login = params[0];
+    int keyPress = std::stoi(params[1]); // 1 or 0
+    int keyCode = std::stoi(params[2]);
+    int mousePress = std::stoi(params[3]); // 1 or 0
+    int mouseCode = std::stoi(params[4]); // 1 - lMb,  2 - rMb
+    std::string mousePosStr = params[5];
+    int i = 1;
+    std::string xStr;
+    int signX;
+    std::string yStr;
+    int signY;
+
+    if (mousePosStr[0] == '+'){
+        signX = 1;
+    } else {signX = -1;}
+    for (i ; mousePosStr[i] != '-' && mousePosStr[i] != '+'; ++i){
+        xStr.push_back(mousePosStr[i]);
+    }
+    if (mousePosStr[i] == '+'){
+        signY = 1;
+    } else {signY = -1;}
+    i++;
+    for (i ; i < mousePosStr.length(); ++i){
+        yStr.push_back(mousePosStr[i]);
+    }
+
+    int x = signX * std::stoi(xStr);
+    int y = signY * std::stoi(yStr);
+
+    sf::Vector2i mousePos(x, y); // mouse pos
+    std::cout<<login<<" "<<keyPress<<" "<<keyCode<<" "<<mousePress<<" "<<mouseCode<<" "<<mousePos.x<<" "<<mousePos.y<<"\n";
+
+
 
     return "9";
 }
