@@ -105,6 +105,9 @@ namespace settings {
         const float speed = 200;
     }
 
+    namespace encryption {
+    }
+
 }
 
 

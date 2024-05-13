@@ -6,8 +6,6 @@
 #include "../utils/globalFunctions.h"
 class Map;
 
-#define HEX_VERTEX_COUNT 6
-
 
 class Hexagon {
 public:
@@ -18,9 +16,11 @@ public:
 
     void draw(sf::RenderWindow& window);
     void updateDestroying(sf::Time elapsed);
+    void setState(int state) { textureStage = state; }
     sf::Vector2f getPos()const { return position; }
     bool isDead() const { return !isAlive; }
     Hexagon* getClosestHex(sf::Vector2f& pos);
+    int getState() const { return textureStage; }
 
 private:
 

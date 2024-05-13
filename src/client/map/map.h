@@ -16,10 +16,12 @@ class Map {
 public:
     Map(){
         center = new Hexagon();
+        std::cout << hexs.size();
         initTrees();
         hexs.sort(compHexByHeight);
     }
 
+    void updateStatesHexs(char *code);
     static void draw(sf::RenderWindow& window);
     static void updateDestroying(sf::Time elapsed);
     static void addHex(Hexagon* hex) { hexs.push_back(hex); }
@@ -36,6 +38,7 @@ private:
     static Hexagon* center;
     static std::list<Hexagon*> hexs;
     static std::list<Tree*> trees;
+
 };
 
 #endif //GAME_MAP_H

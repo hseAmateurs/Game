@@ -18,7 +18,7 @@ Hexagon::Hexagon(sf::Vector2f pos, int dist):
 }
 
 void Hexagon::draw(sf::RenderWindow &window) {
-    if(isAlive)
+    //if(isAlive)
         window.draw(sprite);
 }
 
@@ -65,7 +65,7 @@ bool Hexagon::relaxDist(int dist) {
 
 void Hexagon::updateDestroying(sf::Time elapsed) {
     lifeTime += elapsed;
-    if(lifeTime >= timeToDie + settings::map::destroyStep + settings::map::destroyStep) isAlive = false;
+    if(lifeTime >= timeToDie + settings::map::destroyStep + settings::map::destroyStep) textureStage = 3;
     else if(lifeTime >= timeToDie + settings::map::destroyStep) textureStage = 2;
     else if(lifeTime >= timeToDie) textureStage = 1;
     updateTextureStage();
@@ -87,6 +87,9 @@ void Hexagon::initSprite() {
 }
 
 void Hexagon::updateTextureStage() {
+    if(textureStage == 3) {
+        isAlive = false;
+    }
     sprite.setTextureRect(sf::IntRect(settings::map::HEX_TEXTURE_SIZE.x*textureStage, 0, settings::map::HEX_TEXTURE_SIZE.x, settings::map::HEX_TEXTURE_SIZE.y));
 }
 

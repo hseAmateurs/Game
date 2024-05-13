@@ -28,6 +28,8 @@ add_executable(Client
         heroes/circleShape.cpp
         heroes/Blizzard.cpp
         heroes/rectangleShape.cpp
+        encryption/map_encryption.cpp
+        encryption/map_encryption.h
 )
 
 
