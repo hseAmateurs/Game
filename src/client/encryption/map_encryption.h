@@ -16,17 +16,7 @@ public:
     map_encryption() {
         bytes = new char[NUMBER_OF_BYTES];
     }
-
-    void decryptBytes(std::vector<int>& resultStates) {
-        int p=0;
-        for(int i=0; i<NUMBER_OF_BYTES; ++i) {
-            char byte = bytes[i];
-            for(int j=0; j<4; ++j) {
-                resultStates[p++] = ((int)byte & (3 << (6 - j*2))) >> (6 - j*2);
-            }
-        }
-    }
-
+    git
     char* encryptHexs(std::list<Hexagon*>& hexs) {
         int states[4];
         for(auto& hex : hexs) {
