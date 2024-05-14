@@ -105,7 +105,8 @@ namespace settings {
         const float speed = 200;
     }
 
-    namespace encryption {
+    namespace seeds {
+        const int map = 0;
     }
 
 }

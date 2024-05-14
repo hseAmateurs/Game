@@ -9,7 +9,7 @@ std::list<Hexagon*> Map::hexs;
 std::list<Tree*> Map::trees;
 Hexagon* Map::center;
 
-bool compHexByHeight(Hexagon* a, Hexagon* b) {
+bool compHex(Hexagon* a, Hexagon* b) {
     return a->getPos().y < b->getPos().y;
 }
 

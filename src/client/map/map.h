@@ -10,15 +10,16 @@
 
 #include <iostream>
 
-bool compHexByHeight(Hexagon* a, Hexagon* b);
+bool compHex(Hexagon* a, Hexagon* b);
 
 class Map {
 public:
     Map(){
+        srand(settings::seeds::map);
         center = new Hexagon();
-        std::cout << hexs.size();
+        srand(time(nullptr));
         initTrees();
-        hexs.sort(compHexByHeight);
+        hexs.sort(compHex);
     }
 
     void updateStatesHexs(char *code);
