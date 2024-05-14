@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "gameController.h"
+#include <unistd.h>
 
 Controller::Controller() : 
     window(sf::VideoMode(1920, 1080), "Game")
@@ -7,7 +8,13 @@ Controller::Controller() :
 
 void Controller::run() {
     window.setFramerateLimit(60);
-    font.loadFromFile("PressStart2P-Regular.ttf");
+    font.loadFromFile("res/PressStart2P-Regular.ttf");
+
+
+    char path[1000];
+    getcwd(path, 1000);
+    std::cout<<path<<"\n";
+
     MenuManager menuManager;
     menuManager.setFont(font);
     StartMenu startMenu(font, &menuManager);

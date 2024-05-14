@@ -1,7 +1,7 @@
 project(Client)
 
-
 include_directories(menu)
+include_directories(../../res)
 
 add_executable(Client
         menu/menu.h
@@ -72,6 +72,10 @@ add_executable(Client
         heroes/rectangleShape.cpp
         menu/gameController.h
         menu/gameController.cpp
+
+        PressStart2P-Regular.ttf
+        utils/pathChanger.h
+        utils/pathChanger.cpp
 )
 
 
