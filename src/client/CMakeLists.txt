@@ -1,7 +1,7 @@
 project(Client)
 
-
 include_directories(menu)
+include_directories(../../res)
 
 add_executable(Client
         menu/menu.h
@@ -74,6 +74,10 @@ add_executable(Client
         menu/gameController.cpp
         encryption/map_encryption.cpp
         encryption/map_encryption.h
+
+        PressStart2P-Regular.ttf
+        utils/pathChanger.h
+        utils/pathChanger.cpp
 )
 
 
