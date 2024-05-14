@@ -48,7 +48,7 @@ void Hero::update(sf::Time elapsed, sf::Vector2i mousePos) {
     if (flyTime > sf::Time::Zero) staffPosition.y +=48;
 
     Hexagon* ground = Map::getHex(position);
-    if(ground == nullptr || ground->isDead()) ; // TODO
+    //if(ground == nullptr || ground->isDead()) ; // TODO
 }
 
 void Hero::updateDirection() {

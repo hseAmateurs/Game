@@ -53,10 +53,10 @@ void GameController::run(sf::RenderWindow& window,Client& client){
                 message+=" 0 0 "+mouseposx+mouseposy;
                 cn++;
             }
-            if(cn!=2) {
+            //if(cn!=2) {
                 message+=" /";
                 client.sendMessage(message.c_str());
-            }
+            //}
         }
         sf::Time elapsed = clock.restart();
 
