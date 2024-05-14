@@ -8,6 +8,8 @@
 #include "Blizzard.h"
 #include "../utils/globalFunctions.h"
 
+std::list<Hero*> Hero::heroList;
+
 void Hero::update(sf::Time elapsed, sf::Vector2i mousePos) {
     sf::Vector2f dest = sf::Vector2f (float(mousePos.x),float(mousePos.y)) * currentCameraSize + currentCameraPos + currentCameraOffset;
     generalCooldown -= elapsed;
@@ -48,7 +50,10 @@ void Hero::update(sf::Time elapsed, sf::Vector2i mousePos) {
     if (flyTime > sf::Time::Zero) staffPosition.y +=48;
 
     Hexagon* ground = Map::getHex(position);
-    if(ground == nullptr || ground->isDead()) ; // TODO
+    if(ground == nullptr || ground->isDead())
+        killHero();
+    if(hp <= 0)
+        killHero();
 }
 
 void Hero::updateDirection() {
@@ -92,7 +97,6 @@ void Hero::draw(sf::RenderWindow &window) {
 
 
 void Hero::setTexture(sf::Time elapsed) {
-    int rectLeft = 0, rectTop = 0;
     if (direction.x == 0 && direction.y == 0) {
         standTime += elapsed;
         flyTime = sf::Time::Zero;
@@ -265,5 +269,51 @@ void Hero::createIceSequence(sf::Vector2f dest) {
         resetSkill();
         skillCooldownW = sf::seconds(settings::hero::iceSequence::coolDown);
         iceSequenceStarted = false;
+    }
+}
+
+void Hero::controlHero(const std::string &login, const int &keyPress, const int &keyCode, const int &mousePress,
+                       const int &mouseCode, const sf::Vector2i &mousePos, const sf::Time &elapsed) {
+    for (Hero* hero: Hero::heroList) {
+        if(login == hero->login){
+            if (keyPress)
+                hero->skillActivate(keyCode);
+            if (mousePress && mouseCode == 2) {
+                hero->setDestination(mousePos);
+                hero->resetSkill();
+            }
+            if (mousePress && mouseCode == 1)
+                hero->skillCast(mousePos);
+        }
+        hero->update(elapsed, mousePos);
+    }
+}
+
+void Hero::killHero() {
+    delete this;
+}
+
+std::string Hero::getParameter(int parCode) {
+    switch (parCode) {
+        case 1:
+            return login;
+        case 2:
+            return position;
+        case 3:
+            return hp;
+        case 4:
+            return rectTop;
+        case 5:
+            return rectLeft;
+        case 6:
+            return activeSkill;
+        case 7:
+            return skillCooldownQ;
+        case 8:
+            return skillCooldownW;
+        case 9:
+            return skillCooldownE;
+        case 10:
+            return skillCooldownR;
     }
 }

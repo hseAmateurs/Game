@@ -21,8 +21,9 @@ public:
         waveSprite.setTextureRect(sf::IntRect(0, 0, w, h));
         waveSprite.setOrigin(w-16, h/2);
         waveSprite.setPosition(position);
-        if(dirY>0) waveSprite.setRotation(acosf(dirX)*180.f/M_PI);
-        else waveSprite.setRotation(-acosf(dirX)*180.f/M_PI);
+        if(dirY>0) spriteRotationAngle = acosf(dirX)*180.f/M_PI;
+        else spriteRotationAngle = -acosf(dirX)*180.f/M_PI;
+        waveSprite.setRotation(spriteRotationAngle);
         waveSprite.setScale(0.7f,0.5f);
     }
 
@@ -36,6 +37,7 @@ public:
     sf::Sprite getSprite() { return waveSprite; }
     static void drawWaves(sf::RenderWindow &window);
     static void wavesUpdate(sf::Time elapsed);
+    std::string getParameter(int parCode);
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
@@ -45,6 +47,7 @@ private:
     bool alive {true};
     sf::Texture waveTexture;
     sf::Sprite waveSprite;
+    float spriteRotationAngle;
 
     void update(sf::Time elapsed);
 };

@@ -37,7 +37,21 @@ void IceSpikes::draw(sf::RenderWindow &window) {
 }
 
 void IceSpikes::animate() {
-    if (lifeTime<sf::seconds(1) && lifeTime.asMilliseconds()/172>2) {
-        spikeSprite.setTextureRect(sf::IntRect ((5-lifeTime.asMilliseconds()/172) * w,0,w,h));
+    if (lifeTime<sf::seconds(1)) {
+        textureNumber = 5-lifeTime.asMilliseconds()/172;
+        if (lifeTime.asMilliseconds()/172>2)
+            spikeSprite.setTextureRect(sf::IntRect (textureNumber * w,0,w,h));
+    } else
+        textureNumber = -1;
+}
+
+std::string IceSpikes::getParameter(int parCode) {
+    switch (parCode) {
+        case 1:
+            return position;
+        case 2:
+            return textureNumber; // from -1 to 3, можешь просто +1 сделать если с отрицательными там сложнее, только напиши в тг об этом
+        case 3:
+            return scaleVariation;
     }
 }

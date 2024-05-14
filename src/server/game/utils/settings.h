@@ -102,6 +102,7 @@ namespace settings {
             const float blizzardScale = 1;
         }
 
+        const int startHP = 20;
         const float speed = 200;
     }
 
