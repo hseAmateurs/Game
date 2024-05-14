@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "positions.h"
 #include "../utils/overloads.h"
+#include "../encryption/map_encryption.h"
 
 
 std::list<Hexagon*> Map::hexs;
@@ -75,4 +76,12 @@ void Map::initInnerTrees(sf::Vector2f pos) {
     new Tree(  rotateVecAtAlpha(pos,degreeToRad(-settings::map::tree::avgDistAlphaInner + settings::map::tree::distAlphaOffsetInner))
               * randBetweenTwo(1.f - settings::map::tree::distRadiusScaleOffsetInner, 1.f + settings::map::tree::distRadiusScaleOffsetInner));
     new Tree(pos * randBetweenTwo(1.f - settings::map::tree::distRadiusScaleOffsetInner, 1.f + settings::map::tree::distRadiusScaleOffsetInner));
+}
+
+
+void Map::updateStatesHexs(char* code) {
+    map_encryption m;
+    int* states = m.decryptHexs(code);
+    int i=0;
+    for(auto hex : hexs) hex->setState(states[i++]);
 }

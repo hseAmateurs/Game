@@ -72,6 +72,8 @@ add_executable(Client
         heroes/rectangleShape.cpp
         menu/gameController.h
         menu/gameController.cpp
+        encryption/map_encryption.cpp
+        encryption/map_encryption.h
 )
 
 
