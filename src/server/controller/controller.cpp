@@ -1,7 +1,7 @@
 #include "controller.h"
 //#include "../gameLobby/utils.cpp"
 
-std::string Controller::handleRequest(const std::string& request, int &client_socket, bool enteringLobby, GameLobby *clientLobby) {
+std::string Controller::handleRequest(const std::string& request, int &client_socket, bool &enteringLobby, GameLobby *clientLobby) {
     parseRequest(request);
 
     // Call the appropriate handler based on the request code
@@ -151,7 +151,7 @@ std::string Controller::handleAddFriend() {
 
 
 
-std::string Controller::handleStartQuickSearch(int &client_socket, bool enteringLobby) {
+std::string Controller::handleStartQuickSearch(int &client_socket, bool &enteringLobby) {
     if (params.size() < 1) {
         return "WRONG_REQUEST";
     }
@@ -183,7 +183,7 @@ std::string Controller::handleGameCommand(int clientSocket, GameLobby *clientLob
     return "0";
 }
 
-std::string Controller::handleStartFriendLobby(int &client_socket, bool enteringLobby, GameLobby *client_lobby) {
+std::string Controller::handleStartFriendLobby(int &client_socket, bool &enteringLobby, GameLobby *client_lobby) {
     if (params.size() < 3) {
         return "WRONG_REQUEST";
     }
@@ -223,7 +223,7 @@ std::string Controller::handleStartFriendLobby(int &client_socket, bool entering
     return "0";
 }
 
-std::string Controller::handleWaitingFriendLobby(int &client_socket, bool enteringLobby, GameLobby *client_lobby) {
+std::string Controller::handleWaitingFriendLobby(int &client_socket, bool &enteringLobby, GameLobby *client_lobby) {
     if (params.size() < 1) {
         return "WRONG_REQUEST";
     }

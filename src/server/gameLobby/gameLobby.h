@@ -10,6 +10,8 @@
 
 class GameLobby {
 public:
+
+    GameLobby () { std::cout << "LOBBY CREATED\n" ;}
     int test = 10;
 
     void addPlayer(const std::string& username, int clientSocket);
@@ -20,8 +22,8 @@ public:
     std::vector<int> playerSockets;
     std::vector<std::string> playerLogins;
 private:
-//    Assets assets;
-//    Field field;
+    Assets assets;
+    Field field;
 };
 
 

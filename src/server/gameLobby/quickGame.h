@@ -18,7 +18,10 @@ public:
     bool isPlayerInAnyLobby(const std::string& username);
     bool lobbyCreatedFlag = false;
     GameLobby* pendingLobby = nullptr;
-
+    struct PlayerInfo {
+        std::string username;
+        int clientSocket;
+    };
 
     //bool isPlayerInAnyLobby(const std::string& username)
 
@@ -26,10 +29,7 @@ public:
 
 private:
     std::vector<GameLobby*> &activelobbies;
-    struct PlayerInfo {
-        std::string username;
-        int clientSocket;
-    };
+
 
     std::vector<PlayerInfo> playerQueue;
 

@@ -10,37 +10,27 @@ std::string QuickGame::addToQueue(const std::string& username, int clientSocket)
     return "0";//success
 }
 
-void QuickGame::loadGameLobby() {
-    if (playerQueue.size() >= 2) { // Assuming 2 players for a game
-        // Create a new GameLobby instance
-        GameLobby* newLobby = new GameLobby();
-        activelobbies.push_back(newLobby);
-
-        // Add the first two players from the queue to the lobby
-        for (int i = 0; i < 2; ++i) {
-            newLobby->addPlayer(playerQueue[i].username, playerQueue[i].clientSocket);
-            playerQueue.erase(playerQueue.begin());
-        }
-
-        // Notify players that the lobby has been created
-        newLobby->notifyPlayers("Lobby created! Waiting for game to start...");
-    }
-}
 
 std::string QuickGame::matchmake(const std::string login) {
 
-    if (playerQueue.size() >= 3) { // Check if we have enough players for a lobby
+    if (playerQueue.size() >= 3 && !isPlayerInAnyLobby(login) && !isntInQueue(login) && !lobbyCreatedFlag) { // Check if we have enough players for a lobby
         // Create a new GameLobby instance
+        lobbyCreatedFlag = true;
         GameLobby* newLobby = new GameLobby();
 
         // Add the first 3 players to the lobby
-        for (int i = 0; i < 3; ++i) {
-            newLobby->addPlayer(playerQueue[i].username, playerQueue[i].clientSocket);
+        for (int i = 1; i <= 3; ++i) {
+            newLobby->addPlayer(playerQueue[playerQueue.size() - i].username, playerQueue[playerQueue.size() - i].clientSocket);
         }
 
+        playerQueue.pop_back();
+        playerQueue.pop_back();
+        playerQueue.pop_back();
+
         // Remove those players from the queue
-        playerQueue.erase(playerQueue.begin(), playerQueue.begin() + 3);
-        lobbyCreatedFlag = true;
+        //playerQueue.erase(playerQueue.begin(), playerQueue.begin() + 3);
+
+
         pendingLobby = newLobby;
         // Notify players about the new lobby (implementation in GameLobby)
         //newLobby->notifyPlayers("abc");

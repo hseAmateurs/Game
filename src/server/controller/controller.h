@@ -11,7 +11,7 @@
 class Controller {
 public:
     Controller(PlayerDatabase& database, std::vector<GameLobby*> &activelobbies, QuickGame &quickGameQueue) : database(database),  quickGameQueue(quickGameQueue), activelobbies(activelobbies) {}
-    std::string handleRequest(const std::string& request, int &client_socket, bool enteringLobby, GameLobby *clientLobby);
+    std::string handleRequest(const std::string& request, int &client_socket, bool &enteringLobby, GameLobby *clientLobby);
 
 private:
     struct Invite{
@@ -45,15 +45,15 @@ private:
 
     std::string handleAddFriend();
 
-    std::string handleStartQuickSearch(int &client_socket, bool enteringLobby);
+    std::string handleStartQuickSearch(int &client_socket, bool &enteringLobby);
 
     std::string handleStopQuickSearch();
 
     std::string handleGameCommand(int clientSocket, GameLobby *clientLobby);
 
-    std::string handleStartFriendLobby(int &client_socket, bool enteringLobby,GameLobby *client_lobby);
+    std::string handleStartFriendLobby(int &client_socket, bool &enteringLobby,GameLobby *client_lobby);
 
-    std::string handleWaitingFriendLobby(int &client_socket, bool enteringLobby, GameLobby *client_lobby);
+    std::string handleWaitingFriendLobby(int &client_socket, bool &enteringLobby, GameLobby *client_lobby);
 
     std::string handleButtonPress(int &client_socket, GameLobby *client_lobby);
 

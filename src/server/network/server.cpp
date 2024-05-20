@@ -80,10 +80,9 @@ void Server::handle_client(int client_socket, QuickGame &quickGameQueue, std::ve
         if (message.empty()) {
             break; // Client disconnected
         }
-        printf("Client %d: %s\n", client_socket, message.c_str());
+        //printf("Client %d: %s\n", client_socket, message.c_str());
 
-        if(clientLobby == nullptr)
-            clientLobby = findLobbyBySocket(activeLobbies, client_socket);
+
 
         std::string answer = controller.handleRequest(message, client_socket, enteringLobby, clientLobby);
         if (enteringLobby){
@@ -92,8 +91,10 @@ void Server::handle_client(int client_socket, QuickGame &quickGameQueue, std::ve
         }
         //if (!quickGameQueue.lobbyCreatedFlag)
             sendMessage(client_socket, answer.c_str());
+        if(clientLobby == NULL)
+            clientLobby = findLobbyBySocket(activeLobbies, client_socket);
 
-        if (quickGameQueue.lobbyCreatedFlag) {
+        if (quickGameQueue.lobbyCreatedFlag && clientLobby) {
             //quickGameQueue.pendingLobby->setNames();
             std::thread lobbyThread(&Server::lobbyLoop, this, quickGameQueue.pendingLobby);
             lobbyThread.detach();
