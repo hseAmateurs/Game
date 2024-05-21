@@ -15,7 +15,6 @@ public:
     int test = 10;
 
     void addPlayer(const std::string& username, int clientSocket);
-    void notifyPlayers(const std::string& message);
     bool hasPlayer(const std::string& username);
     void gameLoop();//обрабатывает карту и возвращает информацию игрокам
     void setNames();

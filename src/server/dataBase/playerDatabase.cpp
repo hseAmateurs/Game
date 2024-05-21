@@ -18,10 +18,8 @@ void PlayerDatabase::loadDatabase() {
         while (ss >> friend_login) {
             player.friends.push_back(friend_login);
         }
-        //std::cout << "Player data extracted: " << player.login << ", " << player.password << std::endl;
         players.push_back(player);
     }
-    //std::cout << "Loaded " << players.size() << " players." << std::endl;
     file.close();
 
 }

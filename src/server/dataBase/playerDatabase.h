@@ -23,12 +23,6 @@ class PlayerDatabase{
 public:
     PlayerDatabase(std::string file): filename(file) { loadDatabase(); };
 
-
-//    static PlayerDatabase &instance(){
-//        PlayerDatabase database;
-//        return database;
-//    }
-
     void addPlayer(std::string login, std::string password);
     int findLogin(const std::string login); // при существоании возвращает позицию в БД, иначе -1
     int findUser(const std::string login, const std::string password); // при совпадении возвращает 0, при неправильном пароле возвращает 1б при отсутствии логина -1

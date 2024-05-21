@@ -18,7 +18,6 @@ public:
     std::string getMessage(int client_socket);
     std::vector<GameLobby*> activeLobbies;
     void lobbyLoop(GameLobby *lobby);
-    void createLobbyThread(GameLobby* lobby);
     QuickGame quickGameQueue;
 
 private:
@@ -27,14 +26,6 @@ private:
     int server_fd;
     PlayerDatabase database;
     Controller controller;
-    std::mutex activeLobbiesMutex;
-    std::mutex quickGameQueueMutex;
-
-
-
-
-
-
 };
 
 #endif // SERVER_H

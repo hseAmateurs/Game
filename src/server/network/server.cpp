@@ -73,36 +73,26 @@ void Server::handle_client(int client_socket, QuickGame &quickGameQueue, std::ve
     GameLobby *clientLobby = nullptr;
     bool enteringLobby = false;
     while (true) {
-//        std::lock_guard<std::mutex> quickGameQueueLock(quickGameQueueMutex);
-//        std::lock_guard<std::mutex> activeLobbiesLock(activeLobbiesMutex);
-
         std::string message = getMessage(client_socket);
         if (message.empty()) {
             break; // Client disconnected
         }
         //printf("Client %d: %s\n", client_socket, message.c_str());
-
-
-
         std::string answer = controller.handleRequest(message, client_socket, enteringLobby, clientLobby);
         if (enteringLobby){
             enteringLobby = false;
             clientLobby = findLobbyBySocket(activeLobbies, client_socket); // получаем лобби для игрока
         }
-        //if (!quickGameQueue.lobbyCreatedFlag)
+        if (!quickGameQueue.lobbyCreatedFlag && answer != "9");
             sendMessage(client_socket, answer.c_str());
         if(clientLobby == NULL)
             clientLobby = findLobbyBySocket(activeLobbies, client_socket);
-
         if (quickGameQueue.lobbyCreatedFlag && clientLobby) {
-            //quickGameQueue.pendingLobby->setNames();
             std::thread lobbyThread(&Server::lobbyLoop, this, quickGameQueue.pendingLobby);
             lobbyThread.detach();
             quickGameQueue.lobbyCreatedFlag = false;
             quickGameQueue.pendingLobby = nullptr;
         }
-
-
     }
     closesock(client_socket);
 }
@@ -121,17 +111,11 @@ std::string Server::getMessage(int client_socket) {
     return std::string(buffer, bytes_received);
 }
 
-//void Server::createLobbyThread(GameLobby* lobby) {
-//    std::thread lobbyThread(&Server::lobbyLoop, this, lobby);
-//    lobbyThread.detach();
-//}
-
 void Server::lobbyLoop(GameLobby *lobby){ // здесь будет считаться карта и отправляться данные
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
     while (true) {
         lobby->gameLoop();
-        //std::lock_guard<std::mutex> activeLobbiesLock(activeLobbiesMutex);
         for (auto client_socket: lobby->playerSockets) {
             char *mesage = const_cast<char *>(std::to_string(lobby->test).c_str());
             //std::cout<<mesage<<"\n";

@@ -11,12 +11,6 @@ void GameLobby::addPlayer(const std::string& username, int clientSocket) {
     // ... (Potentially store username and other player data) ...
 }
 
-void GameLobby::notifyPlayers(const std::string& message) {
-    for (int clientSocket : playerSockets) {
-        //server.sendMessage(clientSocket, message.c_str());
-    }
-}
-
 bool GameLobby::hasPlayer(const std::string& username) {
     for (const auto& player : playerLogins) {
         if (player == username) {
@@ -30,9 +24,9 @@ void GameLobby::gameLoop() {
     //test+=1;
 }
 
-//void GameLobby::setNames() {
-//    field.setNames(playerLogins);
-//}
+void GameLobby::setNames() {
+    field.setNames(playerLogins);
+}
 
 
 

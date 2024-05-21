@@ -55,12 +55,6 @@ private:
 
     std::string handleWaitingFriendLobby(int &client_socket, bool &enteringLobby, GameLobby *client_lobby);
 
-    std::string handleButtonPress(int &client_socket, GameLobby *client_lobby);
-
-    std::string handleMouseAndButtonPress(int &client_socket, GameLobby *client_lobby);
-
-    std::string handleMousePress(int &client_socket, GameLobby *client_lobby);
-
     std::string handleGameRequest(int &socket, GameLobby *pLobby);
 };
 

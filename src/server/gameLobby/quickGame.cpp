@@ -22,18 +22,14 @@ std::string QuickGame::matchmake(const std::string login) {
         for (int i = 1; i <= 3; ++i) {
             newLobby->addPlayer(playerQueue[playerQueue.size() - i].username, playerQueue[playerQueue.size() - i].clientSocket);
         }
-
-        playerQueue.pop_back();
-        playerQueue.pop_back();
-        playerQueue.pop_back();
+        newLobby->setNames();
 
         // Remove those players from the queue
-        //playerQueue.erase(playerQueue.begin(), playerQueue.begin() + 3);
-
+        playerQueue.pop_back();
+        playerQueue.pop_back();
+        playerQueue.pop_back();
 
         pendingLobby = newLobby;
-        // Notify players about the new lobby (implementation in GameLobby)
-        //newLobby->notifyPlayers("abc");
         activelobbies.push_back(newLobby);
         return "1";
 
@@ -55,11 +51,9 @@ std::string QuickGame::removeFromQueue(const std::string& username) {
     for (auto it = playerQueue.begin(); it != playerQueue.end(); ++it) {
         if (it->username == username) {
             playerQueue.erase(it);
-
             break; // Assuming usernames are unique
         }
     }
-    //matchmake(username);
     return "0";
 }
 
