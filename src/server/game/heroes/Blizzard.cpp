@@ -20,8 +20,10 @@ void Blizzard::update(sf::Time elapsed) {
     lifeTime -= elapsed;
     if (lifeTime < sf::Time::Zero)
         alive = false;
-    blizzardSprite.rotate(-elapsed.asSeconds()*settings::hero::blizzard::rotationSpeedSnow);
-    blizzardCloudSprite.rotate(-elapsed.asSeconds()*settings::hero::blizzard::rotationSpeedCloud);
+    spriteRotationAngleSnow += elapsed.asSeconds()*settings::hero::blizzard::rotationSpeedSnow;
+    spriteRotationAngleClouds += elapsed.asSeconds()*settings::hero::blizzard::rotationSpeedCloud;
+    blizzardSprite.setRotation(-spriteRotationAngleSnow);
+    blizzardCloudSprite.setRotation(-spriteRotationAngleClouds);
 }
 
 void Blizzard::drawBlizzards(sf::RenderWindow &window) {
@@ -33,4 +35,15 @@ void Blizzard::drawBlizzards(sf::RenderWindow &window) {
 void Blizzard::draw(sf::RenderWindow &window) {
     window.draw(blizzardSprite);
     window.draw(blizzardCloudSprite);
+}
+
+std::string Blizzard::getParameter(int parCode) {
+    switch (parCode) {
+        case 1:
+            return position;
+        case 2:
+            return spriteRotationAngleSnow;
+        case 3:
+            return spriteRotationAngleClouds;
+    }
 }

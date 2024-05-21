@@ -37,6 +37,7 @@ public:
     static void drawBlizzards(sf::RenderWindow &window);
     void draw(sf::RenderWindow &window);
     sf::Sprite getSprite() { return blizzardSprite; }
+    std::string getParameter(int parCode);
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
@@ -46,6 +47,8 @@ private:
     sf::Texture blizzardTexture, blizzardCloudTexture;
     sf::Sprite blizzardSprite, blizzardCloudSprite;
     CircleShape warningShape;
+    float spriteRotationAngleSnow;
+    float spriteRotationAngleClouds;
 
     void update(sf::Time elapsed);
 };

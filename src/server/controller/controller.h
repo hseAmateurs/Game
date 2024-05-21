@@ -22,6 +22,7 @@ private:
         int sock1, sock2;
     };
 
+    sf::Clock clock;
     PlayerDatabase& database;
     int requestCode;
     std::vector<std::string> params;

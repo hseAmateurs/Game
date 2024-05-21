@@ -21,8 +21,9 @@ enum HeroSkill {
 
 
 class Hero: public Base{
+    static std::list<Hero*> heroList; // all heroes here
 public:
-    Hero(sf::Vector2f pos, float W, float H): position(pos), w(W), h(H),
+    Hero(sf::Vector2f pos, float W, float H): position(pos), w(W), h(H), hp(settings::hero::startHP),
     aimShapeQ(pos,settings::textures::iceSpikesWidth/2+5,sf::Color::White),
     aimShapeW(pos,(settings::textures::iceSpikesWidth/2+5) * settings::hero::iceSequence::spikesScale,sf::Color::White),
     aimShapeE(pos,{settings::hero::frostWave::lifeTime * settings::hero::frostWave::speed, settings::textures::frostWaveWidth}),
@@ -31,6 +32,7 @@ public:
     rangeShapeE(pos,settings::hero::frostWave::speed * settings::hero::frostWave::lifeTime,sf::Color::White),
     rangeShapeR(pos,settings::hero::blizzard::rangeRadius,sf::Color::White){
 
+        heroList.insert(heroList.end(),this);
         // w = 150 h = 150 for current texture (blue_hero)
         destination = position;
         direction = {0.f,0.f}; // no destination
@@ -51,10 +53,17 @@ public:
         destinationSprite.setPosition(position);
     }
 
+    ~Hero(){
+        heroList.erase(std::find(heroList.begin(), heroList.end(), this));
+    }
+
     void setDestination(sf::Vector2i dest);
     void skillActivate(int SFMLKeyCode);
     void resetSkill();
     void skillCast(sf::Vector2i dest);
+    void killHero();
+    std::string getParameter(int parCode);
+    static void controlHero(const std::string &login, const int &keyPress, const int &keyCode, const int &mousePress, const int &mouseCode, const sf::Vector2i &mousePos, const sf::Time &elapsed);
 
     void draw(sf::RenderWindow &window);
     void update(sf::Time elapsed, sf::Vector2i mousePos);
@@ -62,7 +71,7 @@ public:
     std::string login;
 
 private:
-
+    int hp;
     sf::Vector2f position, staffPosition;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
     sf::Vector2f direction; // current movement speed vector with const length = 1
@@ -82,6 +91,7 @@ private:
     CircleShape aimShapeQ, aimShapeW, aimShapeR; // shapes instead of cursor while skill is active
     RectangleShape aimShapeE; // shapes instead of cursor while skill is active
     CircleShape rangeShapeQ, rangeShapeE, rangeShapeR; // shapes showing skill range while skill is active
+    int rectLeft = 0, rectTop = 0; // for animation
 
     void updateDirection(); // calculate direction (used in update)
     void resetDestination(); // set dest to pos

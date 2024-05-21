@@ -30,3 +30,12 @@ void FrostWave::wavesUpdate(sf::Time elapsed) {
         }
     }
 }
+
+std::string FrostWave::getParameter(int parCode) {
+    switch (parCode) {
+        case 1:
+            return position;
+        case 2:
+            return spriteRotationAngle;
+    }
+}

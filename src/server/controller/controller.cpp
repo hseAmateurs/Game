@@ -1,4 +1,6 @@
 #include "controller.h"
+//#include "../gameLobby/utils.cpp"
+#include "../game/heroes/Hero.h"
 
 std::string Controller::handleRequest(const std::string& request, int &client_socket, bool &enteringLobby, GameLobby *clientLobby) {
     parseRequest(request);
@@ -277,7 +279,8 @@ std::string Controller::handleGameRequest(int &socket, GameLobby *pLobby) {
     sf::Vector2i mousePos(x, y); // mouse pos
     std::cout<<login<<" "<<keyPress<<" "<<keyCode<<" "<<mousePress<<" "<<mouseCode<<" "<<mousePos.x<<" "<<mousePos.y<<"\n";
 
-
+    sf::Time elapsed = clock.restart();
+    Hero::controlHero(login,keyPress,keyCode,mousePress,mouseCode,mousePos,elapsed);
 
     return "9";
 }

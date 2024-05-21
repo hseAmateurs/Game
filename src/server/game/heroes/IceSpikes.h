@@ -19,6 +19,8 @@ public:
         spikeSprite.setTextureRect(sf::IntRect(0, 0, w, h));
         spikeSprite.setOrigin(settings::textures::iceSpikesWidth/2, settings::textures::iceSpikesWidth/2);
         spikeSprite.setScale(scale,scale);
+        if (scale == 1) scaleVariation = 1;
+        else scaleVariation = 2;
         spikeSprite.setPosition(position);
     }
     ~IceSpikes(){
@@ -29,6 +31,7 @@ public:
     static void drawSpikes(sf::RenderWindow &window);
     void draw(sf::RenderWindow &window);
     sf::Sprite getSprite() { return spikeSprite; }
+    std::string getParameter(int parCode);
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
@@ -39,6 +42,10 @@ private:
     sf::Texture spikeTexture;
     sf::Sprite spikeSprite;
     CircleShape warningShape;
+
+    // for client
+    int scaleVariation = 1;
+    int textureNumber = -1;
 
     void update(sf::Time elapsed);
     void animate();
