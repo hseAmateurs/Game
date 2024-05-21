@@ -21,7 +21,9 @@ bool GameLobby::hasPlayer(const std::string& username) {
 }
 
 void GameLobby::gameLoop() {
-    //test+=1;
+    sf::Time elapsed = lobbyClock.restart();
+    field.update(elapsed);
+    //std::cout<<field.countHex()<<"\n";
 }
 
 void GameLobby::setNames() {

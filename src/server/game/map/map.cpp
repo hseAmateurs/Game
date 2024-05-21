@@ -23,7 +23,6 @@ void Map::updateDestroying(sf::Time elapsed) {
         hex->updateDestroying(elapsed);
     for(auto& tree : trees)
         tree->update();
-
 }
 
 void Map::draw(sf::RenderWindow &window) {

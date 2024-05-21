@@ -21,12 +21,14 @@ public:
     }
 
 
-    void update(sf::Time elapsed, sf::Vector2i mousePos);
+    void update(sf::Time elapsed);//, sf::Vector2i mousePos);
     void draw(sf::RenderWindow& window);
     void handleRightClick(sf::Vector2i clickCoords);
     void handleLeftClick(sf::Vector2i clickCoords);
     void handleButton(int keyCode);
     void setNames(const std::vector<std::string> &logins);
+    int countHex() {return map.countHex(); }
+
 
 private:
     Map map;

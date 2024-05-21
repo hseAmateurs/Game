@@ -1,8 +1,8 @@
 #include "field.h"
 #include <cmath>
 
-void Field::update(sf::Time elapsed, sf::Vector2i mousePos) {
-    hero.update(elapsed, mousePos);
+void Field::update(sf::Time elapsed){//, sf::Vector2i mousePos) {
+    //hero.update(elapsed, mousePos);
     Map::updateDestroying(elapsed);
 #ifdef SHOW_FPS
     fps.setString(std::to_string((int)rec(elapsed.asSeconds())));

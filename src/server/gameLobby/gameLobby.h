@@ -5,13 +5,14 @@
 #include <string>
 #include "../game/core/field.h"
 #include "../game/core/assets.h"
+#include <time.h>
 
 
 
 class GameLobby {
 public:
 
-    GameLobby () { std::cout << "LOBBY CREATED\n" ;}
+    GameLobby (): field(), assets() { std::cout << "LOBBY CREATED\n" ;}
     int test = 10;
 
     void addPlayer(const std::string& username, int clientSocket);
@@ -23,6 +24,7 @@ public:
 private:
     Assets assets;
     Field field;
+    sf::Clock lobbyClock;
 };
 
 

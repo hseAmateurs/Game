@@ -30,6 +30,7 @@ public:
     Hexagon* getCenter() { return center; }
     static Hexagon* getHex(sf::Vector2f pos);
     static Hexagon* getHexAtMapInit(sf::Vector2f pos);
+    int countHex() {return hexs.size();}
 
 private:
 

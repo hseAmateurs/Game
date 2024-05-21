@@ -5,6 +5,7 @@
 #include "map.h"
 #include "../utils/overloads.h"
 #include "../core/assets.h"
+#include <iostream>
 
 
 Hexagon::Hexagon(sf::Vector2f pos, int dist):
@@ -69,6 +70,7 @@ void Hexagon::updateDestroying(sf::Time elapsed) {
     else if(lifeTime >= timeToDie + settings::map::destroyStep) textureStage = 2;
     else if(lifeTime >= timeToDie) textureStage = 1;
     updateTextureStage();
+    //std::cout<<isAlive<<"\n";
 }
 
 void Hexagon::initLifeTime() {
