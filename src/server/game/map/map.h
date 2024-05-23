@@ -22,7 +22,7 @@ public:
         hexs.sort(compHexByHeight);
     }
 
-    static int* decryptHexagons(char* str);
+    static char* encryptHexagons();
     static void draw(sf::RenderWindow& window);
     static void updateDestroying(sf::Time elapsed);
     static void addHex(Hexagon* hex) { hexs.push_back(hex); }

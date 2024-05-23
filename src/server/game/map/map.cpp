@@ -78,6 +78,6 @@ void Map::initInnerTrees(sf::Vector2f pos) {
     new Tree(pos * randBetweenTwo(1.f - settings::map::tree::distRadiusScaleOffsetInner, 1.f + settings::map::tree::distRadiusScaleOffsetInner));
 }
 
-int *Map::decryptHexagons(char *str) {
-    return crypt.decryptHexs(str);
+char *Map::encryptHexagons() {
+    return crypt.encryptHexs(hexs);
 }
