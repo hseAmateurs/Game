@@ -293,27 +293,54 @@ void Hero::killHero() {
     delete this;
 }
 
-std::string Hero::getParameter(int parCode) {
+void Hero::getParameter(int parCode, char answer[]) {
     switch (parCode) {
-        case 1:
-            return login;
-        case 2:
-            return position;
-        case 3:
-            return hp;
-        case 4:
-            return rectTop;
-        case 5:
-            return rectLeft;
-        case 6:
-            return activeSkill;
-        case 7:
-            return skillCooldownQ;
-        case 8:
-            return skillCooldownW;
-        case 9:
-            return skillCooldownE;
-        case 10:
-            return skillCooldownR;
+        case 1: // login
+            strcpy(answer, login.c_str());
+        case 2: { //position
+            char vect[6];
+            vectTo256(position.x, position.y, vect);
+            strcpy(answer, vect);
+        }
+        case 3: {//hp
+            char cHp[1];
+            cHp[0] = hp;
+            strcpy(answer, cHp);
+        }
+        case 4: { // rectTop
+            char rectT[2];
+            numTo256(rectTop, rectT);
+            strcpy(answer, rectT);
+        }
+        case 5:{ // rectLeft
+            char rectL[2];
+            numTo256(rectTop, rectL);
+            strcpy(answer, rectL);
+        }
+        case 6: { // active skill
+            char skill[1];
+            skill[0] = activeSkill;
+            strcpy(answer, skill);
+        }
+        case 7: { // skillCooldownQ;
+            char skill[2];
+            numTo256(skillCooldownQ.asMilliseconds(), skill);
+            strcpy(answer, skill);
+        }
+        case 8:{ // skillCooldownW;
+            char skill[2];
+            numTo256(skillCooldownW.asMilliseconds(), skill);
+            strcpy(answer, skill);
+        }
+        case 9:{ // skillCooldownE;
+            char skill[2];
+            numTo256(skillCooldownE.asMilliseconds(), skill);
+            strcpy(answer, skill);
+        }
+        case 10:{ // skillCooldownR;
+            char skill[2];
+            numTo256(skillCooldownR.asMilliseconds(), skill);
+            strcpy(answer, skill);
+        };
     }
 }

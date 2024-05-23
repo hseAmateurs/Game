@@ -2,6 +2,7 @@
 #include "list"
 #include "../utils/settings.h"
 #include "../core/assets.h"
+#include "../utils/globalFunctions.h"
 
 class RangeHit{
 public:
@@ -23,7 +24,7 @@ public:
         hitsList.erase(std::find(hitsList.begin(), hitsList.end(), this));
     }
 
-    std::string getParameter(int parCode);
+    void getParameter(int parCode, char answer[]);
     static void hitsUpdate(sf::Time elapsed);
     static void drawHits(sf::RenderWindow &window);
     sf::Sprite getSprite() { return hitSprite; }

@@ -62,7 +62,7 @@ public:
     void resetSkill();
     void skillCast(sf::Vector2i dest);
     void killHero();
-    std::string getParameter(int parCode);
+    void getParameter(int parCode, char answer[]); // в чар будем класть всё, тк у нас в стринг может попасть символ концы строки
     static void controlHero(const std::string &login, const int &keyPress, const int &keyCode, const int &mousePress, const int &mouseCode, const sf::Vector2i &mousePos, const sf::Time &elapsed);
 
     void draw(sf::RenderWindow &window);
