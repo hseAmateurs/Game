@@ -15,5 +15,8 @@ sf::Vector2f vec(float rad, float alpha);
 float degreeToRad(float alphaInDeg);
 float radToDegree(float alphaInRad);
 float absf(float x);
+void customCopy(char *c1, const char *c2, int index);
+void numTo256(int x10, char (& c256)[2]);
+void vectTo256(int x, int y, char (& c256)[6]);
 
 #endif //GAME_GLOBALFUNCTIONS_H

@@ -3,6 +3,7 @@
 #include "../utils/settings.h"
 #include "../core/assets.h"
 #include "circleShape.h"
+#include "../utils/globalFunctions.h"
 
 class Blizzard{
 public:
@@ -37,7 +38,7 @@ public:
     static void drawBlizzards(sf::RenderWindow &window);
     void draw(sf::RenderWindow &window);
     sf::Sprite getSprite() { return blizzardSprite; }
-    std::string getParameter(int parCode);
+    void getParameter(int parCode, char answer[]);
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture

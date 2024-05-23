@@ -33,11 +33,17 @@ void RangeHit::drawHits(sf::RenderWindow &window) {
     }
 }
 
-std::string RangeHit::getParameter(int parCode) {
+void RangeHit::getParameter(int parCode, char answer[]) {
     switch (parCode) {
-        case 1:
-            return position;
-        case 2:
-            return spriteRotationAngle;
+        case 1: { //position
+            char vect[6];
+            vectTo256(position.x, position.y, vect);
+            strcpy(answer, vect);
+        }
+        case 2: {// spriteRotationAngle
+            char cHp[1];
+            cHp[0] = spriteRotationAngle;
+            strcpy(answer, cHp);
+        }
     }
 }

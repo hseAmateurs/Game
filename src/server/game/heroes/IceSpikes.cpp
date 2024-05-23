@@ -1,6 +1,7 @@
 #include "IceSpikes.h"
 #include <iostream>
 #include "../utils/settings.h"
+#include "../utils/globalFunctions.h"
 
 std::list<IceSpikes*> IceSpikes::spikesList;
 
@@ -45,13 +46,22 @@ void IceSpikes::animate() {
         textureNumber = -1;
 }
 
-std::string IceSpikes::getParameter(int parCode) {
+void IceSpikes::getParameter(int parCode, char answer[]) {
     switch (parCode) {
-        case 1:
-            return position;
-        case 2:
-            return textureNumber; // from -1 to 3, можешь просто +1 сделать если с отрицательными там сложнее, только напиши в тг об этом
-        case 3:
-            return scaleVariation;
+        case 1:{ //position
+            char vect[6];
+            vectTo256(static_cast<int>(position.x), static_cast<int>(position.x), vect); // это очень грязно, здесь все может пойти плохо
+            strcpy(answer, vect);
+        }
+        case 2: {
+            char num[1];
+            num[0] = textureNumber + 1;
+            strcpy(answer, num);
+        } // from -1 to 3, можешь просто +1 сделать если с отрицательными там сложнее, только напиши в тг об этом
+        case 3:{
+            char num[1];
+            num[0] = scaleVariation;
+            strcpy(answer, num);
+        }
     }
 }

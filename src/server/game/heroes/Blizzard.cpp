@@ -1,6 +1,7 @@
 #include "Blizzard.h"
 #include <iostream>
 #include "../utils/settings.h"
+#include "../utils/globalFunctions.h"
 
 std::list<Blizzard*> Blizzard::blizzardsList;
 
@@ -37,13 +38,22 @@ void Blizzard::draw(sf::RenderWindow &window) {
     window.draw(blizzardCloudSprite);
 }
 
-std::string Blizzard::getParameter(int parCode) {
+void Blizzard::getParameter(int parCode, char answer[]) {
     switch (parCode) {
-        case 1:
-            return position;
-        case 2:
-            return spriteRotationAngleSnow;
-        case 3:
-            return spriteRotationAngleClouds;
+        case 1:{ //position
+            char vect[6];
+            vectTo256(position.x, position.y, vect);
+            strcpy(answer, vect);
+        }
+        case 2: {// spriteRotationAngleSnow
+            char cHp[1];
+            cHp[0] = spriteRotationAngleSnow;
+            strcpy(answer, cHp);
+        }
+        case 3:{// spriteRotationAngleClowds
+            char cHp[1];
+            cHp[0] = spriteRotationAngleClouds;
+            strcpy(answer, cHp);
+        }
     }
 }

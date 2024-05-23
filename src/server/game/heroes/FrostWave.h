@@ -5,6 +5,7 @@
 #include "../utils/settings.h"
 #include "../core/assets.h"
 #include <cmath>
+#include "../utils/globalFunctions.h"
 
 class FrostWave{
 public:
@@ -37,7 +38,7 @@ public:
     sf::Sprite getSprite() { return waveSprite; }
     static void drawWaves(sf::RenderWindow &window);
     static void wavesUpdate(sf::Time elapsed);
-    std::string getParameter(int parCode);
+    void getParameter(int parCode, char answer[]);
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture
