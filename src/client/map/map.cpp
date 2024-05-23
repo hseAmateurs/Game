@@ -81,12 +81,11 @@ void Map::initInnerTrees(sf::Vector2f pos) {
 
 
 void Map::updateStatesHexs(char* code) {
-    map_encryption m;
-    int* states = m.decryptHexs(code);
+    int* states = decryptHexagons(code);
     int i=0;
     for(auto hex : hexs) hex->setState(states[i++]);
 }
 
-char *Map::encryptHexagons() {
-    return crypt.encryptHexs(hexs);
+int *Map::decryptHexagons(char* str) {
+    return crypt.decryptHexs(str);
 }

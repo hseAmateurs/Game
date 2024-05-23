@@ -26,7 +26,6 @@ public:
         srand(time(nullptr));
     }
 
-    static char* encryptHexagons();
     void updateStatesHexs(char *code);
     static void draw(sf::RenderWindow& window);
     static void updateDestroying(sf::Time elapsed);
@@ -40,6 +39,7 @@ public:
     static Hexagon* getHexAtMapInit(sf::Vector2f pos);
 
 private:
+    static int* decryptHexagons(char* str);
 
     static Hexagon* center;
     static std::list<Hexagon*> hexs;
