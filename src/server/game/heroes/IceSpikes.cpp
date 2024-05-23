@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../utils/settings.h"
 #include "../utils/globalFunctions.h"
+#include <cstring>
 
 std::list<IceSpikes*> IceSpikes::spikesList;
 

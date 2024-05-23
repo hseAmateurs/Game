@@ -6,7 +6,7 @@
 #include "../game/core/field.h"
 #include "../game/core/assets.h"
 #include <time.h>
-#include "../encryption/map_encryption.h"
+#include "../game/encryption/map_encryption.h"
 #include "../game/heroes/Blizzard.h"
 #include "../game/heroes/FrostWave.h"
 #include "../game/heroes/IceSpikes.h"

@@ -1,5 +1,6 @@
 #include "RangeHit.h"
 #include <iostream>
+#include <cstring>
 #include "../utils/settings.h"
 
 std::list<RangeHit*> RangeHit::hitsList;

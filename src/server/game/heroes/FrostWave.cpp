@@ -1,6 +1,8 @@
 #include "FrostWave.h"
 #include <iostream>
 #include "../utils/settings.h"
+#include <cstring>
+
 
 std::list<FrostWave*> FrostWave::wavesList;
 

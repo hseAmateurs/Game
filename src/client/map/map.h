@@ -9,6 +9,7 @@
 #include <algorithm>
 #include "../encryption/map_encryption.h"
 
+
 #include <iostream>
 
 bool compHex(Hexagon* a, Hexagon* b);
