@@ -7,6 +7,7 @@
 #include "tree.h"
 #include "../utils/globalFunctions.h"
 #include <algorithm>
+#include "../encryption/map_encryption.h"
 
 #include <iostream>
 
@@ -14,14 +15,17 @@ bool compHex(Hexagon* a, Hexagon* b);
 
 class Map {
 public:
-    Map(){
+    Map() {
         srand(settings::seeds::map);
         center = new Hexagon();
         srand(time(nullptr));
         initTrees();
         hexs.sort(compHex);
+
+        srand(time(nullptr));
     }
 
+    static char* encryptHexagons();
     void updateStatesHexs(char *code);
     static void draw(sf::RenderWindow& window);
     static void updateDestroying(sf::Time elapsed);
@@ -39,6 +43,7 @@ private:
     static Hexagon* center;
     static std::list<Hexagon*> hexs;
     static std::list<Tree*> trees;
+    static map_encryption crypt;
 
 };
 

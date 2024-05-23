@@ -8,6 +8,7 @@
 std::list<Hexagon*> Map::hexs;
 std::list<Tree*> Map::trees;
 Hexagon* Map::center;
+map_encryption Map::crypt;
 
 bool compHex(Hexagon* a, Hexagon* b) {
     return a->getPos().y < b->getPos().y;
@@ -84,4 +85,8 @@ void Map::updateStatesHexs(char* code) {
     int* states = m.decryptHexs(code);
     int i=0;
     for(auto hex : hexs) hex->setState(states[i++]);
+}
+
+char *Map::encryptHexagons() {
+    return crypt.encryptHexs(hexs);
 }

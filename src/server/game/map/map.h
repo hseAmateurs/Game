@@ -9,6 +9,8 @@
 #include <algorithm>
 
 #include <iostream>
+#include "../encryption/map_encryption.h"
+
 
 bool compHexByHeight(Hexagon* a, Hexagon* b);
 
@@ -20,6 +22,7 @@ public:
         hexs.sort(compHexByHeight);
     }
 
+    static int* decryptHexagons(char* str);
     static void draw(sf::RenderWindow& window);
     static void updateDestroying(sf::Time elapsed);
     static void addHex(Hexagon* hex) { hexs.push_back(hex); }
@@ -37,6 +40,7 @@ private:
     static Hexagon* center;
     static std::list<Hexagon*> hexs;
     static std::list<Tree*> trees;
+    static map_encryption crypt;
 };
 
 #endif //GAME_MAP_H
