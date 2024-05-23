@@ -6,6 +6,7 @@
 #include "FrostWave.h"
 #include "IceSpikes.h"
 #include "Blizzard.h"
+#include <cstring>
 #include "../utils/globalFunctions.h"
 
 std::list<Hero*> Hero::heroList;

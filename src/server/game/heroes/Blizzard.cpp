@@ -1,4 +1,5 @@
 #include "Blizzard.h"
+#include <cstring>
 #include <iostream>
 #include "../utils/settings.h"
 #include "../utils/globalFunctions.h"

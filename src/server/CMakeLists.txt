@@ -43,10 +43,8 @@ add_executable(Server
         game/heroes/circleShape.cpp
         game/heroes/Blizzard.cpp
         game/heroes/rectangleShape.cpp
-        encryption/map_encryption.h
-        encryption/map_encryption.cpp
-
-
+        game/encryption/map_encryption.h
+        game/encryption/map_encryption.cpp
 )
 
 # Для платформы windows используем статическую библиотеку sfml
