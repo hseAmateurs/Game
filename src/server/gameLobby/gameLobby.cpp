@@ -32,35 +32,41 @@ void GameLobby::setNames() {
 
 void GameLobby::createLobbyPackege(char *message) {
 
+
     int index = 182;
+    int len = 0;
 
-    char *heroInfo = nullptr;
-    field.hero.codeHero(heroInfo);
+    char heroInfo[100];
+    field.hero.codeHero(heroInfo, len);
     customCopy(message, heroInfo, index);
-    index+=sizeof(heroInfo);
-    free(heroInfo);
+    index+=len;
 
-    char *bibaInfo = nullptr;
-    field.biba.codeHero(bibaInfo);
+
+    len = 0;
+    char bibaInfo[100];
+    field.biba.codeHero(bibaInfo, len);
     customCopy(message, bibaInfo, index);
-    index+=sizeof(bibaInfo);
-    free(bibaInfo);
+    index+=len;
 
-    char *bobaInfo = nullptr;
-    field.hero.codeHero(bobaInfo);
+
+    len = 0;
+    char bobaInfo[100];
+    field.boba.codeHero(bobaInfo, len);
     customCopy(message, bobaInfo, index);
-    index+=sizeof(bobaInfo);
-    free(bobaInfo);
+    index+=len;
 
+
+    len = 0;
     for (auto blizzard: Blizzard::blizzardsList) { // идет код 1 для обозначения blizzard
         message[index] = '1';
         index++;
         char *code = nullptr;
         for (int i = 1; i <=3; ++i){
-            char *answer = nullptr;
-            blizzard->getParameter(i,answer);
+            int lLen = 0;
+            char answer[20];
+            blizzard->getParameter(i,answer, lLen);
             customCopy(code, answer,index);
-            index+=sizeof (answer);
+            index+=lLen;
         }
     }
 
@@ -68,36 +74,39 @@ void GameLobby::createLobbyPackege(char *message) {
     for (auto frostW: FrostWave::wavesList){ // идет код 2 для обозначения frost wave
         message[index] = '2';
         index++;
-        char *code = nullptr;
+        char code[10];
         for (int i = 1; i <=2; ++i){
-            char *answer = nullptr;
-            frostW->getParameter(i,answer);
+            int lLen = 0;
+            char answer[10];
+            frostW->getParameter(i,answer, lLen);
             customCopy(code, answer,index);
-            index+=sizeof (answer);
+            index+=lLen;
         }
     }
 
     for (auto iceSpike: IceSpikes::spikesList){ //идет код 3 для обозначения Ice spikes
         message[index] = '3';
         index++;
-        char *code = nullptr;
+        char code[10];
         for (int i = 1; i <=3; ++i){
-            char *answer = nullptr;
-            iceSpike->getParameter(i,answer);
+            int lLen = 0;
+            char answer[10];
+            iceSpike->getParameter(i,answer, lLen);
             customCopy(code, answer,index);
-            index+=sizeof (answer);
+            index+=lLen;
         }
     }
 
     for (auto rHit: RangeHit::hitsList){ //идет код 4 для обозначения range hits
         message[index] = '4';
         index++;
-        char *code = nullptr;
+        char code[10];
         for (int i = 1; i <=2; ++i){
-            char *answer = nullptr;
-            rHit->getParameter(i,answer);
+            int lLen;
+            char answer [10];
+            rHit->getParameter(i,answer, lLen);
             customCopy(code, answer,index);
-            index+=sizeof (answer);
+            index+=lLen;
         }
     }
 

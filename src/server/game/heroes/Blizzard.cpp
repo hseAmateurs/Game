@@ -38,22 +38,28 @@ void Blizzard::draw(sf::RenderWindow &window) {
     window.draw(blizzardCloudSprite);
 }
 
-void Blizzard::getParameter(int parCode, char answer[]) {
+void Blizzard::getParameter(int parCode, char answer[], int &len) {
     switch (parCode) {
         case 1:{ //position
             char vect[6];
+            len = 6;
             vectTo256(position.x, position.y, vect);
             strcpy(answer, vect);
+            break;
         }
         case 2: {// spriteRotationAngleSnow
             char cHp[1];
+            len = 1;
             cHp[0] = spriteRotationAngleSnow;
             strcpy(answer, cHp);
+            break;
         }
         case 3:{// spriteRotationAngleClowds
             char cHp[1];
+            len = 1;
             cHp[0] = spriteRotationAngleClouds;
             strcpy(answer, cHp);
+            break;
         }
     }
 }

@@ -46,22 +46,28 @@ void IceSpikes::animate() {
         textureNumber = -1;
 }
 
-void IceSpikes::getParameter(int parCode, char answer[]) {
+void IceSpikes::getParameter(int parCode, char answer[], int &len) {
     switch (parCode) {
         case 1:{ //position
             char vect[6];
+            len = 6;
             vectTo256(static_cast<int>(position.x), static_cast<int>(position.x), vect); // это очень грязно, здесь все может пойти плохо
             strcpy(answer, vect);
+            break;
         }
         case 2: {
             char num[1];
+            len = 1;
             num[0] = textureNumber + 1;
             strcpy(answer, num);
+            break;
         } // from -1 to 3, можешь просто +1 сделать если с отрицательными там сложнее, только напиши в тг об этом
         case 3:{
             char num[1];
+            len = 1;
             num[0] = scaleVariation;
             strcpy(answer, num);
+            break;
         }
     }
 }

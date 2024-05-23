@@ -24,7 +24,7 @@ public:
         hitsList.erase(std::find(hitsList.begin(), hitsList.end(), this));
     }
 
-    void getParameter(int parCode, char answer[]);
+    void getParameter(int parCode, char answer[], int &len);
     static void hitsUpdate(sf::Time elapsed);
     static void drawHits(sf::RenderWindow &window);
     sf::Sprite getSprite() { return hitSprite; }

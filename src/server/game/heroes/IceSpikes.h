@@ -32,7 +32,7 @@ public:
     static void drawSpikes(sf::RenderWindow &window);
     void draw(sf::RenderWindow &window);
     sf::Sprite getSprite() { return spikeSprite; }
-    void getParameter(int parCode, char answer[]);
+    void getParameter(int parCode, char answer[], int &len);
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture

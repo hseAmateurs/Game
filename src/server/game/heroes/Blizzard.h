@@ -38,7 +38,7 @@ public:
     static void drawBlizzards(sf::RenderWindow &window);
     void draw(sf::RenderWindow &window);
     sf::Sprite getSprite() { return blizzardSprite; }
-    void getParameter(int parCode, char answer[]);
+    void getParameter(int parCode, char answer[] , int &len);
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture

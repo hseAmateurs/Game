@@ -7,7 +7,7 @@
 std::list<Hexagon*> Map::hexs;
 std::list<Tree*> Map::trees;
 Hexagon* Map::center;
-map_encryption Map::crypt;
+//map_encryption Map::crypt;
 
 
 bool compHexByHeight(Hexagon* a, Hexagon* b) {
@@ -78,6 +78,6 @@ void Map::initInnerTrees(sf::Vector2f pos) {
     new Tree(pos * randBetweenTwo(1.f - settings::map::tree::distRadiusScaleOffsetInner, 1.f + settings::map::tree::distRadiusScaleOffsetInner));
 }
 
-int *Map::decryptHexagons(char *str) {
-    return crypt.decryptHexs(str);
-}
+//int *Map::decryptHexagons(char *str) {
+//    return crypt.decryptHexs(str);
+//}

@@ -38,7 +38,7 @@ public:
     sf::Sprite getSprite() { return waveSprite; }
     static void drawWaves(sf::RenderWindow &window);
     static void wavesUpdate(sf::Time elapsed);
-    void getParameter(int parCode, char answer[]);
+    void getParameter(int parCode, char answer[], int &len);
 private:
     sf::Vector2f position;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture

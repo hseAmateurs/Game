@@ -293,64 +293,96 @@ void Hero::killHero() {
     delete this;
 }
 
-void Hero::getParameter(int parCode, char answer[]) {
+void Hero::getParameter(int parCode, char answer[], int &len) {
     switch (parCode) {
         case 1: // login
             strcpy(answer, login.c_str());
-        case 2: { //position
+            len = login.size();
+            break;
+        case 2: { // position
             char vect[6];
+            len = 6;
             vectTo256(position.x, position.y, vect);
             strcpy(answer, vect);
+            break;
         }
-        case 3: {//hp
+        case 3: { // hp
             char cHp[1];
+            len = 1; // Исправляем длину, чтобы соответствовала реальному размеру массива
             cHp[0] = hp;
             strcpy(answer, cHp);
+            break;
         }
         case 4: { // rectTop
             char rectT[2];
+            len = 2;
             numTo256(rectTop, rectT);
             strcpy(answer, rectT);
+            break;
         }
-        case 5:{ // rectLeft
+        case 5: { // rectLeft
             char rectL[2];
-            numTo256(rectTop, rectL);
+            len = 2;
+            numTo256(rectLeft, rectL);
             strcpy(answer, rectL);
+            break;
         }
         case 6: { // active skill
             char skill[1];
+            len = 1;
             skill[0] = activeSkill;
             strcpy(answer, skill);
+            break;
         }
-        case 7: { // skillCooldownQ;
+        case 7: { // skillCooldownQ
             char skill[2];
+            len = 2;
             numTo256(skillCooldownQ.asMilliseconds(), skill);
             strcpy(answer, skill);
+            break;
         }
-        case 8:{ // skillCooldownW;
+        case 8: { // skillCooldownW
             char skill[2];
+            len = 2;
             numTo256(skillCooldownW.asMilliseconds(), skill);
             strcpy(answer, skill);
+            break;
         }
-        case 9:{ // skillCooldownE;
+        case 9: { // skillCooldownE
             char skill[2];
+            len = 2;
             numTo256(skillCooldownE.asMilliseconds(), skill);
             strcpy(answer, skill);
+            break;
         }
-        case 10:{ // skillCooldownR;
+        case 10: { // skillCooldownR
             char skill[2];
+            len = 2;
             numTo256(skillCooldownR.asMilliseconds(), skill);
             strcpy(answer, skill);
-        };
+            break;
+        }
     }
 }
 
-void Hero::codeHero(char *code) {
+
+void Hero::codeHero(char *code, int &len) {
     int index = 0;
-    for (int i = 1; i <= 10; ++i){
-        char *answer = nullptr;
-        getParameter(i,answer);
-        customCopy(code, answer,index);
-        index+=sizeof (answer);
+
+    for (int i = 1; i <= 10; ++i) {
+        char answer[256];
+        int len1;
+        getParameter(i, answer, len1);
+
+        if (index + len1 > len) {
+            // Обработка ошибки, если index выходит за пределы массива
+            break;
+        }
+
+        customCopy(&code[index], answer, index);
+        index += len1;
     }
+
+    len = index;
 }
+
