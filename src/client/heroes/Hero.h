@@ -60,6 +60,7 @@ public:
     std::string login;
 
 
+
 private:
     sf::Vector2f position, staffPosition;
     float w, h; // basic parameters: x, y - location; w, h - width and height of the texture

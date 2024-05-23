@@ -28,12 +28,12 @@ public:
     void handleButton(int keyCode);
     void setNames(const std::vector<std::string> &logins);
     int countHex() {return map.countHex(); }
-
+    Hero hero, biba, boba;
 
 private:
     Map map;
     sf::Text fps;
-    Hero hero, biba, boba;
+
 };
 
 

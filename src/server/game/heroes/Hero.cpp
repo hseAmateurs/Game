@@ -344,3 +344,13 @@ void Hero::getParameter(int parCode, char answer[]) {
         };
     }
 }
+
+void Hero::codeHero(char *code) {
+    int index = 0;
+    for (int i = 1; i <= 10; ++i){
+        char *answer = nullptr;
+        getParameter(i,answer);
+        customCopy(code, answer,index);
+        index+=sizeof (answer);
+    }
+}

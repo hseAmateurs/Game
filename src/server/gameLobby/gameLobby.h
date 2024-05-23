@@ -7,6 +7,10 @@
 #include "../game/core/assets.h"
 #include <time.h>
 #include "../encryption/map_encryption.h"
+#include "../game/heroes/Blizzard.h"
+#include "../game/heroes/FrostWave.h"
+#include "../game/heroes/IceSpikes.h"
+#include "../game/heroes/RangeHit.h"
 
 
 
@@ -23,6 +27,7 @@ public:
     std::vector<int> playerSockets;
     std::vector<std::string> playerLogins;
     map_encryption encrypter;
+    void createLobbyPackege(char message[1024]);
 
 private:
     Assets assets;

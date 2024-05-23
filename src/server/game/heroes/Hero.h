@@ -67,6 +67,8 @@ public:
 
     void draw(sf::RenderWindow &window);
     void update(sf::Time elapsed, sf::Vector2i mousePos);
+    void codeHero(char code[]);
+
 
     std::string login;
 
