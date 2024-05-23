@@ -29,9 +29,10 @@ public:
     void setNames(const std::vector<std::string> &logins);
     int countHex() {return map.countHex(); }
     Hero hero, biba, boba;
+    Map map;
 
 private:
-    Map map;
+
     sf::Text fps;
 
 };

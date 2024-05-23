@@ -118,9 +118,9 @@ void Server::lobbyLoop(GameLobby *lobby){ // здесь будет считат�
         lobby->gameLoop();
         for (auto client_socket: lobby->playerSockets) {
             char mesage[1024];
-            lobby->createLobbyPackege(mesage);
+            lobby->createLobbyPackage(mesage);
             std::cout<<mesage<<"\n";
-            //sendMessage(client_socket, mesage);//std::to_string(lobby->test).c_str());
+            sendMessage(client_socket, mesage);//std::to_string(lobby->test).c_str());
             std::this_thread::sleep_for(std::chrono::milliseconds(16));//sleep before sent
         };
     }

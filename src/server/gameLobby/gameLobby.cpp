@@ -30,8 +30,8 @@ void GameLobby::setNames() {
     field.setNames(playerLogins);
 }
 
-void GameLobby::createLobbyPackege(char *message) {
-
+void GameLobby::createLobbyPackage(char *message) {
+    strcpy(message, field.map.encryptHexagons());
 
     int index = 182;
     int len = 0;

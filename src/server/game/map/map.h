@@ -40,7 +40,7 @@ private:
     static Hexagon* center;
     static std::list<Hexagon*> hexs;
     static std::list<Tree*> trees;
-    //static map_encryption crypt;
+    static map_encryption crypt;
 };
 
 #endif //GAME_MAP_H

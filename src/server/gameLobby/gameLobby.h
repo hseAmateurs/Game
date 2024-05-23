@@ -27,7 +27,7 @@ public:
     std::vector<int> playerSockets;
     std::vector<std::string> playerLogins;
     map_encryption encrypter;
-    void createLobbyPackege(char message[1024]);
+    void createLobbyPackage(char message[1024]);
 
 private:
     Assets assets;
