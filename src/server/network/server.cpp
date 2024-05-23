@@ -117,7 +117,7 @@ void Server::lobbyLoop(GameLobby *lobby){ // здесь будет считат�
     while (true) {
         lobby->gameLoop();
         for (auto client_socket: lobby->playerSockets) {
-            char *mesage = const_cast<char *>(std::to_string(lobby->test).c_str());
+            char *mesage;// = lobby->encrypter.encryptHexs(lobby.);
             //std::cout<<mesage<<"\n";
             //sendMessage(client_socket, mesage);//std::to_string(lobby->test).c_str());
             std::this_thread::sleep_for(std::chrono::milliseconds(16));//sleep before sent

@@ -43,6 +43,8 @@ add_executable(Server
         game/heroes/circleShape.cpp
         game/heroes/Blizzard.cpp
         game/heroes/rectangleShape.cpp
+        encryption/map_encryption.h
+        encryption/map_encryption.cpp
 
 
 )

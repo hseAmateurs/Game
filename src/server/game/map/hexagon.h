@@ -21,6 +21,7 @@ public:
     sf::Vector2f getPos()const { return position; }
     bool isDead() const { return !isAlive; }
     Hexagon* getClosestHex(sf::Vector2f& pos);
+    int getState() const { return textureStage; }
 
 private:
 
